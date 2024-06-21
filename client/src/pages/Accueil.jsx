@@ -1,4 +1,4 @@
-import "./Accueil.css";
+import "../styles/Accueil.css";
 import table from "../assets/images/DSC_4636-1024x682 (1).jpg";
 import temoin1 from "../assets/images/photo profil temoignages femme.jpg";
 import temoin2 from "../assets/images/photo profil homme bis.jpg";
@@ -14,8 +14,13 @@ export default function Accueil() {
 
         <h2>Rejoignez notre communauté de passionnés de cuisine</h2>
         <div className="connect">
-          <input type="text" name="" id="" placeholder="S'inscrire" />
-          <input type="text" name="" id="" placeholder="Se connecter" />
+          <input type="text" name="S'inscrire" id="" placeholder="S'inscrire" />
+          <input
+            type="text"
+            name="Se connecter"
+            id=""
+            placeholder="Se connecter"
+          />
         </div>
         <h2>Les témoignages de nos differends abonnés</h2>
         <section>

@@ -47,15 +47,20 @@ h2 {
   border: none;
   text-align: center;
   padding: 10px;
-  border-radius: 20px;
+  border-radius: 10px;
+}
+::placeholder {
   color: white;
 }
-
 @media (max-width: 495px) {
   .connect {
-    gap: 50px;
+    gap: 5px;
+    padding: 5px;
   }
   ul .temoins {
     padding-left: 0;
+  }
+  h2 {
+    margin-top: 10px;
   }
 }
