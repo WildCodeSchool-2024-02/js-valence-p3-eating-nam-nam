@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Aleo:wght@300;400;700&display=swap");
+@import url("https://www.1001fonts.com/now-font.html");
+
+.navbar_container {
+  width: 100%;
+  font-family: var(--aleo);
+}
+
+.navbar_logo {
+  display: flex;
+  position: absolute;
+  left: 10px;
+  background-color: var(--blanc);
+  border-radius: 50%;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  background-color: var(--orange);
+  justify-content: center;
+  height: 110px;
+  width: 100%;
+  border-radius: 0 0 15px 15px;
+}
+
+.navbar li {
+  list-style: none;
+  display: inline-block;
+}
+
+.navbar button {
+  color: var(--blanc);
+  text-decoration: none;
+  border-radius: 15px;
+  border: none;
+  background: none;
+  font-family: var(--aleo);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.navbar button img {
+  position: relative;
+  top: 2px;
+}
+
+.login_container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 1;
+}
+
+.login_button button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--vert);
+  height: 40px;
+  width: 152px;
+  border-radius: 15px;
+  border: none;
+  color: var(--blanc);
+  cursor: pointer;
+}
+
+.nav_button {
+  display: flex;
+  gap: 20px;
+  position: absolute;
+  top: 71px;
+}
+
+.search_container {
+  display: flex;
+  position: absolute;
+  top: 17px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+}
+
+.search_bar input {
+  width: 30rem;
+  height: 30px;
+  border-radius: 15px;
+  border: 2px solid var(--vert);
+  padding-left: 5px;
+  outline: none;
+}
