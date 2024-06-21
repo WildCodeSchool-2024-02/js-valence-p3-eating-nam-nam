@@ -54,6 +54,7 @@
   justify-content: flex-end;
   align-items: center;
   z-index: 1;
+  padding: 0 2rem 0 0;
 }
 
 .login_button button {
