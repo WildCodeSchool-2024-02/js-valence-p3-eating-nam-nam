@@ -2,16 +2,15 @@
 @import url("https://www.1001fonts.com/now-font.html");
 
 :root {
+  --orange: #d56c06;
 
-    --orange: #D56C06;
+  --vert: #97bf0d;
 
-    --vert: #97BF0D;
-  
-    --blanc: #fff;
+  --blanc: #fff;
 
-    --border: 15px;
+  --border: 15px;
 
-    --aleo: 'Aleo';
+  --aleo: "Aleo";
 
-    --now: "Now-font", sans-serif;
+  --now: "Now-font", sans-serif;
 }
