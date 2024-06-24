@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/Profile.css";
 
-function Profile() {
+export default function Profile() {
   const [formData, setFormData] = useState({
     pseudonyme: "",
     prenom: "",
@@ -32,19 +32,20 @@ function Profile() {
 
   return (
     <>
+      <div className="navbar">NAVBAR</div>
       <div className="profile-container">
         <img
-          src="/src/assets/images/ANNA GUNN.jpg"
-          alt="MonProfil"
+          src="/client/src/assets/images/ANNA GUNN.jpg"
+          alt="ANNA"
           className="profile-image"
         />
         <h2>MON PROFIL</h2>
         <div className="profile-info">
-          <h2>Pseudo</h2>
+          <h2>pseudo</h2>
         </div>
       </div>
       <h2 className="title">MES INFOS PERSO</h2>
-      <form className="form-container" onSubmit={handleSubmit}>
+      <div className="form-container">
         <div className="form3-container">
           <label htmlFor="pseudonyme">PSEUDONYME :</label>
           <input
@@ -55,9 +56,8 @@ function Profile() {
             onChange={handleChange}
             placeholder="Entrez votre pseudonyme"
           />
-          <hr />
 
-          <label htmlFor="prenom">PRENOM :</label>
+          <label htmlFor="prenom">PRÉNOM :</label>
           <input
             type="text"
             id="prenom"
@@ -66,7 +66,7 @@ function Profile() {
             onChange={handleChange}
             placeholder="Entrez votre prénom"
           />
-          <hr />
+
           <label htmlFor="nom">NOM :</label>
           <input
             type="text"
@@ -76,7 +76,6 @@ function Profile() {
             onChange={handleChange}
             placeholder="Entrez votre nom"
           />
-          <hr />
         </div>
         <div className="form2-container">
           <label htmlFor="email">EMAIL :</label>
@@ -88,9 +87,10 @@ function Profile() {
             onChange={handleChange}
             placeholder="Entrez votre email"
           />
-          <hr />
 
-          <label htmlFor="password">MOT DE PASSE :</label>
+          <label className="flex_aligne" htmlFor="password">
+            MOT DE PASSE :
+          </label>
           <input
             type="password"
             id="password"
@@ -99,12 +99,13 @@ function Profile() {
             onChange={handleChange}
             placeholder="Entrez votre mot de passe"
           />
-          <hr />
         </div>
-        <button type="submit">Enregistrer</button>
-      </form>
+      </div>
+
+      <button type="submit" onClick={handleSubmit}>
+        Enregistrer
+      </button>
+      <div className="footer">FOOTER</div>
     </>
   );
 }
-
-export default Profile;
