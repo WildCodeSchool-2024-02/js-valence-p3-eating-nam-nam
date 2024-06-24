@@ -11,16 +11,21 @@
   flex-direction: column;
 }
 
+#table {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  image-rendering: smooth;
+}
 ul {
   display: grid;
   grid-template-columns: 1fr 1fr;
-
+  padding-bottom: 20px;
   text-align: center;
 }
 
 li {
   list-style-type: none;
-  font-family: "Aleo", serif;
 }
 .temoins img {
   border-radius: 50%;
