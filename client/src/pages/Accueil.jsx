@@ -27,7 +27,7 @@ export default function Accueil() {
             placeholder="Se connecter"
           />
         </div>
-        <h2>Les témoignages de nos differends abonnés</h2>
+        <h2>Les témoignages de nos différends abonnés</h2>
         <section>
           <ul className="temoins">
             <li>
