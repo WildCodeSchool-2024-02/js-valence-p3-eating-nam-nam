@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,100..900;1,100..900&display=swap"); /* Réinitialiser le padding pour tous les éléments */
 * {
   padding: 0;
   margin: 0;
@@ -30,7 +29,7 @@ li {
   margin-top: 30px;
 }
 h2 {
-  color: #97bf0d;
+  color: var(--vert);
   text-align: center;
   margin-top: 30px;
   font-family: "Aleo", serif;
@@ -43,14 +42,14 @@ h2 {
   margin-top: 30px;
 }
 .connect input {
-  background-color: #d56c06;
+  background-color: var(--orange);
   border: none;
   text-align: center;
   padding: 10px;
   border-radius: 10px;
 }
 ::placeholder {
-  color: white;
+  color: var(--blanc);
 }
 @media (max-width: 495px) {
   .connect {

@@ -14,11 +14,16 @@ export default function Accueil() {
 
         <h2>Rejoignez notre communauté de passionnés de cuisine</h2>
         <div className="connect">
-          <input type="text" name="S'inscrire" id="" placeholder="S'inscrire" />
+          <input
+            type="text"
+            name="S'inscrire"
+            id="sincrire"
+            placeholder="S'inscrire"
+          />
           <input
             type="text"
             name="Se connecter"
-            id=""
+            id="seconnecter"
             placeholder="Se connecter"
           />
         </div>
