@@ -15,18 +15,12 @@ export default function Accueil() {
 
         <h2>Rejoignez notre communauté de passionnés de cuisine</h2>
         <div className="connect">
-          <input
-            type="text"
-            name="S'inscrire"
-            id="sincrire"
-            placeholder="S'inscrire"
-          />
-          <input
-            type="text"
-            name="Se connecter"
-            id="seconnecter"
-            placeholder="Se connecter"
-          />
+          <button type="button" className="button">
+            S'inscrire
+          </button>
+          <button type="button" className="button">
+            Se connecter
+          </button>
         </div>
         <h2>Les témoignages de nos différends abonnés</h2>
         <section>
