@@ -1,14 +1,8 @@
 import "./App.css";
-import ConsulterRecettesGenerales from "./components/ConsulterRecettesGenerales";
+import { Outlet } from "react-router-dom";
 
 function App() {
-  return (
-    <div>
-      <h1>Cabillaud</h1>
-      <p>101 résultats</p>
-      <ConsulterRecettesGenerales />
-    </div>
-  );
+  return <Outlet />;
 }
 
 export default App;

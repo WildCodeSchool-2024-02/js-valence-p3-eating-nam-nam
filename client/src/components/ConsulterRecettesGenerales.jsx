@@ -34,6 +34,8 @@ const recettes = [
 function ConsulterRecettesGenerales() {
   return (
     <div className="recettes-generales">
+      <h1>Cabillaud</h1>
+      <p>101 résultats</p>
       {recettes.map((recette) => (
         <ConsulterRecette
           key={recette.id}
