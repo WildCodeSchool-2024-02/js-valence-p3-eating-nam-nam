@@ -10,55 +10,41 @@ function Navbar() {
   };
 
   return (
-    <div className="navbar_container">
-      <nav className="navbar">
-        <div className="search_container">
-          <div className="search_bar">
-            <input
-              type="text"
-              name="search_bar"
-              id="search_bar"
-              placeholder="Rechercher une recette, un ingrédient ..."
-            />
-          </div>
+    <nav>
+      <img className="navbar_logo" src={logo} alt="logo" width="90px" />
+      <div className="nav_content">
+        <input
+          type="text"
+          name="search_bar"
+          id="search_bar"
+          placeholder="Rechercher une recette, un ingrédient ..."
+        />
+        <div className="button_menu">
+          <button type="button">
+            <img src={accueil} width="30px" alt="Accueil" /> Accueil
+          </button>
+          <button type="button">
+            <img src={dernière} width="30px" alt="Dernières recettes" />{" "}
+            Dernières recettes ajoutées
+          </button>
+          <button type="button">
+            <img src={favoris} width="30px" alt="Mes recettes favorites" /> Mes
+            recettes favorites
+          </button>
+          <button type="button">
+            <img src={add} width="30px" alt="Ajouter une recette" /> Ajouter une
+            recette
+          </button>
         </div>
-        <div className="login_container">
-          <div className="login_button">
-            <button type="button" onClick={redirectConnexion}>
-              <img src={login} width="30px" alt="Connexion" /> Connexion
-            </button>
-          </div>
-        </div>
-        <div className="navbar_logo">
-          <img src={logo} alt="logo" width="90px" />
-        </div>
-        <ul className="nav_button">
-          <li>
-            <button type="button">
-              <img src={accueil} width="30px" alt="Accueil" /> Accueil
-            </button>
-          </li>
-          <li>
-            <button type="button">
-              <img src={dernière} width="30px" alt="Dernières recettes" />{" "}
-              Dernières recettes ajoutées
-            </button>
-          </li>
-          <li>
-            <button type="button">
-              <img src={favoris} width="30px" alt="Mes recettes favorites" />{" "}
-              Mes recettes favorites
-            </button>
-          </li>
-          <li>
-            <button type="button">
-              <img src={add} width="30px" alt="Ajouter une recette" /> Ajouter
-              une recette
-            </button>
-          </li>
-        </ul>
-      </nav>
-    </div>
+      </div>
+      <button
+        className="login_button"
+        type="button"
+        onClick={redirectConnexion}
+      >
+        <img src={login} width="30px" alt="Connexion" /> Connexion
+      </button>
+    </nav>
   );
 }
 
