@@ -1,18 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Aleo:wght@300;400;700&display=swap");
 @import url("https://www.1001fonts.com/now-font.html");
-
-:root {
-  --orange: #d56c06;
-  --vert: #97bf0d;
-  --blanc: #fff;
-  --border: 15px;
-  --aleo: "Aleo", serif;
-  --now: "Now-font", sans-serif;
-}
-.navbar {
-  background-color: var(--orange);
-  height: 25%;
-  color: var(--vert);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 .profile-container {
   display: flex;
@@ -20,7 +11,7 @@
   align-items: center;
   margin: 20px;
   padding: 20px;
-  border: 1px solid #ccc;
+
   border-radius: 10px;
   background-color: #f9f9f9;
 }
@@ -55,25 +46,18 @@ h2 {
   padding-left: 20px;
   color: var(--vert);
 }
-
-.form-container {
-  display: flex;
-  justify-content: space-around;
-  margin: 20px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: #f9f9f9;
+input {
+  background-color: rgba(213, 108, 6, 0.21);
+  width: 200px;
 }
-
-.form3-container,
-.form2-container {
-  display: flex;
-  flex-direction: column;
-  width: 45%;
+.form-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 30px;
+  margin-top: 50px;
+  border-radius: 10px;
+  margin-left: 50px;
   color: var(--orange);
-  border-radius: 12px;
-  font-family: var(--aleo);
 }
 
 label {
@@ -90,7 +74,7 @@ input {
 
 button {
   display: block;
-  margin: 20px auto;
+  margin: 100px auto;
   padding: 10px 20px;
   font-size: 16px;
   color: #fff;
@@ -156,21 +140,18 @@ button:hover {
   .profile-info h2,
   .title {
     font-size: 16px;
+    text-align: center;
   }
 
   .form-container {
+    display: flex;
     flex-direction: column;
     align-items: center;
     margin: 10px;
     padding: 10px;
+    text-align: center;
   }
 
-  .form3-container,
-  .form2-container {
-    width: 100%;
-  }
-
-  input,
   button {
     font-size: 12px;
     padding: 8px;
