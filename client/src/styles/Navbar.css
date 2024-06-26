@@ -59,9 +59,3 @@ nav button {
   justify-content: center;
   align-items: center;
 }
-
-.link_button {
-  text-decoration: none;
-  font-family: var(--aleo);
-  color: var(--blanc);
-}
