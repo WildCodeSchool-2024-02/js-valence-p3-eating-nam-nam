@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./App";
+import Inscription from "./pages/Inscription";
 
 const router = createBrowserRouter([
   {
@@ -14,10 +15,10 @@ const router = createBrowserRouter([
       //   path: "/connexion",
       //   element: <Login />,
       // },
-      // {
-      //   path: "/inscription",
-      //   element: <Inscription />,
-      // },
+      {
+        path: "/inscription",
+        element: <Inscription />,
+      },
     ],
   },
 ]);
