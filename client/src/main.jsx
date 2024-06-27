@@ -1,10 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import RecettesFavorites from "./components/RecettesFavorites";
-import ConsulterRecettesGenerales from "./components/ConsulterRecettesGenerales";
-
 import App from "./App";
+import Login from "./pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -12,12 +10,8 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/recettes",
-        element: <ConsulterRecettesGenerales />,
-      },
-      {
-        path: "/favoris",
-        element: <RecettesFavorites />,
+        path: "/connexion",
+        element: <Login />,
       },
     ],
   },
