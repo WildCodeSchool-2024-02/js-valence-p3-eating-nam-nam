@@ -20,6 +20,7 @@ const router = createBrowserRouter([
         element: <RecettesFavorites />,
       },
     ],
+
   },
 ]);
 
