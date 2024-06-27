@@ -71,3 +71,8 @@
   font-size: 20px;
   cursor: pointer;
 }
+
+.error_message {
+  color: red;
+  font-weight: bold;
+}
