@@ -3,6 +3,10 @@
   padding: 0px;
   box-sizing: border-box;
 }
+
+.titre-resultat {
+  margin-left: 15px;
+}
 .recette {
   border: 1px solid #97bf0d;
   padding: 10px;
@@ -21,10 +25,7 @@
 
 .titre-recette {
   margin: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
 }
 
 .text-recette {
