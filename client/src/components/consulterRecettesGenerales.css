@@ -1,0 +1,13 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+  .recettes-generales {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
