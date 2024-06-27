@@ -17,7 +17,7 @@
   object-fit: cover;
   image-rendering: smooth;
 }
-ul {
+.temoins {
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding-bottom: 20px;
@@ -61,7 +61,7 @@ button {
     gap: 5px;
     padding: 5px;
   }
-  ul .temoins {
+  .temoins {
     padding-left: 0;
   }
   h2 {
