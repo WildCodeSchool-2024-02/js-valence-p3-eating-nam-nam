@@ -11,7 +11,9 @@ function Navbar() {
 
   return (
     <nav>
-      <img className="navbar_logo" src={logo} alt="logo" width="90px" />
+      <header>
+        <img className="navbar_logo" src={logo} alt="logo" width="90px" />
+      </header>
       <div className="nav_content">
         <input
           type="text"
