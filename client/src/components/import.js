@@ -7,6 +7,11 @@ import logout from "../assets/icones/logout.png";
 import partagées from "../assets/icones/partagées.png";
 import search from "../assets/icones/search.png";
 import favoris from "../assets/icones/favoris.png";
+import table from "../assets/images/table.jpg";
+import temoin1 from "../assets/images/photo profil temoignages femme.jpg";
+import temoin2 from "../assets/images/photo profil homme bis.jpg";
+import temoin3 from "../assets/images/temoin3.webp";
+import temoin4 from "../assets/images/temoin4.webp";
 
 export {
   accueil,
@@ -18,4 +23,9 @@ export {
   partagées,
   search,
   favoris,
+  table,
+  temoin1,
+  temoin2,
+  temoin3,
+  temoin4,
 };
