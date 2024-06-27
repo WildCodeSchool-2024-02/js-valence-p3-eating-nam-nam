@@ -6,10 +6,9 @@ const router = express.Router();
 // Import And Use Routers Here
 /* ************************************************************************* */
 
-const userController = require("../../controllers/userActions");
+const recetteController = require("../../controllers/recetteActions");
 
-router.get("/users/:id", userController.read);
-
+router.get("/recettes/:id", recetteController.read);
 /* ************************************************************************* */
 
 module.exports = router;
