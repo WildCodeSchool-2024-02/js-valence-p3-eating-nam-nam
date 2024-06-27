@@ -1,12 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Aleo:wght@300;400;700&display=swap");
 @import url("https://www.1001fonts.com/now-font.html");
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --orange: #d56c06;
 
   --vert: #97bf0d;
 
   --blanc: #fff;
+
+  --gris: #ece8da;
 
   --border: 15px;
 

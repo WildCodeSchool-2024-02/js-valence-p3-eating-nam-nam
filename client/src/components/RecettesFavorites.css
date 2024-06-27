@@ -1,0 +1,121 @@
+@import url("https://fonts.googleapis.com/css2?family=Aleo:wght@300;400;700&display=swap");
+@import url("https://www.1001fonts.com/now-font.html");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --orange: #d56c06;
+  --vert: #97bf0d;
+  --blanc: #fff;
+  --border: 15px;
+  --aleo: "Aleo";
+  --now: "Now-font", sans-serif;
+}
+
+h2 {
+  background-color: var(--orange);
+  height: 20%;
+  padding: 20px;
+  text-align: center;
+}
+
+.para p {
+  font-size: 32px;
+  font-family: var(--aleo);
+  color: var(--vert);
+  margin-top: 100px;
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+  height: 450px;
+  justify-content: space-around;
+  padding: 0 24px;
+  align-items: center;
+  margin-bottom: 130px;
+}
+
+.flex div {
+  text-align: center;
+  align-items: center;
+}
+
+.flex button {
+  background-color: var(--orange);
+  font-family: var(--aleo);
+  color: var(--blanc);
+  border: none;
+  width: 300px;
+  border-radius: 10px;
+  padding: 8px 32px;
+  margin-top: 24px;
+  cursor: pointer;
+  font-size: 24px;
+  transition: background-color 0.3s ease;
+}
+
+.flex button:hover {
+  background-color: var(--vert);
+}
+
+.flex img {
+  width: 300px;
+  height: 200px;
+  margin-top: 40px;
+}
+
+@media (max-width: 1024px) {
+  .flex {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .flex img {
+    width: 150px;
+    height: 120px;
+  }
+
+  .flex button {
+    font-size: 20px;
+    padding: 8px 24px;
+    width: auto;
+  }
+
+  .para p {
+    font-size: 28px;
+    margin-top: 50px;
+  }
+}
+
+@media (max-width: 390px) {
+  h2 {
+    font-size: 24px;
+    height: auto;
+  }
+
+  .para p {
+    font-size: 24px;
+    margin-top: 20px;
+  }
+
+  .flex {
+    margin-top: 24px;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .flex img {
+    width: 100px;
+    height: 80px;
+  }
+
+  .flex button {
+    font-size: 18px;
+    padding: 8px 16px;
+    width: auto;
+  }
+}
