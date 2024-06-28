@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RecettesFavorites from "./components/RecettesFavorites";
-import ConsulterRecettesGenerales from "./components/ConsulterRecettesGenerales";
-
+import ListeRecettes from "./components/ListeRecettes";
+import ConsulterRecette from "./components/ConsulterRecette";
 import App from "./App";
 
 const router = createBrowserRouter([
@@ -13,11 +13,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/recettes",
-        element: <ConsulterRecettesGenerales />,
+        element: <ListeRecettes />,
       },
       {
         path: "/favoris",
         element: <RecettesFavorites />,
+      },
+      {
+        path: "/recettes/:id",
+        element: <ConsulterRecette />,
       },
     ],
   },
