@@ -30,7 +30,6 @@ const recettes = [
     tempsCuisson: 20,
   },
 ];
-
 function ConsulterRecettesGenerales() {
   return (
     <div className="recettes-generales">
