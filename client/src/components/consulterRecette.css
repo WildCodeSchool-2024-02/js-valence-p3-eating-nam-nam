@@ -12,7 +12,7 @@
   width: 200px;
   height: 200px;
   border-radius: 15px;
-  border: 0.02rem solid white;
+  border: 0.02rem solid var(--orange);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   margin-bottom: 10px;
 }

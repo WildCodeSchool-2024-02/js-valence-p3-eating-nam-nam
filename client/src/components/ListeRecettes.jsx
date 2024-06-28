@@ -36,7 +36,7 @@ function ListeRecettes() {
     <div>
       <div className="titre-resultat">
         <h1>Cabillaud</h1>
-        <p>101 résultats</p>
+        <p className="resultat">101 résultats</p>
       </div>
       <div className="recettes-generales">
         {recettes.map((recette) => (
