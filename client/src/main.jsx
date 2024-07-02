@@ -6,12 +6,16 @@ import ListeRecettes from "./components/ListeRecettes";
 import ConsulterRecette from "./components/ConsulterRecette";
 import App from "./App";
 import Login from "./pages/Login";
+import Accueil from "./pages/Accueil";
 
 const router = createBrowserRouter([
   {
-    path: "/",
     element: <App />,
     children: [
+      {
+        path: "/",
+        element: <Accueil />,
+      },
       {
         path: "/recettes",
         element: <ListeRecettes />,
