@@ -1,5 +1,5 @@
-import ConsulterRecette from "./ConsulterRecette";
-import "./consulterRecette.css";
+import CarteRecette from "./CarteRecette";
+import "./carteRecette.css";
 import cabillaudOlives from "../assets/images/Cabillaud aux olives et au vin blanc.jpg";
 import cabillaudChorizo from "../assets/images/Cabillaud au chorizo.jpg";
 import gratincabillaud from "../assets/images/Gratin de cabillaud aux olives.jpg";
@@ -31,17 +31,18 @@ const recettes = [
   },
 ];
 
-function ConsulterRecettesGenerales() {
+function ListeRecettes() {
   return (
     <>
       <div className="titre-resultat">
         <h1>Cabillaud</h1>
-        <p>101 résultats</p>
+        <p className="resultat">101 résultats</p>
       </div>
       <div className="recettes-generales">
         {recettes.map((recette) => (
-          <ConsulterRecette
+          <CarteRecette
             key={recette.id}
+            id={recette.id}
             img={recette.img}
             titre={recette.titre}
             auteur={recette.auteur}
@@ -54,4 +55,4 @@ function ConsulterRecettesGenerales() {
   );
 }
 
-export default ConsulterRecettesGenerales;
+export default ListeRecettes;
