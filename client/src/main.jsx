@@ -5,6 +5,7 @@ import RecettesFavorites from "./components/RecettesFavorites";
 import ListeRecettes from "./components/ListeRecettes";
 import ConsulterRecette from "./components/ConsulterRecette";
 import App from "./App";
+import Login from "./pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,9 @@ const router = createBrowserRouter([
         path: "/favoris",
         element: <RecettesFavorites />,
       },
+
+      { path: "/connexion", element: <Login /> },
+
       {
         path: "/recettes/:id",
         element: <ConsulterRecette />,

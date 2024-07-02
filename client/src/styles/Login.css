@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Aleo:wght@300;400;700&display=swap");
+@import url("https://www.1001fonts.com/now-font.html");
+
+.login_page {
+  padding-top: 50px;
+  display: flex;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  font-family: "Now-font", sans-serif;
+}
+
+.login_title {
+  display: flex;
+  flex-direction: column;
+  color: var(--vert);
+}
+
+.se_connecter {
+  font-weight: bold;
+  font-size: 64px;
+  font-family: var(--aleo);
+}
+
+.bienvenue {
+  padding-top: 20px;
+  font-size: 40px;
+  font-family: var(--now);
+}
+
+.info_login {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  padding-top: 20px;
+  gap: 30px;
+}
+
+.info_login input {
+  width: 470px;
+  height: 50px;
+  border-radius: 15px;
+  border: 2px solid var(--orange);
+  padding-left: 5px;
+  outline: none;
+  background-color: rgba(213, 108, 6, 0.2);
+}
+
+.log_button button {
+  width: 360px;
+  height: 45px;
+  border-radius: 15px;
+  background-color: var(--orange);
+  color: white;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.inscription_button button {
+  width: 360px;
+  height: 45px;
+  border-radius: 15px;
+  background-color: white;
+  color: var(--orange);
+  border: var(--orange) solid 1px;
+  font-size: 20px;
+  cursor: pointer;
+}

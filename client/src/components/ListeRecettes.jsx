@@ -33,7 +33,7 @@ const recettes = [
 
 function ListeRecettes() {
   return (
-    <div>
+    <>
       <div className="titre-resultat">
         <h1>Cabillaud</h1>
         <p className="resultat">101 résultats</p>
@@ -51,7 +51,7 @@ function ListeRecettes() {
           />
         ))}
       </div>
-    </div>
+    </>
   );
 }
 
