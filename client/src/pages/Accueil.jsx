@@ -8,6 +8,9 @@ import {
 } from "../components/import";
 
 export default function Accueil() {
+  const handleClick = () => {
+    window.location.href = "/client/src/components/connexion";
+  };
   return (
     <div className="Accueil">
       <h2>Partagez vos recettes et découvrez de nouvelles saveurs</h2>
@@ -19,7 +22,7 @@ export default function Accueil() {
         <button type="button" className="button">
           S'inscrire
         </button>
-        <button type="button" className="button">
+        <button type="button" className="button" onClick={handleClick}>
           Se connecter
         </button>
       </div>
