@@ -29,8 +29,9 @@ const router = createBrowserRouter([
         element: <RecettesFavorites />,
       },
 
-      { path: "/connexion", element: <Login /> },
-
+      { path: "/connexion",
+        element: <Login />
+      },
       {
         path: "/recettes/:id",
         element: <ConsulterRecette />,
