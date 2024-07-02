@@ -2,29 +2,36 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RecettesFavorites from "./components/RecettesFavorites";
-import ConsulterRecettesGenerales from "./components/ConsulterRecettesGenerales";
-import Accueil from "./pages/Accueil";
+import ListeRecettes from "./components/ListeRecettes";
+import ConsulterRecette from "./components/ConsulterRecette";
 import App from "./App";
+import Login from "./pages/Login";
+import Accueil from "./pages/Accueil";
 
 const router = createBrowserRouter([
   {
-    path: "/",
     element: <App />,
     children: [
       {
-        path: "/accueil",
+        path: "/",
         element: <Accueil />,
       },
       {
         path: "/recettes",
-        element: <ConsulterRecettesGenerales />,
+        element: <ListeRecettes />,
       },
       {
         path: "/favoris",
         element: <RecettesFavorites />,
       },
-    ],
 
+      { path: "/connexion", element: <Login /> },
+
+      {
+        path: "/recettes/:id",
+        element: <ConsulterRecette />,
+      },
+    ],
   },
 ]);
 

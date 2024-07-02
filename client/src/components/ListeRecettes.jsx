@@ -1,5 +1,5 @@
-import ConsulterRecette from "./ConsulterRecette";
-import "./consulterRecettesGenerales.css";
+import CarteRecette from "./CarteRecette";
+import "./carteRecette.css";
 import cabillaudOlives from "../assets/images/Cabillaud aux olives et au vin blanc.jpg";
 import cabillaudChorizo from "../assets/images/Cabillaud au chorizo.jpg";
 import gratincabillaud from "../assets/images/Gratin de cabillaud aux olives.jpg";
@@ -30,23 +30,29 @@ const recettes = [
     tempsCuisson: 20,
   },
 ];
-function ConsulterRecettesGenerales() {
+
+function ListeRecettes() {
   return (
-    <div className="recettes-generales">
-      <h1>Cabillaud</h1>
-      <p>101 résultats</p>
-      {recettes.map((recette) => (
-        <ConsulterRecette
-          key={recette.id}
-          img={recette.img}
-          titre={recette.titre}
-          auteur={recette.auteur}
-          tempsPreparation={recette.tempsPreparation}
-          tempsCuisson={recette.tempsCuisson}
-        />
-      ))}
-    </div>
+    <>
+      <div className="titre-resultat">
+        <h1>Cabillaud</h1>
+        <p className="resultat">101 résultats</p>
+      </div>
+      <div className="recettes-generales">
+        {recettes.map((recette) => (
+          <CarteRecette
+            key={recette.id}
+            id={recette.id}
+            img={recette.img}
+            titre={recette.titre}
+            auteur={recette.auteur}
+            tempsPreparation={recette.tempsPreparation}
+            tempsCuisson={recette.tempsCuisson}
+          />
+        ))}
+      </div>
+    </>
   );
 }
 
-export default ConsulterRecettesGenerales;
+export default ListeRecettes;
