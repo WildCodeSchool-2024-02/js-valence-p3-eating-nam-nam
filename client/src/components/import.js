@@ -12,8 +12,22 @@ import temoin1 from "../assets/images/photo profil temoignages femme.jpg";
 import temoin2 from "../assets/images/photo profil homme bis.jpg";
 import temoin3 from "../assets/images/temoin3.webp";
 import temoin4 from "../assets/images/temoin4.webp";
+import burger from "../assets/images/burger.png";
+import cabillaud from "../assets/images/cabillaud.png";
+import cabillaudauchorizo from "../assets/images/Cabillaud-au-chorizo.jpg";
+
+import vegan from "../assets/images/vegan.png";
+import cabillaudauxolivesetauvinblanc from "../assets/images/Cabillaud-aux-olives-et-au-vin-blanc.jpg";
+
+import gratindecabillaudauxolives from "../assets/images/Gratin-de-cabillaud-aux-olives.jpg";
 
 export {
+  cabillaudauchorizo,
+  cabillaudauxolivesetauvinblanc,
+  cabillaud,
+  gratindecabillaudauxolives,
+  vegan,
+  burger,
   accueil,
   add,
   dernière,

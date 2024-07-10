@@ -36,7 +36,7 @@ function Login() {
           <p style={{ color: "black" }}>Ou</p>
           <div className="inscription_button">
             <button type="button" onClick={handleClick}>
-              S'inscrire
+              S'inscriregit
             </button>
           </div>
         </div>

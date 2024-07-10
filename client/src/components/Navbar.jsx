@@ -10,9 +10,11 @@ function Navbar() {
   };
 
   return (
-    <header>
+    <>
       <nav>
-        <img className="navbar_logo" src={logo} alt="logo" width="90px" />
+        <header>
+          <img className="navbar_logo" src={logo} alt="logo" />
+        </header>
         <div className="nav_content">
           <input
             type="text"
@@ -43,10 +45,25 @@ function Navbar() {
           type="button"
           onClick={redirectConnexion}
         >
-          <img src={login} width="30px" alt="Connexion" /> Connexion
+          <img src={login} width="30px" alt="Connexion" />{" "}
+          <span>Connexion</span>
         </button>
       </nav>
-    </header>
+      <div className="mobile_navbar">
+        <button type="button">
+          <img src={accueil} width="30px" alt="Accueil" />
+        </button>
+        <button type="button">
+          <img src={dernière} width="30px" alt="Dernières recettes" />
+        </button>
+        <button type="button">
+          <img src={favoris} width="30px" alt="Mes recettes favorites" />
+        </button>
+        <button type="button">
+          <img src={add} width="30px" alt="Ajouter une recette" />
+        </button>
+      </div>
+    </>
   );
 }
 
