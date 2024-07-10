@@ -4,7 +4,7 @@
   align-items: center;
   margin: 20px;
   padding: 20px;
-
+  width: 100%;
   border-radius: 10px;
   background-color: #f9f9f9;
 }
@@ -22,11 +22,6 @@
   font-family: var(--now);
 }
 
-h2 {
-  color: var(--vert);
-  font-size: var(--now);
-}
-
 .profile-info h2 {
   margin: 10px 0;
   color: var(--orange);
@@ -39,10 +34,15 @@ h2 {
   padding-left: 20px;
   color: var(--vert);
 }
-input {
+
+.input-profil {
   background-color: rgba(213, 108, 6, 0.21);
   width: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
 }
+
 .form-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -54,21 +54,18 @@ input {
   color: var(--orange);
 }
 
-label {
+.label-profil,
+.label-prenom,
+.label-email {
   font-weight: bold;
   margin-top: 10px;
+  margin-left: 30px;
 }
 
-input {
-  padding: 10px;
-
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-button {
-  display: block;
-  margin: 100px auto;
+.enregistrer {
+  display: flex;
+  justify-content: center;
+  margin: 100px;
   padding: 10px 20px;
   font-size: 16px;
   color: #fff;
@@ -79,15 +76,11 @@ button {
   font-family: var(--now);
 }
 
-button:hover {
+.enregistrer:hover {
   background-color: var(--vert);
 }
 
-.flex_aligne {
-  display: flex;
-  align-items: center;
-}
-::placeholder {
+.input-mdp ::placeholder {
   color: rgba(0, 128, 0, 0.39);
   font-family: var(--now);
   font-size: 16px;
@@ -114,8 +107,10 @@ button:hover {
     font-size: 20px;
   }
 
-  input,
-  button {
+  .input-nom,
+  .input-prenom,
+  .input-mdp,
+  .enregistrer {
     font-size: 14px;
   }
 }
@@ -146,12 +141,9 @@ button:hover {
     text-align: center;
   }
 
-  button {
+  .enregistrer {
     font-size: 12px;
     padding: 8px;
-  }
-
-  button {
     width: 30%;
   }
 }
