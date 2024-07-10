@@ -32,20 +32,21 @@ export default function Profile() {
   };
 
   return (
-    <>
-      <div className="profile-container">
-        <img src={anna} alt="ANNA" className="profile-image" />
-        <h2>MON PROFIL</h2>
-        <div className="profile-info">
-          <h2>pseudo</h2>
-          <p>Inscrite depuis le 22/01/2023</p>
-        </div>
+    <div className="profile-container">
+      <img src={anna} alt="ANNA" className="profile-image" />
+      <h2>MON PROFIL</h2>
+      <div className="profile-info">
+        <h2>pseudo</h2>
+        <p>Inscrite depuis le 22/01/2023</p>
       </div>
       <h2 className="title">MES INFOS PERSO</h2>
       <div className="form-container">
-        <label htmlFor="pseudonyme">PSEUDONYME:</label>
+        <label className="label-profil" htmlFor="pseudonyme">
+          PSEUDONYME:
+        </label>
 
         <input
+          className="input-profil"
           type="text"
           id="pseudonyme"
           name="pseudonyme"
@@ -54,8 +55,11 @@ export default function Profile() {
           placeholder="Entrez votre pseudonyme"
         />
 
-        <label htmlFor="prenom">PRÉNOM:</label>
+        <label className="label-prenom" htmlFor="prenom">
+          PRÉNOM:
+        </label>
         <input
+          className="input-profil"
           type="text"
           id="prenom"
           name="prenom"
@@ -64,8 +68,11 @@ export default function Profile() {
           placeholder="Entrez votre prénom"
         />
 
-        <label htmlFor="nom">NOM:</label>
+        <label className="label-profil" htmlFor="nom">
+          NOM:
+        </label>
         <input
+          className="input-profil "
           type="text"
           id="nom"
           name="nom"
@@ -74,8 +81,11 @@ export default function Profile() {
           placeholder="Entrez votre nom"
         />
 
-        <label htmlFor="email">EMAIL:</label>
+        <label className="label-email" htmlFor="email">
+          EMAIL:
+        </label>
         <input
+          className="input-profil"
           type="email"
           id="email"
           name="email"
@@ -84,10 +94,11 @@ export default function Profile() {
           placeholder="Entrez votre email"
         />
 
-        <label className="flex_aligne" htmlFor="password">
+        <label className="label-profil" htmlFor="password">
           MOT DE PASSE:
         </label>
         <input
+          className="input-profil"
           type="password"
           id="password"
           name="password"
@@ -96,10 +107,9 @@ export default function Profile() {
           placeholder="Entrez votre mot de passe"
         />
       </div>
-
-      <button type="submit" onClick={handleSubmit}>
+      <button className="enregistrer" type="submit" onClick={handleSubmit}>
         Enregistrer
       </button>
-    </>
+    </div>
   );
 }
