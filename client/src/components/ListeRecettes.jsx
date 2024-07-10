@@ -1,13 +1,15 @@
 import CarteRecette from "./CarteRecette";
 import "./carteRecette.css";
-import cabillaudOlives from "../assets/images/Cabillaud aux olives et au vin blanc.jpg";
-import cabillaudChorizo from "../assets/images/Cabillaud au chorizo.jpg";
-import gratincabillaud from "../assets/images/Gratin de cabillaud aux olives.jpg";
+import {
+  cabillaudauchorizo,
+  gratindecabillaudauxolives,
+  cabillaudauxolivesetauvinblanc,
+} from "./import";
 
 const recettes = [
   {
     id: 1,
-    img: cabillaudOlives,
+    img: cabillaudauxolivesetauvinblanc,
     titre: "Cabillaud aux olives et au vin blanc",
     auteur: "Céline",
     tempsPreparation: 10,
@@ -15,7 +17,7 @@ const recettes = [
   },
   {
     id: 2,
-    img: cabillaudChorizo,
+    img: gratindecabillaudauxolives,
     titre: "Gratin de cabillaud aux olives",
     auteur: "Clarelle",
     tempsPreparation: 20,
@@ -23,7 +25,7 @@ const recettes = [
   },
   {
     id: 3,
-    img: gratincabillaud,
+    img: cabillaudauchorizo,
     titre: "Cabillaud au chorizo",
     auteur: "Romina123",
     tempsPreparation: 15,
