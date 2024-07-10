@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./App";
 import Inscription from "./pages/Inscription";
 import RecettesFavorites from "./components/RecettesFavorites";
 import ListeRecettes from "./components/ListeRecettes";
@@ -17,6 +16,8 @@ const router = createBrowserRouter([
       {
         path: "/inscription",
         element: <Inscription />,
+      },
+      {
         path: "/",
         element: <Accueil />,
       },
@@ -29,9 +30,7 @@ const router = createBrowserRouter([
         element: <RecettesFavorites />,
       },
 
-      { path: "/connexion",
-        element: <Login />
-      },
+      { path: "/connexion", element: <Login /> },
       {
         path: "/recettes/:id",
         element: <ConsulterRecette />,

@@ -1,5 +1,6 @@
 nav {
   display: flex;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
   background-color: var(--orange);
@@ -35,7 +36,11 @@ input {
   gap: 50px;
 }
 
-nav button {
+.button_menu button {
+  padding: 0;
+}
+
+.nav_button {
   display: flex;
   align-items: center;
   color: var(--blanc);
@@ -65,7 +70,9 @@ nav button {
 @media (max-width: 768px) {
   nav {
     flex-direction: row;
-    height: auto;
+    height: 90px;
+    width: 100%;
+    position: sticky;
     padding: 10px;
     justify-content: space-between;
   }
@@ -107,9 +114,9 @@ nav button {
     justify-content: space-around;
     background-color: var(--orange);
     padding: 10px 0;
-    position: fixed;
     bottom: 0;
-    width: 100%;
+    position: fixed;
+    width: 100vw;
     border-radius: 15px 15px 0 0;
   }
 
