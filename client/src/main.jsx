@@ -8,6 +8,7 @@ import ConsulterRecette from "./components/ConsulterRecette";
 import Login from "./pages/Login";
 import Accueil from "./pages/Accueil";
 import Profile from "./pages/Profile";
+import RecettesFavorites from "./components/RecettesFavorites";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "/Profile",
         element: <Profile />,
+      },
+      {
+        path: "/RecttesFavorites",
+        element: <RecettesFavorites />,
       },
     ],
   },
