@@ -7,6 +7,8 @@ import ListeRecettes from "./components/ListeRecettes";
 import ConsulterRecette from "./components/ConsulterRecette";
 import Login from "./pages/Login";
 import Accueil from "./pages/Accueil";
+import Profile from "./pages/Profile";
+import RecettesFavorites from "./components/RecettesFavorites";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +18,6 @@ const router = createBrowserRouter([
         path: "/inscription",
         element: <Inscription />,
       },
-
       {
         path: "/",
         element: <Accueil />,
@@ -26,11 +27,18 @@ const router = createBrowserRouter([
         path: "/recettes",
         element: <ListeRecettes />,
       },
-
       { path: "/connexion", element: <Login /> },
       {
         path: "/recettes/:id",
         element: <ConsulterRecette />,
+      },
+      {
+        path: "/Profile",
+        element: <Profile />,
+      },
+      {
+        path: "/RecttesFavorites",
+        element: <RecettesFavorites />,
       },
     ],
   },

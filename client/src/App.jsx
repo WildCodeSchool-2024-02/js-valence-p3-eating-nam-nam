@@ -9,7 +9,6 @@ function App() {
       <Outlet />
     </>
   );
-
 }
 
 export default App;
