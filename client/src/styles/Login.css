@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Aleo:wght@300;400;700&display=swap");
 @import url("https://www.1001fonts.com/now-font.html");
-
+* {
+  margin-top: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .login_page {
   padding-top: 50px;
   display: flex;
@@ -70,4 +74,24 @@
   border: var(--orange) solid 1px;
   font-size: 20px;
   cursor: pointer;
+}
+@media (max-width: 500px) {
+  .login_page {
+    width: 90%;
+  }
+  .info_login input {
+    width: 200px;
+  }
+  .log_button button {
+    width: 200px;
+  }
+  .bienvenue {
+    font-size: 30px;
+  }
+  .se_connecter {
+    font-size: 32px;
+  }
+  .inscription_button button {
+    width: 200px;
+  }
 }
