@@ -15,7 +15,7 @@ create table recettes (
   serving INT NOT NULL,
   nutritional_values VARCHAR(255) NOT NULL,
   is_validate BOOLEAN NOT NULL DEFAULT 0,
-  foreign key(user_id) references user(id)
+  FOREIGN KEY(user_id) REFERENCES user(id)
 );
 
 CREATE TABLE ingrédients (
