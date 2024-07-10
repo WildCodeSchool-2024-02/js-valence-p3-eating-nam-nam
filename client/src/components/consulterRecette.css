@@ -1,0 +1,44 @@
+.ingredient-titre {
+  margin-top: 30px;
+}
+
+.container-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 30px;
+}
+.image-ingredients {
+  width: 200px;
+  height: 200px;
+  border-radius: 15px;
+  border: 0.02rem solid var(--orange);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+}
+
+.ingredient-quantité {
+  font-weight: bold;
+}
+
+.recette-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.etape-container {
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.ordre {
+  font-weight: bold;
+  text-transform: uppercase;
+  display: block;
+}
+
+.description {
+  margin-top: 5px;
+}
