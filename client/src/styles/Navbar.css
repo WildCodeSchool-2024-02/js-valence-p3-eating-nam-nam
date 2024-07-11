@@ -1,4 +1,4 @@
-nav {
+header {
   display: flex;
   width: 100%;
   align-items: center;
@@ -24,6 +24,9 @@ nav {
   gap: 1rem;
 }
 
+.active {
+  text-decoration: underline;
+}
 .search_bar {
   width: 25rem;
   height: 30px;
@@ -36,22 +39,24 @@ nav {
 .button_menu {
   display: flex;
   gap: 50px;
-}
-
-.button_menu a {
-  display: flex;
-  align-items: center;
-  color: white;
-  text-decoration: none;
-  gap: 10px;
-  transition:
+  a {
+    display: flex;
+    font-size: 0.8rem;
+    align-items: center;
+    color: var(--blanc);
+    border: none;
+    background: none;
+    font-family: var(--aleo);
+    gap: 10px;
+    cursor: pointer;
+    transition:
     background-color 0.3s ease,
     color 0.3s ease;
-}
-
-.button_menu a:hover {
-  background-color: var(--vert);
-  border-radius: 10px;
+  }
+  a:hover {
+    background-color: var(--vert);
+    border-radius: 10px;
+  }
 }
 
 .login_button {
@@ -73,8 +78,12 @@ nav {
   display: none;
 }
 
+header a {
+  text-decoration: none;
+}
+
 @media (max-width: 768px) {
-  nav {
+  header {
     flex-direction: row;
     height: 90px;
     padding: 10px;

@@ -1,57 +1,94 @@
-import { NavLink } from "react-router-dom";
+import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import "../styles/Navbar.css";
 import { accueil, add, dernière, login, logo, favoris } from "./import";
 
-function Navbar() {
+function Navbar({ setSearchQuery }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleSearch = (e) => {
+    if (location.pathname !== "/recettes") {
+      navigate("/recettes");
+    }
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <>
       <header>
-        <nav>
-          <img className="navbar_logo" src={logo} alt="logo" />
-          <div className="nav_content">
-            <input
-              className="search_bar"
-              type="text"
-              name="search_bar"
-              id="search_bar"
-              placeholder="Rechercher une recette, un ingrédient ..."
-            />
-            <div className="button_menu">
-              <NavLink to="/" className="nav_link">
-                <img src={accueil} width="30px" alt="Accueil" /> Accueil
-              </NavLink>
-              <NavLink to="/" className="nav_link">
-                <img src={dernière} width="30px" alt="Dernières recettes" />{" "}
-                Dernières recettes ajoutées
-              </NavLink>
-              <NavLink to="/" className="nav_link">
-                <img src={favoris} width="30px" alt="Mes recettes favorites" />{" "}
-                Mes recettes favorites
-              </NavLink>
-              <NavLink to="/" className="nav_link">
-                <img src={add} width="30px" alt="Ajouter une recette" /> Ajouter
-                une recette
-              </NavLink>
-            </div>
-          </div>
-          <NavLink className="login_button" to="/connexion">
-            <img src={login} width="30px" alt="Connexion" />
-            <span>Connexion</span>
-          </NavLink>
-        </nav>
-      </header>
+        <img className="navbar_logo" src={logo} alt="logo" />
+        <nav className="nav_content">
+          <input
+            type="text"
+            name="search_bar"
+            id="search_bar"
+            placeholder="Rechercher une recette, un ingrédient ..."
+            onChange={handleSearch}
+          />
+          <div className="button_menu">
+            <NavLink
+              to="/"
+              className={({ isActive }) => (isActive ? "active" : null)}
+            >
+              <img src={accueil} width="30px" alt="Accueil" /> Accueil
+            </NavLink>
 
+            <NavLink
+              to="/dernieres-recettes"
+              className={({ isActive }) => (isActive ? "active" : null)}
+            >
+              <img src={dernière} width="30px" alt="Dernières recettes" />
+              Dernières recettes ajoutées
+            </NavLink>
+            <NavLink
+              to="/RecettesFavorites"
+              className={({ isActive }) => (isActive ? "active" : null)}
+            >
+              <img src={favoris} width="30px" alt="Mes recettes favorites" />{" "}
+              Mes recettes favorites
+            </NavLink>
+            <NavLink
+              to="/RecettesAjoutees"
+              className={({ isActive }) => (isActive ? "active" : null)}
+            >
+              <img src={add} width="30px" alt="Ajouter une recette" /> Ajouter
+              une recette
+            </NavLink>
+          </div>
+        </nav>
+        <NavLink
+          to="/connexion"
+          className={({ isActive }) =>
+            `login_button ${isActive ? "active" : null}`
+          }
+        >
+          <img src={login} width="30px" alt="Connexion" />
+          Connexion
+        </NavLink>
+      </header>
       <div className="mobile_navbar">
-        <NavLink to="/">
+        <NavLink
+          to="/"
+          className={({ isActive }) => (isActive ? "active" : null)}
+        >
           <img src={accueil} width="30px" alt="Accueil" />
         </NavLink>
-        <NavLink to="/">
+        <NavLink
+          to="/dernieres-recettes"
+          className={({ isActive }) => (isActive ? "active" : null)}
+        >
           <img src={dernière} width="30px" alt="Dernières recettes" />
         </NavLink>
-        <NavLink to="/recettesfavorites">
+        <NavLink
+          to="/RecettesFavorites"
+          className={({ isActive }) => (isActive ? "active" : null)}
+        >
           <img src={favoris} width="30px" alt="Mes recettes favorites" />
         </NavLink>
-        <NavLink to="/">
+        <NavLink
+          to="RecettesAjoutees"
+          className={({ isActive }) => (isActive ? "active" : null)}
+        >
           <img src={add} width="30px" alt="Ajouter une recette" />
         </NavLink>
       </div>
