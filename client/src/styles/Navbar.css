@@ -1,4 +1,4 @@
-nav {
+header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -22,6 +22,10 @@ nav {
   gap: 1rem;
 }
 
+.active {
+  text-decoration: underline;
+}
+
 input {
   width: 25rem;
   height: 30px;
@@ -33,17 +37,17 @@ input {
 .button_menu {
   display: flex;
   gap: 50px;
-}
-
-nav button {
-  display: flex;
-  align-items: center;
-  color: var(--blanc);
-  border: none;
-  background: none;
-  font-family: var(--aleo);
-  gap: 10px;
-  cursor: pointer;
+  a {
+    display: flex;
+    font-size: 0.8rem;
+    align-items: center;
+    color: var(--blanc);
+    border: none;
+    background: none;
+    font-family: var(--aleo);
+    gap: 10px;
+    cursor: pointer;
+  }
 }
 
 .login_button {
@@ -62,8 +66,12 @@ nav button {
   display: none;
 }
 
+header a {
+  text-decoration: none;
+}
+
 @media (max-width: 768px) {
-  nav {
+  header {
     flex-direction: row;
     height: auto;
     padding: 10px;
