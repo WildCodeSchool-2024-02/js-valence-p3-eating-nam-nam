@@ -2,7 +2,6 @@ header {
   display: flex;
   width: 100%;
   align-items: center;
-  justify-content: space-between;
   background-color: var(--orange);
   height: 110px;
   border-radius: 0 0 15px 15px;
@@ -69,9 +68,6 @@ header {
   border-radius: 10px;
   color: var(--blanc);
   text-decoration: none;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
 }
 
 .mobile_navbar {
