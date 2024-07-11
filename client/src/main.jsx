@@ -43,7 +43,7 @@ const router = createBrowserRouter([
         element: <RecettesFavorites />,
       },
       {
-        path: "/RecettesAjoutees",
+        path: "/dernieres-recettes",
         element: <RecettesAjoutees />,
       },
     ],
