@@ -1,13 +1,7 @@
-import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
+import { Link } from "react-router-dom";
 
 function Login() {
-  const redirectInscription = useNavigate();
-
-  const handleClick = () => {
-    redirectInscription("/inscription");
-  };
-
   return (
     <div className="login_page">
       <div className="login_title">
@@ -34,11 +28,11 @@ function Login() {
             <button type="button">Se connecter</button>
           </div>
           <p style={{ color: "black" }}>Ou</p>
-          <div className="inscription_button">
-            <button type="button" onClick={handleClick}>
-              S'inscriregit
-            </button>
-          </div>
+          <Link to="/inscription">
+            <div className="inscription_button">
+              <button type="button">S'inscrire</button>
+            </div>
+          </Link>
         </div>
       </div>
     </div>

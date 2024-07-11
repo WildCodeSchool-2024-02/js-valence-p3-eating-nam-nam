@@ -1,67 +1,96 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import "../styles/Navbar.css";
 import { accueil, add, dernière, login, logo, favoris } from "./import";
 
-function Navbar() {
+function Navbar({ setSearchQuery }) {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const redirectConnexion = () => {
-    navigate("/connexion");
+  const handleSearch = (e) => {
+    if (location.pathname !== "/recettes") {
+      navigate("/recettes");
+    }
+    setSearchQuery(e.target.value);
   };
 
   return (
     <>
-      <nav>
-        <header>
-          <img className="navbar_logo" src={logo} alt="logo" />
-        </header>
-        <div className="nav_content">
+      <header>
+        <img className="navbar_logo" src={logo} alt="logo" />
+        <nav className="nav_content">
           <input
             type="text"
             name="search_bar"
             id="search_bar"
             placeholder="Rechercher une recette, un ingrédient ..."
+            onChange={handleSearch}
           />
           <div className="button_menu">
-            <button type="button">
+            <NavLink
+              to="/"
+              className={({ isActive }) => (isActive ? "active" : null)}
+            >
               <img src={accueil} width="30px" alt="Accueil" /> Accueil
-            </button>
-            <button type="button">
-              <img src={dernière} width="30px" alt="Dernières recettes" />{" "}
+            </NavLink>
+
+            <NavLink
+              to="/dernieres-recettes"
+              className={({ isActive }) => (isActive ? "active" : null)}
+            >
+              <img src={dernière} width="30px" alt="Dernières recettes" />
               Dernières recettes ajoutées
-            </button>
-            <button type="button">
+            </NavLink>
+            <NavLink
+              to="/RecettesFavorites"
+              className={({ isActive }) => (isActive ? "active" : null)}
+            >
               <img src={favoris} width="30px" alt="Mes recettes favorites" />{" "}
               Mes recettes favorites
-            </button>
-            <button type="button">
+            </NavLink>
+            <NavLink
+              to="/RecettesAjoutees"
+              className={({ isActive }) => (isActive ? "active" : null)}
+            >
               <img src={add} width="30px" alt="Ajouter une recette" /> Ajouter
               une recette
-            </button>
+            </NavLink>
           </div>
-        </div>
-        <button
-          className="login_button"
-          type="button"
-          onClick={redirectConnexion}
+        </nav>
+        <NavLink
+          to="/connexion"
+          className={({ isActive }) =>
+            `login_button ${isActive ? "active" : null}`
+          }
         >
-          <img src={login} width="30px" alt="Connexion" />{" "}
-          <span>Connexion</span>
-        </button>
-      </nav>
+          <img src={login} width="30px" alt="Connexion" />
+          Connexion
+        </NavLink>
+      </header>
       <div className="mobile_navbar">
-        <button type="button">
+        <NavLink
+          to="/"
+          className={({ isActive }) => (isActive ? "active" : null)}
+        >
           <img src={accueil} width="30px" alt="Accueil" />
-        </button>
-        <button type="button">
+        </NavLink>
+        <NavLink
+          to="/dernieres-recettes"
+          className={({ isActive }) => (isActive ? "active" : null)}
+        >
           <img src={dernière} width="30px" alt="Dernières recettes" />
-        </button>
-        <button type="button">
+        </NavLink>
+        <NavLink
+          to="/RecettesFavorites"
+          className={({ isActive }) => (isActive ? "active" : null)}
+        >
           <img src={favoris} width="30px" alt="Mes recettes favorites" />
-        </button>
-        <button type="button">
+        </NavLink>
+        <NavLink
+          to="RecettesAjoutees"
+          className={({ isActive }) => (isActive ? "active" : null)}
+        >
           <img src={add} width="30px" alt="Ajouter une recette" />
-        </button>
+        </NavLink>
       </div>
     </>
   );

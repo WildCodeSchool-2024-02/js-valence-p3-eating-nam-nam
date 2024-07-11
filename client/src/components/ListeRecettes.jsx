@@ -1,3 +1,4 @@
+import { useOutletContext } from "react-router-dom";
 import CarteRecette from "./CarteRecette";
 import "./carteRecette.css";
 import {
@@ -34,14 +35,24 @@ const recettes = [
 ];
 
 function ListeRecettes() {
+  const searchQuery = useOutletContext();
+  const filteredRecettes = recettes.filter(
+    (recette) =>
+      recette.titre.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      recette.auteur.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <>
       <div className="titre-resultat">
-        <h1>Cabillaud</h1>
-        <p className="resultat">101 résultats</p>
+        <h1>{searchQuery}</h1>
+        <p className="resultat">
+          {filteredRecettes.length}{" "}
+          {filteredRecettes.length > 1 ? "résultats" : "résultat"}
+        </p>
       </div>
       <div className="recettes-generales">
-        {recettes.map((recette) => (
+        {filteredRecettes.map((recette) => (
           <CarteRecette
             key={recette.id}
             id={recette.id}
