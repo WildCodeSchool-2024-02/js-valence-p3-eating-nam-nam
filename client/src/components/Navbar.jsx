@@ -19,6 +19,7 @@ function Navbar({ setSearchQuery }) {
         <img className="navbar_logo" src={logo} alt="logo" />
         <nav className="nav_content">
           <input
+            className="search_bar"
             type="text"
             name="search_bar"
             id="search_bar"
