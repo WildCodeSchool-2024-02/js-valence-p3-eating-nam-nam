@@ -1,14 +1,8 @@
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "../styles/Navbar.css";
 import { accueil, add, dernière, login, logo, favoris } from "./import";
 
 function Navbar() {
-  const navigate = useNavigate();
-
-  const redirectConnexion = () => {
-    navigate("/connexion");
-  };
-
   return (
     <>
       <header>
@@ -16,53 +10,50 @@ function Navbar() {
           <img className="navbar_logo" src={logo} alt="logo" />
           <div className="nav_content">
             <input
+              className="search_bar"
               type="text"
               name="search_bar"
               id="search_bar"
               placeholder="Rechercher une recette, un ingrédient ..."
             />
             <div className="button_menu">
-              <button type="button">
+              <NavLink to="/" className="nav_link">
                 <img src={accueil} width="30px" alt="Accueil" /> Accueil
-              </button>
-              <button type="button">
+              </NavLink>
+              <NavLink to="/" className="nav_link">
                 <img src={dernière} width="30px" alt="Dernières recettes" />{" "}
                 Dernières recettes ajoutées
-              </button>
-              <button type="button">
+              </NavLink>
+              <NavLink to="/" className="nav_link">
                 <img src={favoris} width="30px" alt="Mes recettes favorites" />{" "}
                 Mes recettes favorites
-              </button>
-              <button type="button">
+              </NavLink>
+              <NavLink to="/" className="nav_link">
                 <img src={add} width="30px" alt="Ajouter une recette" /> Ajouter
                 une recette
-              </button>
+              </NavLink>
             </div>
           </div>
-          <button
-            className="login_button"
-            type="button"
-            onClick={redirectConnexion}
-          >
-            <img src={login} width="30px" alt="Connexion" />{" "}
+          <NavLink className="login_button" to="/connexion">
+            <img src={login} width="30px" alt="Connexion" />
             <span>Connexion</span>
-          </button>
+          </NavLink>
         </nav>
       </header>
 
       <div className="mobile_navbar">
-        <button type="button">
+        <NavLink to="/">
           <img src={accueil} width="30px" alt="Accueil" />
-        </button>
-        <button type="button">
+        </NavLink>
+        <NavLink to="/">
           <img src={dernière} width="30px" alt="Dernières recettes" />
-        </button>
-        <button type="button">
+        </NavLink>
+        <NavLink to="/recettesfavorites">
           <img src={favoris} width="30px" alt="Mes recettes favorites" />
-        </button>
-        <button type="button">
+        </NavLink>
+        <NavLink to="/">
           <img src={add} width="30px" alt="Ajouter une recette" />
-        </button>
+        </NavLink>
       </div>
     </>
   );

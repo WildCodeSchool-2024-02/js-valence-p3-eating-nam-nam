@@ -18,17 +18,19 @@ nav {
 
 .nav_content {
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
 }
 
-input {
+.search_bar {
   width: 25rem;
   height: 30px;
   border-radius: 15px;
   border: 2px solid var(--vert);
   padding-left: 10px;
+  background-color: white;
 }
 
 .button_menu {
@@ -36,31 +38,35 @@ input {
   gap: 50px;
 }
 
-.button_menu button {
-  padding: 0;
-}
-
-.nav_button {
+.button_menu a {
   display: flex;
   align-items: center;
-  color: var(--blanc);
-  border: none;
-  background: none;
-  font-family: var(--aleo);
+  color: white;
+  text-decoration: none;
   gap: 10px;
-  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.button_menu a:hover {
+  background-color: var(--vert);
+  border-radius: 10px;
 }
 
 .login_button {
   display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--vert);
   height: 40px;
-  width: auto;
   padding: 0 10px;
-  border-radius: 15px;
+  border-radius: 10px;
   color: var(--blanc);
-  justify-content: center;
-  align-items: center;
+  text-decoration: none;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .mobile_navbar {
@@ -71,8 +77,6 @@ input {
   nav {
     flex-direction: row;
     height: 90px;
-    width: 100%;
-    position: sticky;
     padding: 10px;
     justify-content: space-between;
   }
@@ -87,7 +91,6 @@ input {
     align-items: center;
     gap: 1rem;
     justify-content: space-between;
-    width: auto;
     padding-top: 0;
   }
 
@@ -100,32 +103,27 @@ input {
     display: none;
   }
 
-  .login_button {
-    width: auto;
-    padding: 0 10px;
-  }
-
-  .login_button span {
-    display: none;
-  }
-
   .mobile_navbar {
     display: flex;
     justify-content: space-around;
     background-color: var(--orange);
     padding: 10px 0;
-    bottom: 0;
     position: fixed;
+    bottom: 0;
     width: 100vw;
     border-radius: 15px 15px 0 0;
   }
 
-  .mobile_navbar button {
+  .mobile_navbar a {
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 0.8rem;
-    border: none;
-    background: none;
+    color: white;
+    text-decoration: none;
+  }
+
+  .login_button span {
+    display: none;
   }
 }
