@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Accueil from "./pages/Accueil";
 import Profile from "./pages/Profile";
 import RecettesFavorites from "./components/RecettesFavorites";
+import RecettesAjoutees from "./components/RecettesAjoutees";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "/RecettesFavorites",
         element: <RecettesFavorites />,
+      },
+      {
+        path: "/RecettesAjoutees",
+        element: <RecettesAjoutees />,
       },
     ],
   },
