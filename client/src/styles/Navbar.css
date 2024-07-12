@@ -117,6 +117,7 @@ header a {
     bottom: 0;
     width: 100vw;
     border-radius: 15px 15px 0 0;
+    z-index: 999;
   }
 
   .mobile_navbar a {
