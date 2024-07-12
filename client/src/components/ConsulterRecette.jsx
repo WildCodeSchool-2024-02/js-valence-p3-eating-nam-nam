@@ -101,8 +101,8 @@ function ConsulterRecette() {
     return <div>Recette non trouvée</div>; // Gérer le cas où la recette n'est pas trouvée
   }
   return (
-    <div>
-      <h1>Recette de </h1>
+    <div className="main-content">
+      <h1>Recette avec : </h1>
       <h2 className="ingredient-titre">Ingrédients</h2>
       <ul>
         <div className="container-grid">
