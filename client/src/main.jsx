@@ -11,6 +11,16 @@ import Profile from "./pages/Profile";
 import RecettesFavorites from "./components/RecettesFavorites";
 import RecettesAjoutees from "./components/RecettesAjoutees";
 
+const fetchUsers = async () => {
+  let results;
+  try {
+    results = await fetch(`${import.meta.env.VITE_API_URL}/api/users`);
+  } catch (err) {
+    return console.error(`Error`, err);
+  }
+  return results;
+};
+
 const router = createBrowserRouter([
   {
     element: <App />,
@@ -37,6 +47,7 @@ const router = createBrowserRouter([
       {
         path: "/Profile",
         element: <Profile />,
+        loader: fetchUsers,
       },
       {
         path: "/RecettesFavorites",

@@ -1,36 +1,10 @@
-import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
 import "../styles/Profile.css";
 import anna from "../assets/images/ANNA GUNN.jpg";
 
 export default function Profile() {
-  const [formData, setFormData] = useState({
-    pseudonyme: "",
-    prenom: "",
-    nom: "",
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    setFormData({
-      pseudonyme: "",
-      prenom: "",
-      nom: "",
-      email: "",
-      password: "",
-    });
-  };
-
+  const users = useLoaderData();
+  // const {id} = req.params
   return (
     <div className="profile-container">
       <img src={anna} alt="ANNA" className="profile-image" />
@@ -50,8 +24,7 @@ export default function Profile() {
           type="text"
           id="pseudonyme"
           name="pseudonyme"
-          value={formData.pseudonyme}
-          onChange={handleChange}
+          value=""
           placeholder="Entrez votre pseudonyme"
         />
 
@@ -63,8 +36,7 @@ export default function Profile() {
           type="text"
           id="prenom"
           name="prenom"
-          value={formData.prenom}
-          onChange={handleChange}
+          value=""
           placeholder="Entrez votre prénom"
         />
 
@@ -76,8 +48,7 @@ export default function Profile() {
           type="text"
           id="nom"
           name="nom"
-          value={formData.nom}
-          onChange={handleChange}
+          value=""
           placeholder="Entrez votre nom"
         />
 
@@ -89,8 +60,7 @@ export default function Profile() {
           type="email"
           id="email"
           name="email"
-          value={formData.email}
-          onChange={handleChange}
+          value=""
           placeholder="Entrez votre email"
         />
 
@@ -102,14 +72,17 @@ export default function Profile() {
           type="password"
           id="password"
           name="password"
-          value={formData.password}
-          onChange={handleChange}
+          value=""
           placeholder="Entrez votre mot de passe"
         />
       </div>
-      <button className="enregistrer" type="submit" onClick={handleSubmit}>
+      <button className="enregistrer" type="submit">
         Enregistrer
       </button>
+
+      {users.map((user) => (
+        <p key={user.id}>{user.username}</p>
+      ))}
     </div>
   );
 }
