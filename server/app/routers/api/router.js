@@ -8,7 +8,7 @@ const router = express.Router();
 
 const recetteController = require("../../controllers/recetteActions");
 
-router.get("/recette/:id", recetteController.read);
+router.get("/recettes/:id", recetteController.read);
 /* ************************************************************************* */
 
 module.exports = router;
