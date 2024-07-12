@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import "./consulterRecette.css";
-import champignons from "../assets/images/champignons-de-paris.png";
-import citron from "../assets/images/citron.png";
-import herbeDeProvence from "../assets/images/herbe-de-provence.jpg";
-import lieuNoir from "../assets/images/Lieu-noir.png";
-import olivesVertes from "../assets/images/olives-vertes.png";
-import poivre from "../assets/images/poivre-noir.png";
-import sel from "../assets/images/sel.png";
-import vinBlanc from "../assets/images/vin-blanc.png";
-import autre from "../assets/images/autre.png";
+import {
+  champignons,
+  citron,
+  herbeDeProvence,
+  lieuNoir,
+  olivesVertes,
+  poivre,
+  sel,
+  vinBlanc,
+  autre,
+} from "./import";
 
 const ingrédients = [
   {
