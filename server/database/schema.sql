@@ -1,4 +1,4 @@
-create table user (
+CREATE TABLE user (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
   username VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
@@ -6,25 +6,26 @@ create table user (
   password VARCHAR(255) NOT NULL
 );
 
-create table recettes (
-  id INT unsigned PRIMARY KEY AUTO_INCREMENT NOT NULL,
+CREATE TABLE recette (
+  id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
   title VARCHAR(255) NOT NULL,
   user_id INT UNSIGNED NOT NULL,
   image VARCHAR(255) NOT NULL,
-  ingredient VARCHAR(255) NOT NULL,
+  ingredients VARCHAR(255) NOT NULL,
   serving INT NOT NULL,
   nutritional_values VARCHAR(255) NOT NULL,
-  is_validate BOOLEAN NOT NULL DEFAULT 0,
+  published BOOLEAN NOT NULL DEFAULT 0,
   FOREIGN KEY(user_id) REFERENCES user(id)
 );
 
-CREATE TABLE ingrédients (
+CREATE TABLE ingredients (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE steps (
-  id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  recipe_id INT NOT NULL,
+  id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  recipe_id INT UNSIGNED NOT NULL,
   text TEXT NOT NULL,
-  FOREIGN KEY(recette_id) REFERENCES recettes(id)
+  FOREIGN KEY(recipe_id) REFERENCES recette(id)
 );
