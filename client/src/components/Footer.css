@@ -1,0 +1,6 @@
+footer {
+  background-color: var(--orange);
+  height: 110px;
+  border-radius: 0 0 15px 15px;
+  padding: 20px;
+}

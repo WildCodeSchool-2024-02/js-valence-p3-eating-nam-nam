@@ -16,8 +16,9 @@ function Navbar({ setSearchQuery }) {
   return (
     <>
       <header>
-        <img className="navbar_logo" src={logo} alt="logo" />
+      
         <nav className="nav_content">
+            <img className="navbar_logo" src={logo} alt="logo" />
           <input
             className="search_bar"
             type="text"
@@ -56,8 +57,7 @@ function Navbar({ setSearchQuery }) {
               une recette
             </NavLink>
           </div>
-        </nav>
-        <NavLink
+            <NavLink
           to="/connexion"
           className={({ isActive }) =>
             `login_button ${isActive ? "active" : null}`
@@ -66,6 +66,8 @@ function Navbar({ setSearchQuery }) {
           <img src={login} width="30px" alt="Connexion" />
           Connexion
         </NavLink>
+        </nav>
+      
       </header>
       <div className="mobile_navbar">
         <NavLink
@@ -93,6 +95,7 @@ function Navbar({ setSearchQuery }) {
           <img src={add} width="30px" alt="Ajouter une recette" />
         </NavLink>
       </div>
+     
     </>
   );
 }

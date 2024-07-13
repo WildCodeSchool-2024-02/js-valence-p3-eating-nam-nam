@@ -1,11 +1,8 @@
 header {
-  display: flex;
-  width: 100%;
-  align-items: center;
   background-color: var(--orange);
   height: 110px;
   border-radius: 0 0 15px 15px;
-  padding: 0 10px;
+  padding: 20px;
 }
 
 .navbar_logo {
@@ -18,7 +15,7 @@ header {
 .nav_content {
   display: flex;
   width: 100%;
-  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
   gap: 1rem;
 }
@@ -27,7 +24,7 @@ header {
   text-decoration: underline;
 }
 .search_bar {
-  width: 25rem;
+  width: 10rem;
   height: 30px;
   border-radius: 15px;
   border: 2px solid var(--vert);
@@ -37,7 +34,7 @@ header {
 
 .button_menu {
   display: flex;
-  gap: 50px;
+  gap: 10px;
   a {
     display: flex;
     font-size: 0.8rem;
@@ -59,11 +56,8 @@ header {
 }
 
 .login_button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: var(--vert);
-  height: 40px;
+  height: 30px;
   padding: 0 10px;
   border-radius: 10px;
   color: var(--blanc);
@@ -77,26 +71,21 @@ header {
 header a {
   text-decoration: none;
 }
+footer {
+  display: none;
+}
 
 @media (max-width: 768px) {
   header {
     flex-direction: row;
     height: 90px;
     padding: 10px;
-    justify-content: space-between;
+    justify-content: space-around;
   }
 
   .navbar_logo {
     width: 50px;
     height: 50px;
-  }
-
-  .nav_content {
-    flex-direction: row;
-    align-items: center;
-    gap: 1rem;
-    justify-content: space-between;
-    padding-top: 0;
   }
 
   input {
@@ -107,8 +96,15 @@ header a {
   .button_menu {
     display: none;
   }
-
-  .mobile_navbar {
+  footer {
+    background-color: var(--orange);
+    height: 110px;
+    border-radius: 0 0 15px 15px;
+    padding: 20px;
+    position: absolute;
+    bottom: 0px;
+  }
+  /*.mobile_navbar {
     display: flex;
     justify-content: space-around;
     background-color: var(--orange);
@@ -132,4 +128,5 @@ header a {
   .login_button span {
     display: none;
   }
+    */
 }
