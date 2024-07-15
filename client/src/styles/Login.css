@@ -82,6 +82,7 @@
   }
   .log_button button {
     width: 200px;
+    margin-bottom: 210px;
   }
   .bienvenue {
     font-size: 30px;
@@ -91,5 +92,6 @@
   }
   .inscription_button button {
     width: 200px;
+    margin-top: 0px;
   }
 }
