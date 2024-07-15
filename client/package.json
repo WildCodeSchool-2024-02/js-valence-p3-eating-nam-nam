@@ -29,7 +29,13 @@
     "vite": "^5.2.11"
   },
   "lint-staged": {
-    "*.{html,scss,css}": "prettier --check",
-    "*.{jsx,js}": "eslint --report-unused-disable-directives"
+    "*.{html,scss,css}": [
+      "prettier --write",
+      "prettier --check"
+    ],
+    "*.{jsx,js}": [
+      "eslint --fix",
+      "eslint --report-unused-disable-directives"
+    ]
   }
 }

@@ -1,7 +1,7 @@
 header {
   background-color: var(--orange);
   height: 110px;
-  border-radius: 0 0 15px 15px;
+
   padding: 20px;
 }
 
@@ -81,6 +81,7 @@ footer {
     height: 90px;
     padding: 10px;
     justify-content: space-around;
+    border-radius: 0px;
   }
 
   .navbar_logo {
@@ -96,28 +97,19 @@ footer {
   .button_menu {
     display: none;
   }
-  footer {
-    background-color: var(--orange);
-    height: 110px;
-    border-radius: 0 0 15px 15px;
-    padding: 20px;
-    position: absolute;
-    bottom: 0px;
-  }
-  /*.mobile_navbar {
+
+  .mobile_navbar {
     display: flex;
     justify-content: space-around;
     background-color: var(--orange);
     padding: 10px 0;
-    position: fixed;
+
     bottom: 0;
     width: 100vw;
-    border-radius: 15px 15px 0 0;
-    z-index: 999;
   }
 
   .mobile_navbar a {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     font-size: 0.8rem;
@@ -128,5 +120,4 @@ footer {
   .login_button span {
     display: none;
   }
-    */
 }
