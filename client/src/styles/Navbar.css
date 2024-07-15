@@ -117,7 +117,7 @@ header a {
     justify-content: space-around;
     background-color: var(--orange);
     padding: 10px 0;
-
+    border-radius: 0 0 15px 15px;
     bottom: 0;
     width: 100vw;
   }

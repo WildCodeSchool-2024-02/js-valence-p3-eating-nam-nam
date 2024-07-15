@@ -5,12 +5,12 @@ import "../styles/Footer.css";
 
 export default function Footer() {
   return (
-    <div className="button_menu">
+    <div className="button_footer">
       <NavLink
         to="/"
         className={({ isActive }) => (isActive ? "active" : null)}
       >
-        <img src={accueil} width="30px" alt="Accueil" /> Accueil
+        <img src={accueil} width="30px" alt="Accueil" />
       </NavLink>
 
       <NavLink
@@ -18,21 +18,18 @@ export default function Footer() {
         className={({ isActive }) => (isActive ? "active" : null)}
       >
         <img src={dernière} width="30px" alt="Dernières recettes" />
-        Dernières recettes ajoutées
       </NavLink>
       <NavLink
         to="/RecettesFavorites"
         className={({ isActive }) => (isActive ? "active" : null)}
       >
-        <img src={favoris} width="30px" alt="Mes recettes favorites" /> Mes
-        recettes favorites
+        <img src={favoris} width="30px" alt="Mes recettes favorites" />
       </NavLink>
       <NavLink
         to="/RecettesAjoutees"
         className={({ isActive }) => (isActive ? "active" : null)}
       >
-        <img src={add} width="30px" alt="Ajouter une recette" /> Ajouter une
-        recette
+        <img src={add} width="30px" alt="Ajouter une recette" />
       </NavLink>
     </div>
   );

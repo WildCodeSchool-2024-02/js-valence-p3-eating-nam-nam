@@ -11,7 +11,7 @@ function App() {
     <>
       <Navbar setSearchQuery={setSearchQuery} />
       <Outlet context={searchQuery} />
-      <Footer setSearchQuery={setSearchQuery} />
+      <Footer />
     </>
   );
 }
