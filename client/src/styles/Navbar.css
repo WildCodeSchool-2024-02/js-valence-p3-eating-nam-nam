@@ -85,6 +85,7 @@ header a {
     padding: 10px;
     justify-content: space-between;
     gap: 10px;
+    border-radius: 0 0 15px 15px;
   }
 
   .navbar_logo {

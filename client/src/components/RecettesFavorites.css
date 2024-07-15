@@ -54,7 +54,10 @@
     width: 150px;
     height: 120px;
   }
-
+  .favo {
+    width: 100px;
+    height: 100px;
+  }
   .flex button {
     font-size: 20px;
     padding: 8px 24px;
@@ -88,5 +91,6 @@
     font-size: 18px;
     padding: 8px 16px;
     width: auto;
+    width: 100px;
   }
 }
