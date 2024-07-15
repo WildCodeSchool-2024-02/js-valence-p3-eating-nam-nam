@@ -1,0 +1,14 @@
+.button_footer {
+  display: none;
+}
+@media (max-width: 768px) {
+  .button_footer {
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--orange);
+    list-style: none;
+    color: white;
+    padding: 20px;
+    border-radius: 15px 15px 0 0;
+  }
+}

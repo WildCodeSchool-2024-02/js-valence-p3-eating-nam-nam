@@ -18,7 +18,7 @@ function RecettesFavorites() {
           <div key={type}>
             <button type="button">{type}</button>
             <br />
-            <img src={img} alt={alt} />
+            <img className="favo" src={img} alt={alt} />
           </div>
         ))}
       </section>
