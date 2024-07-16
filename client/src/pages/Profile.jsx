@@ -3,86 +3,30 @@ import "../styles/Profile.css";
 import anna from "../assets/images/ANNA GUNN.jpg";
 
 export default function Profile() {
-  const users = useLoaderData();
-  // const {id} = req.params
+  const user = useLoaderData();
+
   return (
     <div className="profile-container">
       <img src={anna} alt="ANNA" className="profile-image" />
       <h2>MON PROFIL</h2>
       <div className="profile-info">
-        <h2>pseudo</h2>
+        <h2>{user.username || "Pseudo"}</h2>
         <p>Inscrite depuis le 22/01/2023</p>
       </div>
       <h2 className="title">MES INFOS PERSO</h2>
       <div className="form-container">
-        <label className="label-profil" htmlFor="pseudonyme">
-          PSEUDONYME:
-        </label>
+        <h3 className="label-prenom">PRÉNOM:</h3>
+        <span className="text-value">{user.name || ""}</span>
 
-        <input
-          className="input-profil"
-          type="text"
-          id="pseudonyme"
-          name="pseudonyme"
-          value=""
-          placeholder="Entrez votre pseudonyme"
-        />
+        <h3 className="label-profil">NOM:</h3>
+        <span className="text-value">{user.last_name || ""}</span>
 
-        <label className="label-prenom" htmlFor="prenom">
-          PRÉNOM:
-        </label>
-        <input
-          className="input-profil"
-          type="text"
-          id="prenom"
-          name="prenom"
-          value=""
-          placeholder="Entrez votre prénom"
-        />
+        <h3 className="label-email">EMAIL:</h3>
+        <span className="text-value">{user.email || ""}</span>
 
-        <label className="label-profil" htmlFor="nom">
-          NOM:
-        </label>
-        <input
-          className="input-profil "
-          type="text"
-          id="nom"
-          name="nom"
-          value=""
-          placeholder="Entrez votre nom"
-        />
-
-        <label className="label-email" htmlFor="email">
-          EMAIL:
-        </label>
-        <input
-          className="input-profil"
-          type="email"
-          id="email"
-          name="email"
-          value=""
-          placeholder="Entrez votre email"
-        />
-
-        <label className="label-profil" htmlFor="password">
-          MOT DE PASSE:
-        </label>
-        <input
-          className="input-profil"
-          type="password"
-          id="password"
-          name="password"
-          value=""
-          placeholder="Entrez votre mot de passe"
-        />
+        <h3 className="label-profil">MOT DE PASSE:</h3>
+        <span className="text-value">******</span>
       </div>
-      <button className="enregistrer" type="submit">
-        Enregistrer
-      </button>
-
-      {users.map((user) => (
-        <p key={user.id}>{user.username}</p>
-      ))}
     </div>
   );
 }

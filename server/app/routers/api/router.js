@@ -15,6 +15,7 @@ const { getUsers, getUserById } = require("../../controllers/userActions");
 
 router.get("/users", getUsers);
 router.get("/users/:id", getUserById);
+
 /* ************************************************************************* */
 
 module.exports = router;

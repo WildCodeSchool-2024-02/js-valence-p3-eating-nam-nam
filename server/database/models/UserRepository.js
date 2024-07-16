@@ -7,7 +7,7 @@ class UserRepository {
 
   async getUsers() {
     try {
-      const [result] = await this.database.query("SELECT * FROM USER");
+      const [result] = await this.database.query("SELECT * FROM user");
       return result;
     } catch (err) {
       console.error(err);
@@ -18,7 +18,7 @@ class UserRepository {
   async getUserById(id) {
     try {
       const [result] = await this.database.query(
-        "SELECT * FROM USER WHERE id = ?",
+        "SELECT * FROM user WHERE id = ?",
         [id]
       );
       return result;
