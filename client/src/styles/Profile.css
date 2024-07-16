@@ -1,9 +1,9 @@
 .profile-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin: 20px;
-  padding: 20px;
+  margin-top: 20px;
   width: 100%;
   border-radius: 10px;
   background-color: #f9f9f9;
@@ -28,19 +28,16 @@
   font-size: var(--aleo);
 }
 
-.title {
-  margin-top: 20px;
-  font-size: 24px;
-  padding-left: 20px;
-  color: var(--vert);
+.pseudo {
+  color: var(--orange);
+  padding: 0;
+  margin: 0;
 }
 
-.input-profil {
-  background-color: rgba(213, 108, 6, 0.21);
-  width: 200px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+.title {
+  font-size: 24px;
+  margin-top: 50px;
+  color: var(--vert);
 }
 
 .form-container {
@@ -48,7 +45,7 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 10px;
-  margin-top: 50px;
+  margin-top: 150px;
   border-radius: 10px;
   margin-left: 50px;
   color: var(--orange);
@@ -58,7 +55,6 @@
 .label-prenom,
 .label-email {
   font-weight: bold;
-  margin-top: 10px;
   margin-left: 30px;
 }
 
@@ -84,11 +80,6 @@
   color: rgba(0, 128, 0, 0.39);
   font-family: var(--now);
   font-size: 16px;
-}
-.footer {
-  background-color: var(--orange);
-  height: 15%;
-  color: var(--vert);
 }
 
 /* Styles pour les tablettes */
