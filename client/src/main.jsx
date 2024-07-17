@@ -10,7 +10,7 @@ import Accueil from "./pages/Accueil";
 import Profile from "./pages/Profile";
 import RecettesFavorites from "./components/RecettesFavorites";
 import RecettesAjoutees from "./components/RecettesAjoutees";
-import fetchUserById from "./components/fetchUser";
+import fetchUserById from "./api/fetchUser";
 
 const router = createBrowserRouter([
   {
