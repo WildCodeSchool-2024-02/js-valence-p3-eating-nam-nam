@@ -26,7 +26,7 @@ export default function Accueil() {
           </button>
         </Link>
       </div>
-      <h2>Les témoignages de nos différends abonnés</h2>
+      <h2>Les témoignages de nos différents abonnés</h2>
       <section>
         <ul className="temoins">
           <li>
@@ -40,19 +40,18 @@ export default function Accueil() {
           <li>
             <img src={temoin2} alt="lucas D" />
             <p>
-              "Les boutons j'aime et Partager sont super pratiques. Je peux
-              montrer à mes amis ce que j'ai aimé et ils peuvent faire de même.
-              C'est une excellente manière de découvrir de nouvelles recettes."
-              -LucasD
+              "Les boutons j'aime et partager sont super pratiques.Je peux
+              montrer à mes amis ce que j'ai aimé et ils peuvent en faire de même.C'est
+              une excellente manière de découvrir de nouvelles recettes."-LucasD
             </p>
           </li>
           <li>
             <img src={temoin3} alt="Vincent k" />
             <p>
-              "Partager mes recettes sur ce site est un vrai plaisir. La
+              "Partager mes recettes sur ce site est un vrai plaisir.La
               communauté est accueillante et j'ai reçu tellement de commentaires
-              positifs et constructifs. Ça m'encourage à cuisiner encore plus!"
-              -VincentK
+              positifs et constructifs.Ca m'encourage à cuisiner encore
+              plus!"-VincentK
             </p>
           </li>
           <li>

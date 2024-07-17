@@ -74,8 +74,8 @@
   cursor: pointer;
 }
 @media (max-width: 500px) {
-  .login_page {
-    width: 90%;
+  .info_login {
+    margin-top: 100px;
   }
   .info_login input {
     width: 200px;
@@ -91,5 +91,7 @@
   }
   .inscription_button button {
     width: 200px;
+    margin-top: 0px;
+    margin-bottom: 100px;
   }
 }

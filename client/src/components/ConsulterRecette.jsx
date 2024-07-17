@@ -1,14 +1,17 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import "./consulterRecette.css";
-import champignons from "../assets/images/champignons-de-paris.png";
-import citron from "../assets/images/citron.png";
-import herbeDeProvence from "../assets/images/herbe-de-provence.jpg";
-import lieuNoir from "../assets/images/Lieu-noir.png";
-import olivesVertes from "../assets/images/olives-vertes.png";
-import poivre from "../assets/images/poivre-noir.png";
-import sel from "../assets/images/sel.png";
-import vinBlanc from "../assets/images/vin-blanc.png";
-import autre from "../assets/images/autre.png";
+import {
+  champignons,
+  citron,
+  herbeDeProvence,
+  lieuNoir,
+  olivesVertes,
+  poivre,
+  sel,
+  vinBlanc,
+  autre,
+} from "./import";
 
 const ingrédients = [
   {
@@ -78,7 +81,7 @@ const instructions = [
     step: 4,
     ordre: "Etape 4",
     description:
-      "Ajouter les olives vertes, le vin, le jus de citron, les herbes de provences et les épices(rester dans les épices douces pour ne pas contrarier le goût des olives). Saler et poivrer.",
+      "Ajouter les olives vertes, le vin, le jus de citron, les herbes de provences et les épices (rester dans les épices douces pour ne pas contrarier le goût des olives). Saler et poivrer.",
   },
   {
     step: 5,
@@ -89,20 +92,34 @@ const instructions = [
     step: 6,
     ordre: "Etape 6",
     description:
-      "Cuire jusqu'à ce que la chair de poisson se détache facilement (1h00 si poisson surgelé.)",
+      "Cuire jusqu'à ce que la chair de poisson se détache facilement (1h00 si poisson surgelé).",
   },
 ];
 
 function ConsulterRecette() {
-  const { id } = useParams(); // Récupérer l'ID de la recette depuis les paramètres d'URL
-  // Trouver la recette correspondant à l'ID
+  const { id } = useParams();
   const recette = ingrédients.find((r) => r.id === Number(id));
+
+  const [avis, setAvis] = useState([]);
+  const [nouvelAvis, setNouvelAvis] = useState("");
+  const [auteurAvis, setAuteurAvis] = useState("");
+
+  const soumettreAvis = () => {
+    if (nouvelAvis.trim() !== "") {
+      const nouvelAvisComplet = `${auteurAvis}: ${nouvelAvis}`;
+      setAvis([...avis, nouvelAvisComplet]);
+      setNouvelAvis("");
+      setAuteurAvis("");
+    }
+  };
+
   if (!recette) {
-    return <div>Recette non trouvée</div>; // Gérer le cas où la recette n'est pas trouvée
+    return <div>Recette non trouvée</div>;
   }
+
   return (
-    <div>
-      <h1>Recette de </h1>
+    <div className="main-content">
+      <h1>Recette avec : {recette.ingredient}</h1>
       <h2 className="ingredient-titre">Ingrédients</h2>
       <ul>
         <div className="container-grid">
@@ -128,7 +145,36 @@ function ConsulterRecette() {
           </li>
         ))}
       </ol>
-      <h3>Donnez votre avis</h3>
+      <div className="avis-container">
+        <h3>Donnez votre avis</h3>
+        <div className="avis-input-container">
+          <textarea
+            value={nouvelAvis}
+            onChange={(e) => setNouvelAvis(e.target.value)}
+            placeholder="Écrivez votre avis ici..."
+          />
+          <input
+            type="text"
+            value={auteurAvis}
+            onChange={(e) => setAuteurAvis(e.target.value)}
+            placeholder="Votre nom"
+          />
+        </div>
+        <button type="button" onClick={soumettreAvis}>
+          Soumettre
+        </button>
+      </div>
+
+      {avis.length > 0 && (
+        <div>
+          <h3>Avis des utilisateurs :</h3>
+          <ul>
+            {avis.map((unAvis) => (
+              <li key={unAvis}>{unAvis}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
