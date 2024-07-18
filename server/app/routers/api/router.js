@@ -18,4 +18,10 @@ router.get("/users/:id", getUserById);
 
 /* ************************************************************************* */
 
+const authController = require("../../controllers/authActions");
+
+router.post("/login", authController.login);
+
+/* ************************************************************************* */
+
 module.exports = router;

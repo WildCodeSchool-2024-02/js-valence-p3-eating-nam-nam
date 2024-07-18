@@ -9,25 +9,25 @@ CREATE TABLE user (
   password VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE recettes (
+CREATE TABLE recette (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
   title VARCHAR(255) NOT NULL,
   user_id INT UNSIGNED NOT NULL,
   image VARCHAR(255) NOT NULL,
-  ingredient VARCHAR(255) NOT NULL,
+  ingredients VARCHAR(255) NOT NULL,
   serving INT NOT NULL,
   nutritional_values VARCHAR(255) NOT NULL,
-  is_validate BOOLEAN NOT NULL DEFAULT 0,
+  published BOOLEAN NOT NULL DEFAULT 0,
   FOREIGN KEY(user_id) REFERENCES user(id)
 );
 
-CREATE TABLE ingrédients (
+CREATE TABLE ingrédient (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL
 );
 
-CREATE TABLE steps (
+CREATE TABLE step (
   id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   recette_id INT UNSIGNED NOT NULL,
   text TEXT NOT NULL,
-  FOREIGN KEY(recette_id) REFERENCES recettes(id)
+  FOREIGN KEY(recette_id) REFERENCES recette(id)
 );
