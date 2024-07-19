@@ -29,14 +29,17 @@ export default function NutriAutoComplete() {
 
         const data = await response.json();
 
-        const commonFoods = data.common.map((item) => ({
-          label: item.food_name,
-          id: item.tag_id,
+        const ingredients = data.common.map((ingredient) => ({
+          label: ingredient.food_name,
+          id: ingredient.tag_id,
         }));
 
-        setSuggestions([...commonFoods]);
+        setSuggestions([...ingredients]);
       } catch (error) {
-        console.error("Error fetching data from Nutritionix API", error);
+        console.error(
+          "Erreur lors de la récupération des données de l'API Nutritionix",
+          error
+        );
       }
     };
     fetchData();
