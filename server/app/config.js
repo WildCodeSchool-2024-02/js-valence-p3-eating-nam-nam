@@ -12,7 +12,6 @@ app.use(
     origin: [
       process.env.CLIENT_URL, // keep this one, after checking the value in `server/.env`
       "http://localhost:3000",
-      "http://localhost:3310",
     ],
   })
 );
