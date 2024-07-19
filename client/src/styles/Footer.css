@@ -1,6 +1,7 @@
 .button_footer {
   display: none;
 }
+
 @media (max-width: 768px) {
   .button_footer {
     display: flex;
@@ -8,7 +9,21 @@
     background-color: var(--orange);
     list-style: none;
     color: white;
-    padding: 20px;
     border-radius: 15px 15px 0 0;
+  }
+
+  .button_footer a {
+    display: inline-block;
+    text-align: center;
+    flex: 1;
+    padding: 10px;
+    margin: 5px;
+  }
+
+  .button_footer a:hover {
+    background-color: var(--vert);
+    cursor: pointer;
+    border-radius: 15px;
+    transition: background-color 0.3s;
   }
 }

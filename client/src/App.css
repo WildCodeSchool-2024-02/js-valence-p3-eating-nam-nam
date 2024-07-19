@@ -5,35 +5,49 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: var(--now);
+  font-size: 11px;
 }
 
 :root {
   --orange: #d56c06;
-
   --vert: #97bf0d;
-
   --blanc: #fff;
-
   --gris: #ece8da;
-
   --border: 15px;
-
-  --aleo: "Aleo";
-
+  --aleo: "Aleo", serif;
   --now: "Now-font", sans-serif;
 }
 
-h1,
+h1 {
+  font-family: var(--aleo);
+  font-size: 25px;
+  color: var(--vert);
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
 h2,
 h3,
 h4,
 h5,
 h6 {
   font-family: var(--aleo);
+  font-size: 16px;
   color: var(--vert);
-  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
-p {
-  font-family: var(--now);
+button {
+  padding: 10px 10px;
+  background-color: var(--orange);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: var(--vert);
 }

@@ -10,6 +10,9 @@ import Accueil from "./pages/Accueil";
 import Profile from "./pages/Profile";
 import RecettesFavorites from "./components/RecettesFavorites";
 import RecettesAjoutees from "./components/RecettesAjoutees";
+import AjouterRecette, {
+  action as ajouterRecetteAction,
+} from "./components/AjouterRecette";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +48,11 @@ const router = createBrowserRouter([
       {
         path: "/dernieres-recettes",
         element: <RecettesAjoutees />,
+      },
+      {
+        path: "/RecettesAjoutees",
+        element: <AjouterRecette />,
+        action: ajouterRecetteAction,
       },
     ],
   },

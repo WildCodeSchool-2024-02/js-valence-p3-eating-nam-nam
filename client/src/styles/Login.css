@@ -52,27 +52,6 @@
   background-color: rgba(213, 108, 6, 0.2);
 }
 
-.log_button button {
-  width: 360px;
-  height: 45px;
-  border-radius: 15px;
-  background-color: var(--orange);
-  color: white;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.inscription_button button {
-  width: 360px;
-  height: 45px;
-  border-radius: 15px;
-  background-color: white;
-  color: var(--orange);
-  border: var(--orange) solid 1px;
-  font-size: 20px;
-  cursor: pointer;
-}
 @media (max-width: 500px) {
   .login_page {
     width: 90%;

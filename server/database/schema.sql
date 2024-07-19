@@ -11,14 +11,18 @@ CREATE TABLE recette (
   title VARCHAR(255) NOT NULL,
   user_id INT UNSIGNED NOT NULL,
   image VARCHAR(255) NOT NULL,
-  ingredients VARCHAR(255) NOT NULL,
   serving INT NOT NULL,
   nutritional_values VARCHAR(255) NOT NULL,
   published BOOLEAN NOT NULL DEFAULT 0,
   FOREIGN KEY(user_id) REFERENCES user(id)
 );
 
-CREATE TABLE ingredients (
+CREATE TABLE ingredient_for_recette (
+  recette_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  ingredient_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+)
+
+CREATE TABLE ingredient (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
   name VARCHAR(255) NOT NULL
 );

@@ -1,0 +1,130 @@
+.ajouterRecette {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.ajouterRecette h1,
+.ajouterRecette h2 {
+  text-align: center;
+}
+
+.title-input,
+.name-input {
+  width: 100%;
+  padding: 10px;
+}
+
+.ingredient,
+.step,
+.time-input,
+.title-input input,
+.name-input input,
+.step textarea,
+.commentaire-auteur textarea {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ingredient input,
+.ingredient select,
+.step input,
+.time-input input,
+.title-input input,
+.name-input input,
+.step textarea,
+.commentaire-auteur textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.photos {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.photo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+}
+
+.photo-label {
+  width: 100%;
+  height: 100%;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.valeurs-nutri {
+  text-align: center;
+}
+.step textarea,
+.commentaire-auteur textarea {
+  resize: none; /* Empêche le redimensionnement */
+  width: 100%; /* Assure que la zone occupe toute la largeur */
+  min-height: 80px; /* Hauteur minimale pour une meilleure visibilité */
+  padding: 10px; /* Ajoute du rembourrage */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Styles pour le conteneur de chaque étape */
+.step {
+  display: flex;
+  flex-direction: column; /* Permet à l'input et au bouton de s'aligner verticalement */
+  margin-bottom: 20px; /* Ajoute un espace entre les étapes */
+}
+
+@media (max-width: 738px) {
+  .ingredient input,
+  .ingredient select,
+  .step input,
+  .time-input input,
+  .title-input input,
+  .name-input input,
+  .step textarea,
+  .commentaire-auteur textarea,
+  .commentaire textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    flex-direction: column;
+  }
+
+  @media (max-width: 390px) {
+    button {
+      width: 100%;
+      padding: 15px 0;
+    }
+  }
+
+  .ingredient input,
+  .ingredient select,
+  .step input,
+  .time-input input,
+  .title-input input,
+  .name-input input,
+  .step textarea,
+  .commentaire-auteur textarea,
+  .commentaire textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    flex-direction: column;
+  }
+}
