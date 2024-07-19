@@ -15,6 +15,15 @@ import temoin4 from "../assets/images/temoin4.webp";
 import burger from "../assets/images/burger.png";
 import cabillaud from "../assets/images/cabillaud.png";
 import cabillaudauchorizo from "../assets/images/Cabillaud-au-chorizo.jpg";
+import champignons from "../assets/images/champignons-de-paris.png";
+import citron from "../assets/images/citron.png";
+import herbeDeProvence from "../assets/images/herbe-de-provence.jpg";
+import lieuNoir from "../assets/images/Lieu-noir.png";
+import olivesVertes from "../assets/images/olives-vertes.png";
+import poivre from "../assets/images/poivre-noir.png";
+import sel from "../assets/images/sel.png";
+import vinBlanc from "../assets/images/vin-blanc.png";
+import autre from "../assets/images/autre.png";
 
 import vegan from "../assets/images/vegan.png";
 import cabillaudauxolivesetauvinblanc from "../assets/images/Cabillaud-aux-olives-et-au-vin-blanc.jpg";
@@ -42,4 +51,13 @@ export {
   temoin2,
   temoin3,
   temoin4,
+  champignons,
+  citron,
+  herbeDeProvence,
+  lieuNoir,
+  olivesVertes,
+  poivre,
+  sel,
+  vinBlanc,
+  autre,
 };

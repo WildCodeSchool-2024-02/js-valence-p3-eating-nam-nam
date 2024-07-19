@@ -1,6 +1,6 @@
-import { useOutletContext } from "react-router-dom";
 import CarteRecette from "./CarteRecette";
-import "./carteRecette.css";
+import "./RecettesAjoutees.css";
+
 import {
   cabillaudauchorizo,
   gratindecabillaudauxolives,
@@ -34,25 +34,15 @@ const recettes = [
   },
 ];
 
-function ListeRecettes() {
-  const searchQuery = useOutletContext();
-  const filteredRecettes = recettes.filter(
-    (recette) =>
-      recette.titre.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      recette.auteur.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
+function RecettesAjoutees() {
   return (
     <>
-      <div className="titre-resultat">
-        <h1>{searchQuery}</h1>
-        <p className="resultat">
-          {filteredRecettes.length}{" "}
-          {filteredRecettes.length > 1 ? "résultats" : "résultat"}
-        </p>
+      <div className="title_1">
+        <h1>Mes dernières recettes ajoutées sur le site</h1>
       </div>
+
       <div className="recettes-generales">
-        {filteredRecettes.map((recette) => (
+        {recettes.map((recette) => (
           <CarteRecette
             key={recette.id}
             id={recette.id}
@@ -68,4 +58,4 @@ function ListeRecettes() {
   );
 }
 
-export default ListeRecettes;
+export default RecettesAjoutees;

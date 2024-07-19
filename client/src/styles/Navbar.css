@@ -1,10 +1,10 @@
-nav {
+header {
   display: flex;
+  width: 100%;
   align-items: center;
-  justify-content: space-between;
   background-color: var(--orange);
   height: 110px;
-  border-radius: 0 0 15px 15px;
+
   padding: 0 10px;
 }
 
@@ -17,62 +17,83 @@ nav {
 
 .nav_content {
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
 }
 
-input {
+.active {
+  text-decoration: underline;
+}
+.search_bar {
   width: 25rem;
   height: 30px;
   border-radius: 15px;
   border: 2px solid var(--vert);
   padding-left: 10px;
+  background-color: white;
 }
 
 .button_menu {
   display: flex;
   gap: 50px;
-}
-
-nav button {
-  display: flex;
-  align-items: center;
-  color: var(--blanc);
-  border: none;
-  background: none;
-  font-family: var(--aleo);
-  gap: 10px;
-  cursor: pointer;
+  a {
+    display: flex;
+    font-size: 0.8rem;
+    align-items: center;
+    color: var(--blanc);
+    border: none;
+    background: none;
+    font-family: var(--aleo);
+    gap: 10px;
+    cursor: pointer;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+  a:hover {
+    background-color: var(--vert);
+    border-radius: 10px;
+  }
 }
 
 .login_button {
   display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--vert);
   height: 40px;
-  width: auto;
   padding: 0 10px;
-  border-radius: 15px;
+  border-radius: 10px;
   color: var(--blanc);
-  justify-content: center;
-  align-items: center;
+  text-decoration: none;
 }
 
 .mobile_navbar {
   display: none;
 }
 
+header a {
+  text-decoration: none;
+}
+
 @media (max-width: 768px) {
-  nav {
+  header {
     flex-direction: row;
-    height: auto;
+    height: 90px;
     padding: 10px;
     justify-content: space-between;
+    gap: 10px;
+    border-radius: 0 0 15px 15px;
   }
 
   .navbar_logo {
     width: 50px;
     height: 50px;
+  }
+  .search_bar {
+    width: 10rem;
   }
 
   .nav_content {
@@ -80,7 +101,6 @@ nav button {
     align-items: center;
     gap: 1rem;
     justify-content: space-between;
-    width: auto;
     padding-top: 0;
   }
 
@@ -93,32 +113,26 @@ nav button {
     display: none;
   }
 
-  .login_button {
-    width: auto;
-    padding: 0 10px;
-  }
-
-  .login_button span {
-    display: none;
-  }
-
   .mobile_navbar {
-    display: flex;
+    display: none;
     justify-content: space-around;
     background-color: var(--orange);
     padding: 10px 0;
-    position: fixed;
+    border-radius: 0 0 15px 15px;
     bottom: 0;
-    width: 100%;
-    border-radius: 15px 15px 0 0;
+    width: 100vw;
   }
 
-  .mobile_navbar button {
+  .mobile_navbar a {
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 0.8rem;
-    border: none;
-    background: none;
+    color: white;
+    text-decoration: none;
+  }
+
+  .login_button span {
+    display: none;
   }
 }

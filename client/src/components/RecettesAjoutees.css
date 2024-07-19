@@ -1,0 +1,35 @@
+.title_1 {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .recettes-generales {
+    flex-direction: column;
+    padding: 5px;
+  }
+
+  .carte-recette {
+    max-width: 100%;
+  }
+
+  .title_1 h1 {
+    font-size: 1.5em;
+  }
+}
+
+/* Pour les écrans moyens (tablettes) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .carte-recette {
+    max-width: 45%;
+  }
+}
+
+/* Pour les grands écrans (ordinateurs de bureau) */
+@media (min-width: 1025px) {
+  .carte-recette {
+    max-width: 30%;
+  }
+}

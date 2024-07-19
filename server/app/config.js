@@ -4,40 +4,17 @@ const express = require("express");
 
 const app = express();
 
-// Configure it
-
-/* ************************************************************************* */
-
-// CORS Handling: Why is the current code commented out and do I need to define specific allowed origins for my project?
-
-// CORS (Cross-Origin Resource Sharing) is a security mechanism in web browsers that blocks requests from a different domain than the server.
-// You may find the following magic line in forums:
-
-// app.use(cors());
-
-// You should NOT do that: such code uses the `cors` module to allow all origins, which can pose security issues.
-// For this pedagogical template, the CORS code is commented out to show the need for defining specific allowed origins.
-
-// To enable CORS and define allowed origins:
-// 1. Install the `cors` module in the server directory
-// 2. Uncomment the line `const cors = require("cors");`
-// 3. Uncomment the section `app.use(cors({ origin: [...] }))`
-// 4. Be sure to only have URLs in the array with domains from which you want to allow requests.
-// For example: ["http://mysite.com", "http://another-domain.com"]
-
-/*
 const cors = require("cors");
 
+app.use(cors());
 app.use(
   cors({
     origin: [
       process.env.CLIENT_URL, // keep this one, after checking the value in `server/.env`
-      "http://mysite.com",
-      "http://another-domain.com",
-    ]
+      "http://localhost:3000",
+    ],
   })
 );
-*/
 
 /* ************************************************************************* */
 
@@ -54,7 +31,7 @@ app.use(
 
 // Uncomment one or more of these options depending on the format of the data sent by your client:
 
-// app.use(express.json());
+app.use(express.json());
 // app.use(express.urlencoded());
 // app.use(express.text());
 // app.use(express.raw());
