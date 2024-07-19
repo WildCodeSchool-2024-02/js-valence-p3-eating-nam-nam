@@ -21,7 +21,7 @@ CREATE TABLE recette (
   FOREIGN KEY(user_id) REFERENCES user(id)
 );
 
-CREATE TABLE ingrédient (
+CREATE TABLE ingredient (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL
 );
 
