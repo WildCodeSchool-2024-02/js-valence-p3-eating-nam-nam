@@ -1,5 +1,5 @@
 export default async function login(formData) {
-  const res = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/login`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",

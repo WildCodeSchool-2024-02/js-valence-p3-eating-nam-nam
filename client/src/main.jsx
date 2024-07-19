@@ -5,7 +5,7 @@ import Inscription from "./pages/Inscription";
 import ListeRecettes from "./components/ListeRecettes";
 import ConsulterRecette from "./components/ConsulterRecette";
 import App from "./App";
-import Login from "./pages/Login";
+import Login, { action as loginAction } from "./pages/Login";
 import Accueil from "./pages/Accueil";
 import Profile from "./pages/Profile";
 import RecettesFavorites from "./components/RecettesFavorites";
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
         element: <ListeRecettes />,
       },
 
-      { path: "/connexion", element: <Login /> },
+      { path: "/connexion", element: <Login />, action: loginAction },
       {
         path: "/recettes/:id",
         element: <ConsulterRecette />,
