@@ -10,6 +10,7 @@ import Accueil from "./pages/Accueil";
 import Profile from "./pages/Profile";
 import RecettesFavorites from "./components/RecettesFavorites";
 import RecettesAjoutees from "./components/RecettesAjoutees";
+import fetchUserById from "./api/fetchUser";
 
 const router = createBrowserRouter([
   {
@@ -35,8 +36,9 @@ const router = createBrowserRouter([
         element: <ConsulterRecette />,
       },
       {
-        path: "/Profile",
+        path: "/profile/:id",
         element: <Profile />,
+        loader: ({ params }) => fetchUserById(params.id),
       },
       {
         path: "/RecettesFavorites",
