@@ -17,19 +17,22 @@ CREATE TABLE recette (
   FOREIGN KEY(user_id) REFERENCES user(id)
 );
 
-CREATE TABLE ingredient_for_recette (
-  recette_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  ingredient_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-)
-
 CREATE TABLE ingredient (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
   name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE steps (
+CREATE TABLE ingredient_for_recette (
+  recette_id INT UNSIGNED NOT NULL,
+  ingredient_id INT UNSIGNED NOT NULL,
+  PRIMARY KEY (recette_id, ingredient_id),
+  FOREIGN KEY (recette_id) REFERENCES recette(id),
+  FOREIGN KEY (ingredient_id) REFERENCES ingredient(id)
+);
+
+CREATE TABLE step (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  recipe_id INT UNSIGNED NOT NULL,
+  recette_id INT UNSIGNED NOT NULL,
   text TEXT NOT NULL,
-  FOREIGN KEY(recipe_id) REFERENCES recette(id)
+  FOREIGN KEY(recette_id) REFERENCES recette(id)
 );

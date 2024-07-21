@@ -13,17 +13,54 @@ class RecetteRepository extends AbstractRepository {
     return rows;
   }
 
-  async create(recetteData) {
-    // requete 1 ajouter toutes les etapes dans la table step
+  async create(recette, steps, ingredients) {
+    const transaction = await this.database.getConnection();
 
-    // requete 2 ajouter tous les ingredients dans la table ingredient
+    try {
+      await transaction.beginTransaction();
 
-    const [result] = await this.database.query(
-      `INSERT INTO ${this.table} SET ?`,
-      [recetteData]
-    );
+      // Insert recette
+      const [recetteResult] = await transaction.query(
+        `INSERT INTO recette 
+         (title, user_id, image, serving, nutritional_values, published) 
+         VALUES (?, ?, ?, ?, ?, ?)`,
+        [
+          recette.title,
+          recette.userId,
+          recette.image,
+          recette.serving,
+          recette.nutritionalValues,
+          recette.published,
+        ]
+      );
+      const recetteId = recetteResult.insertId;
 
-    return result;
+      // Insert steps
+      const stepPromises = steps.map((step) =>
+        transaction.query(`INSERT INTO step (recette_id, text) VALUES (?, ?)`, [
+          recetteId,
+          step.text,
+        ])
+      );
+      await Promise.all(stepPromises);
+
+      // Insert ingredients
+      const ingredientPromises = ingredients.map((ingredient) =>
+        transaction.query(
+          `INSERT INTO ingredient_for_recette (recette_id, ingredient_id)
+           VALUES (?, ?)`,
+          [recetteId, ingredient.id]
+        )
+      );
+      await Promise.all(ingredientPromises);
+      await transaction.commit();
+      return recetteId;
+    } catch (error) {
+      await transaction.rollback();
+      throw error;
+    } finally {
+      transaction.release();
+    }
   }
 }
 

@@ -10,7 +10,7 @@ class UserSeeder extends AbstractSeeder {
 
   run() {
     // Generate and insert fake data into the 'user' table
-    for (let i = 0; i < 10; i += 1) {
+    for (let i = 0; i < 20; i += 1) {
       // Generate fake user data
       const fakeUser = {
         email: this.faker.internet.email(), // Generate a fake email using faker library

@@ -9,18 +9,45 @@ const read = async (req, res) => {
   }
 };
 
-const add = async (req, res) => {
-  // add the recipe to the database
-  const result = await tables.recette.create(req.body);
+const add = async (req, res, next) => {
+  try {
+    const {
+      title,
+      user_id: userId,
+      image,
+      serving,
+      nutritional_values: nutritionalValues,
+      published,
+      steps,
+      ingredients,
+    } = req.body;
 
-  if (result.affectedRows === 0) {
-    res.status(500).json({ message: "Could not create recipe" });
-    return;
+    // Validate inputs
+    if (
+      !title ||
+      !userId ||
+      !image ||
+      !serving ||
+      !nutritionalValues ||
+      !Array.isArray(steps) ||
+      !Array.isArray(ingredients)
+    ) {
+      return res.status(400).json({
+        error: "All fields are required and steps/ingredients must be arrays",
+      });
+    }
+
+    const recetteId = await tables.recette.create(
+      { title, userId, image, serving, nutritionalValues, published },
+      steps,
+      ingredients
+    );
+
+    return res.status(201).json({ recetteId });
+  } catch (error) {
+    res.status(500).json({ error });
+    next(error);
   }
-
-  res.status(201).json({
-    result,
-  });
 };
 
 module.exports = {
