@@ -1,39 +1,53 @@
 import "../styles/Login.css";
-import { Link } from "react-router-dom";
+import { Link, redirect, Form, useNavigation } from "react-router-dom";
+import login from "../api";
+
+export async function action({ request }) {
+  const formData = await request.formData();
+  await login(formData);
+  return redirect("/");
+}
 
 function Login() {
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
+
   return (
     <div className="login_page">
       <div className="login_title">
-        <div className="se_connecter">Se connecter</div>
-        <div className="bienvenue">Bienvenue sur notre site</div>
-        <div className="info_login">
-          <div className="mail">
-            <input
-              type="text"
-              name="mail"
-              id="mail"
-              placeholder="Entrez votre adresse mail"
-            />
-          </div>
-          <div className="password">
-            <input
-              type="text"
-              name="password"
-              id="password"
-              placeholder="Entrez votre mot de passe"
-            />
-          </div>
+        <h1>Se connecter</h1>
+        <h2>Bienvenue sur notre site</h2>
+        <Form method="post" className="login_form">
+          <input
+            type="email"
+            name="email"
+            placeholder="Entrez votre adresse mail"
+            required
+          />
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Entrez votre mot de passe"
+            required
+          />
+
           <div className="log_button">
-            <button type="button">Se connecter</button>
+            <button
+              type="submit"
+              className="link_button"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Connexion ..." : "Se connecter"}
+            </button>
           </div>
-          <p style={{ color: "black" }}>Ou</p>
-          <Link to="/inscription">
-            <div className="inscription_button">
-              <button type="button">S'inscrire</button>
-            </div>
-          </Link>
-        </div>
+        </Form>
+        <p style={{ color: "black" }}>Ou</p>
+        <Link to="/inscription">
+          <div className="inscription_button">
+            <button type="button">S'inscrire</button>
+          </div>
+        </Link>
       </div>
     </div>
   );

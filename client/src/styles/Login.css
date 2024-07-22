@@ -31,18 +31,16 @@
   font-family: var(--now);
 }
 
-.info_login {
+.login_form {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  justify-content: center;
   align-items: center;
   border-radius: 15px;
   padding-top: 20px;
   gap: 30px;
 }
 
-.info_login input {
+.login_form input {
   width: 470px;
   height: 50px;
   border-radius: 15px;
@@ -53,15 +51,14 @@
 }
 
 @media (max-width: 500px) {
-  .login_page {
-    width: 90%;
+  .info_login {
+    margin-top: 100px;
   }
   .info_login input {
     width: 200px;
   }
   .log_button button {
     width: 200px;
-    margin-bottom: 210px;
   }
   .bienvenue {
     font-size: 30px;
@@ -72,5 +69,6 @@
   .inscription_button button {
     width: 200px;
     margin-top: 0px;
+    margin-bottom: 100px;
   }
 }

@@ -9,10 +9,12 @@ import Login from "./pages/Login";
 import Accueil from "./pages/Accueil";
 import Profile from "./pages/Profile";
 import RecettesFavorites from "./components/RecettesFavorites";
+import NutriAutoComplete from "./components/NutriAutoComplete";
 import RecettesAjoutees from "./components/RecettesAjoutees";
 import AjouterRecette, {
   action as ajouterRecetteAction,
 } from "./components/AjouterRecette";
+import fetchUserById from "./api/fetchUser";
 
 const router = createBrowserRouter([
   {
@@ -38,17 +40,20 @@ const router = createBrowserRouter([
         element: <ConsulterRecette />,
       },
       {
-        path: "/Profile",
+        path: "/profile/:id",
         element: <Profile />,
+        loader: ({ params }) => fetchUserById(params.id),
       },
       {
         path: "/RecettesFavorites",
         element: <RecettesFavorites />,
       },
       {
-        path: "/dernieres-recettes",
-        element: <RecettesAjoutees />,
+        path: "/NutriAutoComplete",
+        element: <NutriAutoComplete />,
       },
+
+      { path: "/dernieres-recettes", element: <RecettesAjoutees /> },
       {
         path: "/RecettesAjoutees",
         element: <AjouterRecette />,
