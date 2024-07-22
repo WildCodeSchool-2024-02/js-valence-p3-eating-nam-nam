@@ -19,9 +19,9 @@ router.get("/users/:id", getUserById);
 /* ************************************************************************* */
 
 const authController = require("../../controllers/authActions");
-const { GetUserByEmail } = require("../../services/authMiddleware");
+const { getUserByEmail } = require("../../services/authMiddleware");
 
-router.post("/login", GetUserByEmail, authController.login);
+router.post("/login", getUserByEmail, authController.login);
 
 /* ************************************************************************* */
 

@@ -28,7 +28,7 @@ const login = async (req, res) => {
     expires: dayjs().add(30, "days").toDate(),
   });
 
-  return res.json({ userLogin, token });
+  return res.json({ userLogin });
 };
 
 module.exports = { login };

@@ -6,7 +6,7 @@ CREATE TABLE user (
   birthdate DATE NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
   is_admin BOOLEAN NOT NULL DEFAULT 0,
-  password VARCHAR(255) NOT NULL
+  hashed_password VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE recette (
