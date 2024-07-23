@@ -88,6 +88,10 @@
   margin-bottom: 20px; /* Ajoute un espace entre les étapes */
 }
 
+picture {
+  border: solid;
+}
+
 @media (max-width: 738px) {
   .ingredient input,
   .ingredient select,

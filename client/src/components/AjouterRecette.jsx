@@ -5,29 +5,24 @@ import { Form } from "react-router-dom";
 export async function action({ request }) {
   try {
     const data = Object.fromEntries(await request.formData());
-
     const response = await fetch(
-      import.meta.env.VITE_API_URL + "/api/recettes",
+      `${import.meta.env.VITE_API_URL}/api/recettes`,
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       }
     );
-
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-
     const result = await response.json();
-
     return result;
   } catch (error) {
     return { error: error.message };
   }
 }
+
 const nutritionData = {
   farine: { calories: 364, proteins: 10, fats: 1, carbs: 76 },
   sucre: { calories: 387, proteins: 0, fats: 0, carbs: 100 },
@@ -38,24 +33,17 @@ const nutritionData = {
 function AjouterRecette() {
   const [titre, setTitre] = useState("");
   const [ingredients, setIngredients] = useState([
-    { quantity: "", unit: "g", name: "" },
+    { id: Date.now(), quantity: "", unit: "g", name: "" },
   ]);
-  const [newIngredients, setNewIngredients] = useState([
-    {
-      name: "",
-      quantity: "",
-      unit: "g",
-      calories: "",
-      proteins: "",
-      fats: "",
-      carbs: "",
-    },
-  ]);
-  const [steps, setSteps] = useState([{ step: "" }]);
+  const [steps, setSteps] = useState([{ id: Date.now(), step: "" }]);
   const [authorName, setAuthorName] = useState("");
   const [note, setNote] = useState("");
-
-  const [photos, setPhotos] = useState([null, null, null, null]);
+  const [photos, setPhotos] = useState([
+    { id: Date.now(), file: null },
+    { id: Date.now() + 1, file: null },
+    { id: Date.now() + 2, file: null },
+    { id: Date.now() + 3, file: null },
+  ]);
   const [nutritionalValues, setNutritionalValues] = useState({
     calories: 0,
     proteins: 0,
@@ -63,62 +51,45 @@ function AjouterRecette() {
     carbs: 0,
   });
 
-  const handleIngredientChange = (index, field, value) => {
-    const newIngredients = [...ingredients];
-    newIngredients[index][field] = value;
-    setIngredients(newIngredients);
-  };
-
-  const handleNewIngredientChange = (index, field, value) => {
-    const updatedNewIngredients = [...newIngredients];
-    updatedNewIngredients[index][field] = value;
-    setNewIngredients(updatedNewIngredients);
+  const handleIngredientChange = (id, field, value) => {
+    setIngredients(
+      ingredients.map((ingredient) =>
+        ingredient.id === id ? { ...ingredient, [field]: value } : ingredient
+      )
+    );
   };
 
   const addIngredient = () => {
-    setIngredients([...ingredients, { quantity: "", unit: "g", name: "" }]);
+    setIngredients([
+      ...ingredients,
+      { id: Date.now(), quantity: "", unit: "g", name: "" },
+    ]);
   };
 
-  const removeIngredient = (index) => {
-    const newIngredients = ingredients.filter((_, i) => i !== index);
-    setIngredients(newIngredients);
-  };
-
-  // const addNewCustomIngredient = () => {
-  //   setNewIngredients([
-  //     ...newIngredients,
-  //     {
-  //       name: "",
-  //       quantity: "",
-  //       unit: "g",
-  //       calories: "",
-  //       proteins: "",
-  //       fats: "",
-  //       carbs: "",
-  //     },
-  //   ]);
-  // };
-
-  const removeNewIngredient = (index) => {
-    const updatedNewIngredients = newIngredients.filter((_, i) => i !== index);
-    setNewIngredients(updatedNewIngredients);
+  const removeIngredient = (id) => {
+    setIngredients(ingredients.filter((ingredient) => ingredient.id !== id));
   };
 
   const addStep = () => {
-    setSteps([...steps, { step: "" }]);
+    setSteps([...steps, { id: Date.now(), step: "" }]);
   };
 
-  const removeStep = (index) => {
-    const newSteps = steps.filter((_, i) => i !== index);
-    setSteps(newSteps);
+  const removeStep = (id) => {
+    setSteps(steps.filter((step) => step.id !== id));
   };
 
-  const handleStepChange = (index, value) => {
+  const handleStepChange = (id, value) => {
     const lines = value.split("\n");
-    const newSteps = [...steps];
-    newSteps[index].step =
-      lines.length <= 3 ? value : lines.slice(0, 3).join("\n");
-    setSteps(newSteps);
+    setSteps(
+      steps.map((step) =>
+        step.id === id
+          ? {
+              ...step,
+              step: lines.length <= 3 ? value : lines.slice(0, 3).join("\n"),
+            }
+          : step
+      )
+    );
   };
 
   const handleNoteChange = (value) => {
@@ -126,10 +97,14 @@ function AjouterRecette() {
     setNote(lines.length <= 3 ? value : lines.slice(0, 3).join("\n"));
   };
 
-  const handlePhotoChange = (e, index) => {
-    const newPhotos = [...photos];
-    newPhotos[index] = e.target.files[0];
-    setPhotos(newPhotos);
+  const handlePhotoChange = (e, id) => {
+    const [file] = e.target.files;
+    setPhotos((prevPhotos) => {
+      const newPhotos = prevPhotos.map((photo) =>
+        photo.id === id ? { ...photo, file } : photo
+      );
+      return newPhotos;
+    });
   };
 
   useEffect(() => {
@@ -137,28 +112,32 @@ function AjouterRecette() {
       (totals, ingredient) => {
         const { quantity, name, calories, proteins, fats, carbs } = ingredient;
         const ingredientData = nutritionData[name.toLowerCase()];
-
+        const newTotals = { ...totals };
         if (ingredientData && quantity) {
           const quantityInGrams = parseFloat(quantity);
-          totals.calories += (ingredientData.calories * quantityInGrams) / 100;
-          totals.proteins += (ingredientData.proteins * quantityInGrams) / 100;
-          totals.fats += (ingredientData.fats * quantityInGrams) / 100;
-          totals.carbs += (ingredientData.carbs * quantityInGrams) / 100;
+          newTotals.calories +=
+            (ingredientData.calories * quantityInGrams) / 100;
+          newTotals.proteins +=
+            (ingredientData.proteins * quantityInGrams) / 100;
+          newTotals.fats += (ingredientData.fats * quantityInGrams) / 100;
+          newTotals.carbs += (ingredientData.carbs * quantityInGrams) / 100;
         } else if (quantity) {
           const quantityInGrams = parseFloat(quantity);
-          totals.calories += (parseFloat(calories) * quantityInGrams) / 100;
-          totals.proteins += (parseFloat(proteins) * quantityInGrams) / 100;
-          totals.fats += (parseFloat(fats) * quantityInGrams) / 100;
-          totals.carbs += (parseFloat(carbs) * quantityInGrams) / 100;
+          newTotals.calories += (parseFloat(calories) * quantityInGrams) / 100;
+          newTotals.proteins += (parseFloat(proteins) * quantityInGrams) / 100;
+          newTotals.fats += (parseFloat(fats) * quantityInGrams) / 100;
+          newTotals.carbs += (parseFloat(carbs) * quantityInGrams) / 100;
         }
-
-        return totals;
+        return newTotals;
       },
       { calories: 0, proteins: 0, fats: 0, carbs: 0 }
     );
-
     setNutritionalValues(totalNutritionalValues);
-  }, [ingredients, newIngredients]);
+  }, [ingredients]);
+
+  const handleConfirmation = () => {
+    // Logique de confirmation ici
+  };
 
   return (
     <Form method="POST">
@@ -167,7 +146,7 @@ function AjouterRecette() {
 
         <h2>Je choisis un titre :</h2>
         <input
-          name={`titre`}
+          name="title"
           maxLength="30"
           type="text"
           value={titre}
@@ -177,21 +156,26 @@ function AjouterRecette() {
         />
 
         <h2>Choisir les ingrédients</h2>
-        {ingredients.map((ingredient, index) => (
-          <div key={index} className="ingredient">
+        {ingredients.map((ingredient) => (
+          <div key={ingredient.id} className="ingredient">
             <input
-              name={`ingredient.quantity_${index}`}
+              name={`ingredients[${ingredient.id}]`}
               type="number"
               value={ingredient.quantity}
               onChange={(e) =>
-                handleIngredientChange(index, "quantity", e.target.value)
+                handleIngredientChange(
+                  ingredient.id,
+                  "quantity",
+                  e.target.value
+                )
               }
               placeholder="Quantité"
             />
             <select
+              name={`ingredients[${ingredient.id}]`}
               value={ingredient.unit}
               onChange={(e) =>
-                handleIngredientChange(index, "unit", e.target.value)
+                handleIngredientChange(ingredient.id, "unit", e.target.value)
               }
             >
               <option value="g">g</option>
@@ -199,148 +183,85 @@ function AjouterRecette() {
               <option value="unité">unité</option>
             </select>
             <input
-              name={`ingredient.name_${index}`}
+              name={`ingredients[${ingredient.id}]`}
               type="text"
               value={ingredient.name}
               onChange={(e) =>
-                handleIngredientChange(index, "name", e.target.value)
+                handleIngredientChange(ingredient.id, "name", e.target.value)
               }
               placeholder="Nom de l'ingrédient"
             />
-            <button onClick={() => removeIngredient(index)}>Supprimer</button>
+            <button
+              type="button"
+              onClick={() => removeIngredient(ingredient.id)}
+            >
+              Supprimer
+            </button>
           </div>
         ))}
-        <button onClick={addIngredient}>Ajouter un ingrédient</button>
-        {/* 
-      <h2>Ajouter un nouvel ingrédient (si non trouvé dans la liste)</h2>
-      {newIngredients.map((ingredient, index) => (
-        <div key={index} className="ingredient">
-          <input
-            name={`ingredient.quantity`}
-            type="number"
-            value={ingredient.quantity}
-            onChange={(e) =>
-              handleNewIngredientChange(index, "quantity", e.target.value)
-            }
-            placeholder="Quantité"
-          />
-          <select
-            value={ingredient.unit}
-            onChange={(e) =>
-              handleNewIngredientChange(index, "unit", e.target.value)
-            }
-          >
-            <option value="g">g</option>
-            <option value="ml">ml</option>
-            <option value="unité">unité</option>
-          </select>
-          <input
-            name={`ingredient.name`}
-            type="text"
-            value={ingredient.name}
-            onChange={(e) =>
-              handleNewIngredientChange(index, "name", e.target.value)
-            }
-            placeholder="Nom de l'ingrédient"
-          />
-          <input
-            name={`ingredients.calories`}
-            type="number"
-            value={ingredient.calories}
-            onChange={(e) =>
-              handleNewIngredientChange(index, "calories", e.target.value)
-            }
-            placeholder="Calories"
-          />
-          <input
-            name={`ingredient.proteins`}
-            type="number"
-            value={ingredient.proteins}
-            onChange={(e) =>
-              handleNewIngredientChange(index, "proteins", e.target.value)
-            }
-            placeholder="Protéines (g)"
-          />
-          <input
-            name={`ingredient.fats`}
-            type="number"
-            value={ingredient.fats}
-            onChange={(e) =>
-              handleNewIngredientChange(index, "fats", e.target.value)
-            }
-            placeholder="Graisses (g)"
-          />
-          <input
-            name={`ingredient.carbs`}
-            type="number"
-            value={ingredient.carbs}
-            onChange={(e) =>
-              handleNewIngredientChange(index, "carbs", e.target.value)
-            }
-            placeholder="Glucides (g)"
-          />
-          <button onClick={() => removeNewIngredient(index)}>Supprimer</button>
-        </div>
-      ))}
-      <button onClick={addNewCustomIngredient}>
-        Ajouter un nouvel ingrédient
-      </button> */}
+        <button type="button" onClick={addIngredient}>
+          Ajouter un ingrédient
+        </button>
 
         <h2>Étapes de préparation</h2>
-        {steps.map((step, index) => (
-          <div key={index} className="step">
+        {steps.map((step) => (
+          <div key={step.id} className="step">
             <textarea
-              name={`step.step_${index}`}
+              name={`steps[${step.id}]`}
               maxLength="310"
               value={step.step}
-              onChange={(e) => handleStepChange(index, e.target.value)}
-              placeholder={`Étape ${index + 1} : Rédigez des instructions courtes et claires, en procédant étape par étape (3 lignes maximum par étape soit 310 caractères)`}
+              onChange={(e) => handleStepChange(step.id, e.target.value)}
+              placeholder={`Étape ${steps.indexOf(step) + 1} : Rédigez des instructions courtes et claires, en procédant étape par étape (3 lignes maximum par étape soit 310 caractères)`}
             />
-            <button onClick={() => removeStep(index)}>Supprimer</button>
+            <button type="button" onClick={() => removeStep(step.id)}>
+              Supprimer
+            </button>
           </div>
         ))}
-        <button onClick={addStep}>Ajouter une étape de préparation</button>
+        <button type="button" onClick={addStep}>
+          Ajouter une étape de préparation
+        </button>
 
         <h2>Temps de préparation</h2>
         <div className="time-input">
-          <label htmlFor="appt-time">
+          <label htmlFor="prep-time">
             Veuillez choisir un temps de préparation en heures et minutes
             (format hh:mm)
           </label>
-          <input name={`time`} type="time" id="appt" required />
+          <input name="prep-time" type="time" id="prep-time" required />
         </div>
 
         <h2>Temps de cuisson</h2>
         <div className="time-input">
-          <label htmlFor="appt-time">
+          <label htmlFor="cook-time">
             Veuillez choisir un temps de cuisson en heures et minutes (format
             hh:mm)
           </label>
-          <input name={`cooktimeheure-minute`} type="time" id="appt" required />
+          <input name="cook-time" type="time" id="cook-time" required />
         </div>
 
         <h2>Photos</h2>
         <div className="photos">
-          {photos.map((photo, index) => (
-            <div key={index} className="photo-container">
+          {photos.map((photo) => (
+            <div key={photo.id} className="photo-container">
               <label
-                htmlFor={`photo-${index}`}
-                className="photo-label"
+                htmlFor={`photo-${photo.id}`}
+                className="picture"
                 style={{
-                  backgroundImage: photo
-                    ? `url(${URL.createObjectURL(photo)})`
+                  backgroundImage: photo.file
+                    ? `url(${URL.createObjectURL(photo.file)})`
                     : "none",
                 }}
               >
-                {!photo && <span>Ajouter photo</span>}
+                {!photo.file && <span>Ajouter photo</span>}
               </label>
               <input
-                name={`photo_${index}`}
-                id={`photo-${index}`}
+                name={`picture[${photo.id}]`}
+                id={`photo-${photo.id}`}
                 type="file"
                 accept="image/*"
                 style={{ display: "none" }}
-                onChange={(e) => handlePhotoChange(e, index)}
+                onChange={(e) => handlePhotoChange(e, photo.id)}
               />
             </div>
           ))}
@@ -356,7 +277,7 @@ function AjouterRecette() {
 
         <h2>Nom de l'auteur</h2>
         <input
-          name={`authorname`}
+          name="username"
           maxLength="30"
           type="text"
           value={authorName}
@@ -368,13 +289,15 @@ function AjouterRecette() {
         <h2>Rédigez un commentaire sur votre recette</h2>
         <div className="commentaire-auteur">
           <textarea
-            name={`NoteChange`}
+            name="note"
             maxLength="310"
             value={note}
             onChange={(e) => handleNoteChange(e.target.value)}
             placeholder="Écrivez un commentaire (3 lignes maximum soit 310 caractères)..."
           />
-          <button onClick={() => console.log("Confirmé")}>Confirmer</button>
+          <button type="button" onClick={handleConfirmation}>
+            Confirmer
+          </button>
         </div>
       </div>
     </Form>
