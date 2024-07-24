@@ -41,7 +41,6 @@
 }
 
 .login_form input {
-  width: 470px;
   height: 50px;
   border-radius: 15px;
   border: 2px solid var(--orange);
@@ -72,6 +71,11 @@
   cursor: pointer;
 }
 @media (max-width: 500px) {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
   .info_login {
     margin-top: 100px;
   }
@@ -91,5 +95,17 @@
     width: 200px;
     margin-top: 0px;
     margin-bottom: 100px;
+  }
+  .button_footer {
+    margin-top: 180px;
+  }
+  .log_button button {
+    margin-top: 100px;
+  }
+  .login_form {
+    margin-top: 150px;
+  }
+  .login_form input {
+    width: auto;
   }
 }
