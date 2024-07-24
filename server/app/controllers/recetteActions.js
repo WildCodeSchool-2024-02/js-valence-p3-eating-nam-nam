@@ -10,10 +10,11 @@ const read = async (req, res) => {
 };
 
 const add = async (req, res, next) => {
+  console.log(req.body);
+
   try {
     const {
       title,
-      user_id: userId,
       image,
       serving,
       nutritional_values: nutritionalValues,
@@ -21,6 +22,10 @@ const add = async (req, res, next) => {
       steps,
       ingredients,
     } = req.body;
+
+    // FIXME: Récupérer l'id de l'utilisateur connecté
+    // via req.auth.sub
+    const userId = 1;
 
     // Validate inputs
     if (

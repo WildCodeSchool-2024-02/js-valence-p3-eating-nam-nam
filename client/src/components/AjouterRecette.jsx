@@ -38,12 +38,7 @@ function AjouterRecette() {
   const [steps, setSteps] = useState([{ id: Date.now(), step: "" }]);
   const [authorName, setAuthorName] = useState("");
   const [note, setNote] = useState("");
-  const [photos, setPhotos] = useState([
-    { id: Date.now(), file: null },
-    { id: Date.now() + 1, file: null },
-    { id: Date.now() + 2, file: null },
-    { id: Date.now() + 3, file: null },
-  ]);
+  const [photo, setPhoto] = useState(null);
   const [nutritionalValues, setNutritionalValues] = useState({
     calories: 0,
     proteins: 0,
@@ -97,14 +92,9 @@ function AjouterRecette() {
     setNote(lines.length <= 3 ? value : lines.slice(0, 3).join("\n"));
   };
 
-  const handlePhotoChange = (e, id) => {
+  const handlePhotoChange = (e) => {
     const [file] = e.target.files;
-    setPhotos((prevPhotos) => {
-      const newPhotos = prevPhotos.map((photo) =>
-        photo.id === id ? { ...photo, file } : photo
-      );
-      return newPhotos;
-    });
+    setPhoto((prevPhoto) => file);
   };
 
   useEffect(() => {
@@ -228,7 +218,6 @@ function AjouterRecette() {
             Veuillez choisir un temps de préparation en heures et minutes
             (format hh:mm)
           </label>
-          <input name="prep-time" type="time" id="prep-time" required />
         </div>
 
         <h2>Temps de cuisson</h2>
@@ -237,37 +226,39 @@ function AjouterRecette() {
             Veuillez choisir un temps de cuisson en heures et minutes (format
             hh:mm)
           </label>
-          <input name="cook-time" type="time" id="cook-time" required />
         </div>
 
-        <h2>Photos</h2>
+        <h2>Photo</h2>
         <div className="photos">
-          {photos.map((photo) => (
-            <div key={photo.id} className="photo-container">
-              <label
-                htmlFor={`photo-${photo.id}`}
-                className="picture"
-                style={{
-                  backgroundImage: photo.file
-                    ? `url(${URL.createObjectURL(photo.file)})`
-                    : "none",
-                }}
-              >
-                {!photo.file && <span>Ajouter photo</span>}
-              </label>
-              <input
-                name={`picture[${photo.id}]`}
-                id={`photo-${photo.id}`}
-                type="file"
-                accept="image/*"
-                style={{ display: "none" }}
-                onChange={(e) => handlePhotoChange(e, photo.id)}
-              />
-            </div>
-          ))}
+          <div className="photo-container">
+            <label
+              htmlFor="photo"
+              className="picture"
+              style={{
+                backgroundImage: photo
+                  ? `url(${URL.createObjectURL(photo)})`
+                  : "none",
+              }}
+            >
+              {!photo && <span>Ajouter photo</span>}
+            </label>
+            <input
+              name="picture"
+              id="photo"
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handlePhotoChange}
+            />
+          </div>
         </div>
 
         <h2>Valeurs nutritionnelles</h2>
+        <input
+          type="hidden"
+          name="nutritional_values"
+          value="Données non disponible"
+        />
         <div className="valeurs-nutri">
           <p>Calories: {nutritionalValues.calories.toFixed(2)}</p>
           <p>Protéines: {nutritionalValues.proteins.toFixed(2)}g</p>
@@ -288,16 +279,7 @@ function AjouterRecette() {
 
         <h2>Rédigez un commentaire sur votre recette</h2>
         <div className="commentaire-auteur">
-          <textarea
-            name="note"
-            maxLength="310"
-            value={note}
-            onChange={(e) => handleNoteChange(e.target.value)}
-            placeholder="Écrivez un commentaire (3 lignes maximum soit 310 caractères)..."
-          />
-          <button type="button" onClick={handleConfirmation}>
-            Confirmer
-          </button>
+          <button type="submit">Confirmer</button>
         </div>
       </div>
     </Form>

@@ -44,15 +44,26 @@ class RecetteRepository extends AbstractRepository {
       );
       await Promise.all(stepPromises);
 
-      // Insert ingredients
       const ingredientPromises = ingredients.map((ingredient) =>
+        // 1. pour chaque ingredient verifier s'il existe en bdd
+        // et s'il n'existe pas le creer
+        transaction.query(
+          `REPLACE INTO ingredient (name)
+         VALUES (?)`,
+          [ingredient]
+        )
+      );
+      await Promise.all(ingredientPromises);
+
+      // Inserer donnees de jointure ingredientsRecette
+      const ingredientRecettePromises = ingredients.map((ingredient) =>
         transaction.query(
           `INSERT INTO ingredient_for_recette (recette_id, ingredient_id)
            VALUES (?, ?)`,
           [recetteId, ingredient.id]
         )
       );
-      await Promise.all(ingredientPromises);
+      await Promise.all(ingredientRecettePromises);
       await transaction.commit();
       return recetteId;
     } catch (error) {
