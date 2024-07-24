@@ -28,12 +28,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <Accueil />,
       },
-
       {
         path: "/recettes",
         element: <ListeRecettes />,
       },
-
       { path: "/connexion", element: <Login /> },
       {
         path: "/recettes/:id",
@@ -61,7 +59,6 @@ const router = createBrowserRouter([
             element: <GestionRecettes />,
             loader: fetchRecettes,
           },
-
           {
             path: "GestionUtilisateurs",
             element: <GestionUtilisateur />,
