@@ -2,12 +2,12 @@ const tables = require("../../database/tables");
 
 const read = async (req, res, next) => {
   try {
-    const recette = await tables.recette.read(req.params.id);
+    const step = await tables.step.read(req.params.id);
 
-    if (recette == null) {
+    if (step == null) {
       res.sendStatus(404);
     } else {
-      res.json(recette);
+      res.json(step);
     }
   } catch (err) {
     next(err);
