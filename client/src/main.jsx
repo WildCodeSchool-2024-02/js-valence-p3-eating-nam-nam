@@ -10,7 +10,11 @@ import Accueil from "./pages/Accueil";
 import Profile from "./pages/Profile";
 import RecettesFavorites from "./components/RecettesFavorites";
 import RecettesAjoutees from "./components/RecettesAjoutees";
-import fetchUserById from "./api/fetchUser";
+import { fetchUserById, fetchUsers, fetchRecettes } from "./api/fetch";
+import Admin from "./components/Admin";
+import GestionRecettes from "./pages/admin/GestionRecettes";
+
+import GestionUtilisateur from "./pages/admin/GestionUtilisateur";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +51,23 @@ const router = createBrowserRouter([
       {
         path: "/dernieres-recettes",
         element: <RecettesAjoutees />,
+      },
+      {
+        path: "/admin",
+        element: <Admin />,
+        children: [
+          {
+            index: true,
+            element: <GestionRecettes />,
+            loader: fetchRecettes,
+          },
+
+          {
+            path: "GestionUtilisateurs",
+            element: <GestionUtilisateur />,
+            loader: fetchUsers,
+          },
+        ],
       },
     ],
   },

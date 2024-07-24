@@ -9,6 +9,7 @@ const router = express.Router();
 const recetteController = require("../../controllers/recetteActions");
 
 router.get("/recettes/:id", recetteController.read);
+router.get("/recettes", recetteController.browse);
 
 /* ************************************************************************* */
 const { getUsers, getUserById } = require("../../controllers/userActions");

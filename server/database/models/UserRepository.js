@@ -1,18 +1,8 @@
-const database = require("../client");
+const AbstractRepository = require("./AbstractRepository");
 
-class UserRepository {
+class UserRepository extends AbstractRepository {
   constructor() {
-    this.database = database;
-  }
-
-  async getUsers() {
-    try {
-      const [result] = await this.database.query("SELECT * FROM user");
-      return result;
-    } catch (err) {
-      console.error(err);
-      throw err;
-    }
+    super({ table: "user" });
   }
 
   async getUserById(id) {
@@ -29,4 +19,4 @@ class UserRepository {
   }
 }
 
-module.exports = new UserRepository();
+module.exports = UserRepository;

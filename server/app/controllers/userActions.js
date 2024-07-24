@@ -1,8 +1,8 @@
-const UserRepository = require("../../database/models/UserRepository");
+const tables = require("../../database/tables");
 
 const getUsers = async (req, res) => {
   try {
-    const users = await UserRepository.getUsers();
+    const users = await tables.user.readAll();
     res.json(users);
   } catch (err) {
     console.error(err);
@@ -13,7 +13,7 @@ const getUsers = async (req, res) => {
 const getUserById = async (req, res) => {
   try {
     const userId = req.params.id;
-    const user = await UserRepository.getUserById(userId);
+    const user = await tables.user.getUserById(userId);
     if (user.length > 0) {
       res.json(user[0]);
     } else {
