@@ -40,6 +40,16 @@ class UserRepository extends AbstractRepository {
       throw err;
     }
   }
+
+  async insert(user) {
+    const { username, email, birthdate, hashedPassword } = user;
+    const query =
+      "INSERT INTO user (username, email, birthdate, hashed_password) VALUES (?, ?, ?, ?)";
+    const values = [username, email, birthdate, hashedPassword];
+
+    const [result] = await this.database.query(query, values);
+    return result;
+  }
 }
 
 module.exports = UserRepository;

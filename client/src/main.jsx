@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Inscription from "./pages/Inscription";
+import Inscription, { action as registerAction } from "./pages/Inscription";
 import ListeRecettes from "./components/ListeRecettes";
 import ConsulterRecette from "./components/ConsulterRecette";
 import App from "./App";
@@ -20,7 +20,9 @@ const router = createBrowserRouter([
       {
         path: "/inscription",
         element: <Inscription />,
+        action: registerAction,
       },
+
       {
         path: "/",
         element: <Accueil />,

@@ -1,38 +1,48 @@
-import { useState } from "react";
+import { redirect, Form, useNavigation } from "react-router-dom";
+import { register } from "../api/api";
 import "../styles/Inscription.css";
 
+export async function action({ request }) {
+  const formData = await request.formData();
+  await register(formData);
+  return redirect("/");
+}
+
 function Inscription() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    const form = event.currentTarget;
+    const password = form.elements.password.value;
+    const confirmPassword = form.elements.confirmPassword.value;
+
     if (password !== confirmPassword) {
-      setError("Les mots de passe ne correspondent pas");
-    } else {
-      setError("");
+      event.preventDefault();
+      alert("Les mots de passe ne correspondent pas !");
     }
   };
 
   return (
     <div className="inscription_page">
-      <form onSubmit={handleSubmit}>
-        <div className="inscription_title">
-          <div className="inscription">S'inscrire</div>
-          <div className="rejoindre">
-            Rejoignez la communauté Eating Nam Nam
-          </div>
-          <div className="info_login">
+      <div className="inscription_title">
+        <div className="inscription">S'inscrire</div>
+        <div className="rejoindre">Rejoignez la communauté Eating Nam Nam</div>
+        <div className="info_login">
+          <Form method="post" onSubmit={handleSubmit}>
+            <div className="username">
+              <input
+                type="text"
+                name="username"
+                placeholder="Entrez votre pseudo"
+                required
+              />
+            </div>
             <div className="mail">
               <input
                 type="email"
-                name="mail"
-                id="mail"
+                name="email"
                 placeholder="Entrez votre adresse mail"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
@@ -40,10 +50,7 @@ function Inscription() {
               <input
                 type="password"
                 name="password"
-                id="password"
                 placeholder="Entrez votre mot de passe"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
@@ -51,21 +58,19 @@ function Inscription() {
               <input
                 type="password"
                 name="confirmPassword"
-                id="confirmPassword"
                 placeholder="Confirmez votre mot de passe"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />
             </div>
-            <input type="date" />
-            {error && <p className="error_message">{error}</p>}
+            <input type="date" name="birthdate" required />
             <div className="inscription_button">
-              <button type="submit">S'inscrire</button>
+              <button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? "Inscription ..." : "S'inscrire"}
+              </button>
             </div>
-          </div>
+          </Form>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

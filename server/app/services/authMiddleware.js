@@ -38,4 +38,18 @@ const verifyToken = async (req, res, next) => {
   }
 };
 
-module.exports = { hashingOptions, getUserByEmail, verifyToken };
+const hashPassword = async (req, res, next) => {
+  try {
+    const hashedPassword = await argon2.hash(req.body.password, hashingOptions);
+    req.body.hashedPassword = hashedPassword;
+
+    delete req.body.password;
+
+    next();
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+};
+
+module.exports = { hashingOptions, getUserByEmail, verifyToken, hashPassword };

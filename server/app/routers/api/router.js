@@ -12,6 +12,7 @@ router.get("/recettes/:id", recetteController.read);
 
 /* ************************************************************************* */
 const { getUsers, getUserById } = require("../../controllers/userActions");
+const userController = require("../../controllers/userActions");
 
 router.get("/users", getUsers);
 router.get("/users/:id", getUserById);
@@ -19,9 +20,13 @@ router.get("/users/:id", getUserById);
 /* ************************************************************************* */
 
 const authController = require("../../controllers/authActions");
-const { getUserByEmail } = require("../../services/authMiddleware");
+const {
+  getUserByEmail,
+  hashPassword,
+} = require("../../services/authMiddleware");
 
 router.post("/login", getUserByEmail, authController.login);
+router.post("/users", hashPassword, userController.add);
 
 /* ************************************************************************* */
 
