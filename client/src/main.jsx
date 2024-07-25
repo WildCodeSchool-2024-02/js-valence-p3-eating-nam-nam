@@ -13,7 +13,6 @@ import NutriAutoComplete from "./components/NutriAutoComplete";
 import RecettesAjoutees from "./components/RecettesAjoutees";
 import fetchUserById from "./api/fetchUser";
 
-
 const router = createBrowserRouter([
   {
     element: <App />,
@@ -47,13 +46,12 @@ const router = createBrowserRouter([
         element: <RecettesFavorites />,
       },
       {
-
         path: "/NutriAutoComplete",
         element: <NutriAutoComplete />,
-
+      },
+      {
         path: "/dernieres-recettes",
         element: <RecettesAjoutees />,
-
       },
     ],
   },
