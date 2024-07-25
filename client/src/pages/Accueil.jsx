@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "../styles/Accueil.css";
+
 import {
   table,
   temoin1,
@@ -41,8 +42,9 @@ export default function Accueil() {
             <img src={temoin2} alt="lucas D" />
             <p>
               "Les boutons j'aime et partager sont super pratiques.Je peux
-              montrer à mes amis ce que j'ai aimé et ils peuvent en faire de même.C'est
-              une excellente manière de découvrir de nouvelles recettes."-LucasD
+              montrer à mes amis ce que j'ai aimé et ils peuvent en faire de
+              même.C'est une excellente manière de découvrir de nouvelles
+              recettes."-LucasD
             </p>
           </li>
           <li>
