@@ -30,6 +30,39 @@ const nutritionData = {
   carotte: { calories: 41, proteins: 0.9, fats: 0.2, carbs: 10 },
 };
 
+function IngredientField({ ingredient, onChange, onRemove }) {
+  return (
+    <div className="ingredient">
+      <input
+        name={`ingredients[${ingredient.id}][quantity]`}
+        type="number"
+        value={ingredient.quantity}
+        onChange={(e) => onChange(ingredient.id, "quantity", e.target.value)}
+        placeholder="Quantité"
+      />
+      <select
+        name={`ingredients[${ingredient.id}][unit]`}
+        value={ingredient.unit}
+        onChange={(e) => onChange(ingredient.id, "unit", e.target.value)}
+      >
+        <option value="g">g</option>
+        <option value="ml">ml</option>
+        <option value="unité">unité</option>
+      </select>
+      <input
+        name={`ingredients[${ingredient.id}][name]`}
+        type="text"
+        value={ingredient.name}
+        onChange={(e) => onChange(ingredient.id, "name", e.target.value)}
+        placeholder="Nom de l'ingrédient"
+      />
+      <button type="button" onClick={() => onRemove(ingredient.id)}>
+        Supprimer
+      </button>
+    </div>
+  );
+}
+
 function AjouterRecette() {
   const [titre, setTitre] = useState("");
   const [ingredients, setIngredients] = useState([
@@ -39,6 +72,7 @@ function AjouterRecette() {
   const [authorName, setAuthorName] = useState("");
   const [note, setNote] = useState("");
   const [photo, setPhoto] = useState(null);
+  const [serving, setServing] = useState(1);
   const [nutritionalValues, setNutritionalValues] = useState({
     calories: 0,
     proteins: 0,
@@ -104,7 +138,7 @@ function AjouterRecette() {
         const ingredientData = nutritionData[name.toLowerCase()];
         const newTotals = { ...totals };
         if (ingredientData && quantity) {
-          const quantityInGrams = parseFloat(quantity);
+          const quantityInGrams = parseFloat(quantity) / serving;
           newTotals.calories +=
             (ingredientData.calories * quantityInGrams) / 100;
           newTotals.proteins +=
@@ -112,7 +146,7 @@ function AjouterRecette() {
           newTotals.fats += (ingredientData.fats * quantityInGrams) / 100;
           newTotals.carbs += (ingredientData.carbs * quantityInGrams) / 100;
         } else if (quantity) {
-          const quantityInGrams = parseFloat(quantity);
+          const quantityInGrams = parseFloat(quantity) / serving;
           newTotals.calories += (parseFloat(calories) * quantityInGrams) / 100;
           newTotals.proteins += (parseFloat(proteins) * quantityInGrams) / 100;
           newTotals.fats += (parseFloat(fats) * quantityInGrams) / 100;
@@ -123,71 +157,49 @@ function AjouterRecette() {
       { calories: 0, proteins: 0, fats: 0, carbs: 0 }
     );
     setNutritionalValues(totalNutritionalValues);
-  }, [ingredients]);
-
-  const handleConfirmation = () => {
-    // Logique de confirmation ici
-  };
+  }, [ingredients, serving]);
 
   return (
     <Form method="POST">
       <div className="ajouterRecette">
         <h1>Ajouter une recette</h1>
 
-        <h2>Je choisis un titre :</h2>
-        <input
-          name="title"
-          maxLength="30"
-          type="text"
-          value={titre}
-          onChange={(e) => setTitre(e.target.value)}
-          placeholder="Entrez le titre de votre recette (30 caractères maximum)"
-          className="title-input"
-        />
+        <div className="title-input">
+          <h2>Titre de la recette</h2>
+          <input
+            name="title"
+            type="text"
+            maxLength="30"
+            value={titre}
+            onChange={(e) => setTitre(e.target.value)}
+            placeholder="Entrez le titre de votre recette (1 ligne soit 30 caractères maximum)"
+          />
+        </div>
+
+        <div className="serving-input">
+          <h2>Nombre de portions</h2>
+          <input
+            name="serving"
+            type="number"
+            value={serving}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (value.length <= 2) {
+                setServing(value);
+              }
+            }}
+            placeholder="Entrez le nombre de portions (2 chiffres)"
+          />
+        </div>
 
         <h2>Choisir les ingrédients</h2>
         {ingredients.map((ingredient) => (
-          <div key={ingredient.id} className="ingredient">
-            <input
-              name={`ingredients[${ingredient.id}]`}
-              type="number"
-              value={ingredient.quantity}
-              onChange={(e) =>
-                handleIngredientChange(
-                  ingredient.id,
-                  "quantity",
-                  e.target.value
-                )
-              }
-              placeholder="Quantité"
-            />
-            <select
-              name={`ingredients[${ingredient.id}]`}
-              value={ingredient.unit}
-              onChange={(e) =>
-                handleIngredientChange(ingredient.id, "unit", e.target.value)
-              }
-            >
-              <option value="g">g</option>
-              <option value="ml">ml</option>
-              <option value="unité">unité</option>
-            </select>
-            <input
-              name={`ingredients[${ingredient.id}]`}
-              type="text"
-              value={ingredient.name}
-              onChange={(e) =>
-                handleIngredientChange(ingredient.id, "name", e.target.value)
-              }
-              placeholder="Nom de l'ingrédient"
-            />
-            <button
-              type="button"
-              onClick={() => removeIngredient(ingredient.id)}
-            >
-              Supprimer
-            </button>
-          </div>
+          <IngredientField
+            key={ingredient.id}
+            ingredient={ingredient}
+            onChange={handleIngredientChange}
+            onRemove={removeIngredient}
+          />
         ))}
         <button type="button" onClick={addIngredient}>
           Ajouter un ingrédient
@@ -201,7 +213,9 @@ function AjouterRecette() {
               maxLength="310"
               value={step.step}
               onChange={(e) => handleStepChange(step.id, e.target.value)}
-              placeholder={`Étape ${steps.indexOf(step) + 1} : Rédigez des instructions courtes et claires, en procédant étape par étape (3 lignes maximum par étape soit 310 caractères)`}
+              placeholder={`Étape ${
+                steps.indexOf(step) + 1
+              } : Rédigez des instructions courtes et claires, en procédant étape par étape (3 lignes par étape soit 310 caractères maximum)`}
             />
             <button type="button" onClick={() => removeStep(step.id)}>
               Supprimer
@@ -266,16 +280,17 @@ function AjouterRecette() {
           <p>Glucides: {nutritionalValues.carbs.toFixed(2)}g</p>
         </div>
 
-        <h2>Nom de l'auteur</h2>
-        <input
-          name="username"
-          maxLength="30"
-          type="text"
-          value={authorName}
-          onChange={(e) => setAuthorName(e.target.value)}
-          placeholder="Entrez votre nom (30 caractères maximum)"
-          className="name-input"
-        />
+        <div className="name-input">
+          <h2>Nom de l'auteur</h2>
+          <input
+            maxLength="30"
+            name="username"
+            type="text"
+            value={authorName}
+            onChange={(e) => setAuthorName(e.target.value)}
+            placeholder="Entrez votre nom (1 ligne soit 30 caractères maximum)"
+          />
+        </div>
 
         <h2>Rédigez un commentaire sur votre recette</h2>
         <div className="commentaire-auteur">
