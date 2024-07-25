@@ -1,4 +1,4 @@
-import "./carteRecette.css";
+import "../styles/carteRecette.css";
 import { Link } from "react-router-dom";
 
 import Etoile from "./Etoile";
