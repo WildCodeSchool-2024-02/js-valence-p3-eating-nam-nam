@@ -2,17 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Inscription from "./pages/Inscription";
-import ListeRecettes from "./components/ListeRecettes";
-import ConsulterRecette from "./components/ConsulterRecette";
+import ListeRecettes from "./pages/ListeRecettes";
+import ConsulterRecette from "./pages/ConsulterRecette";
 import App from "./App";
 import Login from "./pages/Login";
 import Accueil from "./pages/Accueil";
 import Profile from "./pages/Profile";
-import RecettesFavorites from "./components/RecettesFavorites";
+import RecettesFavorites from "./pages/RecettesFavorites";
 import NutriAutoComplete from "./components/NutriAutoComplete";
-import RecettesAjoutees from "./components/RecettesAjoutees";
+import RecettesAjoutees from "./pages/RecettesAjoutees";
 import fetchUserById from "./api/fetchUser";
-
 
 const router = createBrowserRouter([
   {
@@ -47,13 +46,12 @@ const router = createBrowserRouter([
         element: <RecettesFavorites />,
       },
       {
-
         path: "/NutriAutoComplete",
         element: <NutriAutoComplete />,
-
+      },
+      {
         path: "/dernieres-recettes",
         element: <RecettesAjoutees />,
-
       },
     ],
   },
