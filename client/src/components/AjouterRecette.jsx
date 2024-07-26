@@ -5,6 +5,7 @@ import { Form } from "react-router-dom";
 export async function action({ request }) {
   try {
     const data = Object.fromEntries(await request.formData());
+
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/api/recettes`,
       {
@@ -34,14 +35,12 @@ function IngredientField({ ingredient, onChange, onRemove }) {
   return (
     <div className="ingredient">
       <input
-        name={`ingredients[${ingredient.id}][quantity]`}
         type="number"
         value={ingredient.quantity}
         onChange={(e) => onChange(ingredient.id, "quantity", e.target.value)}
         placeholder="Quantité"
       />
       <select
-        name={`ingredients[${ingredient.id}][unit]`}
         value={ingredient.unit}
         onChange={(e) => onChange(ingredient.id, "unit", e.target.value)}
       >
@@ -69,8 +68,6 @@ function AjouterRecette() {
     { id: Date.now(), quantity: "", unit: "g", name: "" },
   ]);
   const [steps, setSteps] = useState([{ id: Date.now(), step: "" }]);
-  const [authorName, setAuthorName] = useState("");
-  const [note, setNote] = useState("");
   const [photo, setPhoto] = useState(null);
   const [serving, setServing] = useState(1);
   const [nutritionalValues, setNutritionalValues] = useState({
@@ -121,14 +118,9 @@ function AjouterRecette() {
     );
   };
 
-  const handleNoteChange = (value) => {
-    const lines = value.split("\n");
-    setNote(lines.length <= 3 ? value : lines.slice(0, 3).join("\n"));
-  };
-
   const handlePhotoChange = (e) => {
     const [file] = e.target.files;
-    setPhoto((prevPhoto) => file);
+    setPhoto(() => file);
   };
 
   useEffect(() => {
@@ -183,7 +175,7 @@ function AjouterRecette() {
             type="number"
             value={serving}
             onChange={(e) => {
-              const value = e.target.value;
+              const { value } = e.target;
               if (value.length <= 2) {
                 setServing(value);
               }
@@ -280,22 +272,7 @@ function AjouterRecette() {
           <p>Glucides: {nutritionalValues.carbs.toFixed(2)}g</p>
         </div>
 
-        <div className="name-input">
-          <h2>Nom de l'auteur</h2>
-          <input
-            maxLength="30"
-            name="username"
-            type="text"
-            value={authorName}
-            onChange={(e) => setAuthorName(e.target.value)}
-            placeholder="Entrez votre nom (1 ligne soit 30 caractères maximum)"
-          />
-        </div>
-
-        <h2>Rédigez un commentaire sur votre recette</h2>
-        <div className="commentaire-auteur">
-          <button type="submit">Confirmer</button>
-        </div>
+        <button type="submit">Confirmer</button>
       </div>
     </Form>
   );

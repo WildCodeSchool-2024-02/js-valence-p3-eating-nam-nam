@@ -8,7 +8,7 @@ class RecetteSeeder extends AbstractSeeder {
       {
         title: "Couscous Royal",
         user_id: 1,
-        image: "https://locavor.fr/produit/146880-couscous-royal#produit-1",
+        picture: "https://locavor.fr/produit/146880-couscous-royal#produit-1",
         serving: 4,
         nutritional_values:
           "Calories: 650, Protéines: 35g, Glucides: 75g, Lipides: 25g",
@@ -17,7 +17,7 @@ class RecetteSeeder extends AbstractSeeder {
       {
         title: "Sushi Maki",
         user_id: 2,
-        image: "https://www.sapporosteakhouse.com/post/what-is-maki",
+        picture: "https://www.sapporosteakhouse.com/post/what-is-maki",
         serving: 4,
         nutritional_values:
           "Calories: 350, Protéines: 12g, Glucides: 65g, Lipides: 5g",
@@ -26,7 +26,7 @@ class RecetteSeeder extends AbstractSeeder {
       {
         title: "Paella Valenciana",
         user_id: 3,
-        image:
+        picture:
           "https://cookpad.com/uk/recipe/images/89ede9cc935ff3da?image_region_id=2",
         serving: 4,
         nutritional_values:
@@ -36,7 +36,7 @@ class RecetteSeeder extends AbstractSeeder {
       {
         title: "Moussaka",
         user_id: 4,
-        image:
+        picture:
           "https://img.over-blog-kiwi.com/1/93/59/85/20171120/ob_656c86_moussaka.jpg",
         serving: 4,
         nutritional_values:
@@ -46,7 +46,7 @@ class RecetteSeeder extends AbstractSeeder {
       {
         title: "Feijoada",
         user_id: 5,
-        image:
+        picture:
           "https://www.pescanova.pt/content/img/feijoada_tiras_pota_arroz_chourico.png",
         serving: 4,
         nutritional_values:
@@ -56,7 +56,7 @@ class RecetteSeeder extends AbstractSeeder {
       {
         title: "Pho",
         user_id: 6,
-        image:
+        picture:
           "https://www.inspiredtaste.net/wp-content/uploads/2016/06/Vietnamese-Pho-Soup-Recipe-2.jpg",
         serving: 4,
         nutritional_values:
@@ -66,7 +66,7 @@ class RecetteSeeder extends AbstractSeeder {
       {
         title: "Fish and Chips",
         user_id: 7,
-        image:
+        picture:
           "https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2023/08/fish-and-chi-1200x675.jpg",
         serving: 4,
         nutritional_values:
@@ -76,7 +76,7 @@ class RecetteSeeder extends AbstractSeeder {
       {
         title: "Goulash",
         user_id: 8,
-        image:
+        picture:
           "https://ohmyveggies.com/wp-content/uploads/2022/02/Hearty-vegan-goulash-recipe-8.jpg",
         serving: 4,
         nutritional_values:
@@ -86,7 +86,7 @@ class RecetteSeeder extends AbstractSeeder {
       {
         title: "Curry de Poulet Tikka Masala",
         user_id: 9,
-        image:
+        picture:
           "https://platetrecette.com/wp-content/uploads/2024/05/Poulet-Tikka-Massala-ww.jpg",
         serving: 4,
         nutritional_values:
@@ -96,7 +96,7 @@ class RecetteSeeder extends AbstractSeeder {
       {
         title: "Ramen",
         user_id: 10,
-        image:
+        picture:
           "https://www.picard.fr/dw/image/v2/AAHV_PRD/on/demandware.static/-/Sites-catalog-picard/default/dw3824d9cd/recettes/R1903.png?sw=672&sh=392&q=30",
         serving: 4,
         nutritional_values:
@@ -106,7 +106,7 @@ class RecetteSeeder extends AbstractSeeder {
       {
         title: "Chili con Carne",
         user_id: 11,
-        image:
+        picture:
           "https://www.rivoire-et-carret.fr/app/uploads/sites/3/chili-con-carne-horiz-768x540.jpg",
         serving: 4,
         nutritional_values:
@@ -116,7 +116,7 @@ class RecetteSeeder extends AbstractSeeder {
       {
         title: "Borscht",
         user_id: 12,
-        image:
+        picture:
           "https://www.eatingwell.com/thmb/t1PepY4Rm91d_ExlcpsA8RYug2k=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/3747653-a2ce575ed0b44a8ca5af5ee3f12af357.jpg",
         serving: 4,
         nutritional_values:
@@ -126,7 +126,7 @@ class RecetteSeeder extends AbstractSeeder {
       {
         title: "Salade Grecque",
         user_id: 13,
-        image: "https://assets.afcdn.com/recipe/20170421/63923_w600.jpg",
+        picture: "https://assets.afcdn.com/recipe/20170421/63923_w600.jpg",
         serving: 4,
         nutritional_values:
           "Calories: 280, Protéines: 8g, Glucides: 15g, Lipides: 22g",
@@ -135,7 +135,7 @@ class RecetteSeeder extends AbstractSeeder {
       {
         title: "Tacos al Pastor",
         user_id: 14,
-        image:
+        picture:
           "https://www.foodandwine.com/thmb/W8RZu0iZ_KM8IX808I7EKqF6nRM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/al_pastor_fish_tacos_ft_073-2000-c1fcd2df7fee4902a1bc454f2e013a48.jpg",
         serving: 4,
         nutritional_values:
@@ -145,7 +145,7 @@ class RecetteSeeder extends AbstractSeeder {
       {
         title: "Risotto aux Champignons",
         user_id: 15,
-        image:
+        picture:
           "https://m1.zeste.ca/serdy-m-dia-inc/image/upload/f_auto/fl_lossy/q_auto:eco/x_0,y_216,w_1034,h_581,c_crop/w_836,h_470,c_scale/v1507137106/foodlavie/prod/recettes/risotto-aux-champignons-et-au-fromage-le-gre-des-champs-d0ad263a",
         serving: 4,
         nutritional_values:
@@ -155,7 +155,7 @@ class RecetteSeeder extends AbstractSeeder {
       {
         title: "Bobotie",
         user_id: 16,
-        image:
+        picture:
           "https://miro.medium.com/v2/resize:fit:720/format:webp/1*jc3-HJu9v05KnKZxqQvCaQ.png",
         serving: 4,
         nutritional_values:

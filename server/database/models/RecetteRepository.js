@@ -22,15 +22,14 @@ class RecetteRepository extends AbstractRepository {
       // Insert recette
       const [recetteResult] = await transaction.query(
         `INSERT INTO recette 
-         (title, user_id, image, serving, nutritional_values, published) 
-         VALUES (?, ?, ?, ?, ?, ?)`,
+         (title, user_id, picture, serving, nutritional_values) 
+         VALUES (?, ?, ?, ?, ?)`,
         [
           recette.title,
           recette.userId,
-          recette.image,
+          recette.picture,
           recette.serving,
           recette.nutritionalValues,
-          recette.published,
         ]
       );
       const recetteId = recetteResult.insertId;
@@ -39,7 +38,7 @@ class RecetteRepository extends AbstractRepository {
       const stepPromises = steps.map((step) =>
         transaction.query(`INSERT INTO step (recette_id, text) VALUES (?, ?)`, [
           recetteId,
-          step.text,
+          step,
         ])
       );
       await Promise.all(stepPromises);
@@ -53,14 +52,18 @@ class RecetteRepository extends AbstractRepository {
           [ingredient]
         )
       );
-      await Promise.all(ingredientPromises);
+      const resultIngredentPromises = await Promise.all(ingredientPromises);
+
+      const ingredientIDs = resultIngredentPromises.map(
+        ([entry]) => entry.insertId
+      );
 
       // Inserer donnees de jointure ingredientsRecette
-      const ingredientRecettePromises = ingredients.map((ingredient) =>
+      const ingredientRecettePromises = ingredients.map((ingredient, index) =>
         transaction.query(
           `INSERT INTO ingredient_for_recette (recette_id, ingredient_id)
            VALUES (?, ?)`,
-          [recetteId, ingredient.id]
+          [recetteId, ingredientIDs[index]]
         )
       );
       await Promise.all(ingredientRecettePromises);

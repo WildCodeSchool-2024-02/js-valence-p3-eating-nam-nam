@@ -10,18 +10,24 @@ const read = async (req, res) => {
 };
 
 const add = async (req, res, next) => {
-  console.log(req.body);
-
   try {
     const {
       title,
-      image,
       serving,
       nutritional_values: nutritionalValues,
-      published,
-      steps,
-      ingredients,
+      picture,
+      ...rest
     } = req.body;
+
+    // filtrer les clés qui commencent par ingredients
+
+    const ingredients = Object.entries(rest)
+      .filter(([key]) => key.includes("ingredients"))
+      .map(([, value]) => value);
+
+    const steps = Object.entries(rest)
+      .filter(([key]) => key.includes("steps"))
+      .map(([, value]) => value);
 
     // FIXME: Récupérer l'id de l'utilisateur connecté
     // via req.auth.sub
@@ -31,7 +37,7 @@ const add = async (req, res, next) => {
     if (
       !title ||
       !userId ||
-      !image ||
+      !picture ||
       !serving ||
       !nutritionalValues ||
       !Array.isArray(steps) ||
@@ -43,7 +49,7 @@ const add = async (req, res, next) => {
     }
 
     const recetteId = await tables.recette.create(
-      { title, userId, image, serving, nutritionalValues, published },
+      { title, userId, picture, serving, nutritionalValues },
       steps,
       ingredients
     );

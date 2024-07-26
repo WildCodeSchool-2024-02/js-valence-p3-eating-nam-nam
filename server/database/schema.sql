@@ -6,7 +6,7 @@ CREATE TABLE user (
   birthdate DATE NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
   is_admin BOOLEAN NOT NULL DEFAULT 0,
-  password VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE recette (
@@ -21,7 +21,8 @@ CREATE TABLE recette (
 );
 
 CREATE TABLE ingredient (
-  name VARCHAR(255)  PRIMARY KEY NOT NULL
+  id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE ingredient_for_recette (
