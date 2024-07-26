@@ -2,6 +2,8 @@ const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 const dayjs = require("dayjs");
 
+const tables = require("../../database/tables");
+
 const login = async (req, res) => {
   const userLogin = req.user;
 
@@ -31,4 +33,27 @@ const login = async (req, res) => {
   return res.json({ userLogin });
 };
 
-module.exports = { login };
+const add = async (req, res) => {
+  const user = req.body;
+
+  if (typeof user !== "object" || user === null) {
+    console.error("req.body is not a valid object:", user);
+    return res.sendStatus(400);
+  }
+
+  console.info("User object to insert:", user);
+
+  try {
+    const result = await tables.user.insert(user);
+    if (result && typeof result.insertId !== "undefined") {
+      return res.location(`/users/${result.insertId}`).sendStatus(201);
+    }
+    console.error("Insert result does not contain insertId:", result);
+    return res.sendStatus(500);
+  } catch (err) {
+    console.error("Error during insert:", err);
+    return res.sendStatus(500);
+  }
+};
+
+module.exports = { login, add };
