@@ -20,10 +20,8 @@ function Inscription() {
     <div className="inscription_page">
       <form onSubmit={handleSubmit}>
         <div className="inscription_title">
-          <div className="inscription">S'inscrire</div>
-          <div className="rejoindre">
-            Rejoignez la communauté Eating Nam Nam
-          </div>
+          <h1 className="inscription">S'inscrire</h1>
+          <h2 className="rejoindre">Rejoignez la communauté Eating Nam Nam</h2>
           <div className="info_login">
             <div className="mail">
               <input

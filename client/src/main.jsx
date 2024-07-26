@@ -11,6 +11,9 @@ import Profile from "./pages/Profile";
 import RecettesFavorites from "./pages/RecettesFavorites";
 import NutriAutoComplete from "./components/NutriAutoComplete";
 import RecettesAjoutees from "./pages/RecettesAjoutees";
+import AjouterRecette, {
+  action as ajouterRecetteAction,
+} from "./pages/AjouterRecette";
 import fetchUserById from "./api/fetchUser";
 
 const router = createBrowserRouter([
@@ -25,7 +28,6 @@ const router = createBrowserRouter([
         path: "/",
         element: <Accueil />,
       },
-
       {
         path: "/recettes",
         element: <ListeRecettes />,
@@ -49,9 +51,11 @@ const router = createBrowserRouter([
         path: "/NutriAutoComplete",
         element: <NutriAutoComplete />,
       },
+      { path: "/dernieres-recettes", element: <RecettesAjoutees /> },
       {
-        path: "/dernieres-recettes",
-        element: <RecettesAjoutees />,
+        path: "/RecettesAjoutees",
+        element: <AjouterRecette />,
+        action: ajouterRecetteAction,
       },
     ],
   },

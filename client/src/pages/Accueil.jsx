@@ -12,7 +12,7 @@ import {
 export default function Accueil() {
   return (
     <div className="Accueil">
-      <h2>Partagez vos recettes et découvrez de nouvelles saveurs</h2>
+      <h1>Partagez vos recettes et découvrez de nouvelles saveurs</h1>
       <img id="table" src={table} alt="table" />
       <h2>Rejoignez notre communauté de passionnés de cuisine</h2>
       <div className="connect">

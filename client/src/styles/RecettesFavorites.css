@@ -1,8 +1,4 @@
-.para p {
-  font-size: 32px;
-  font-family: var(--aleo);
-  color: var(--vert);
-  margin-top: 100px;
+.para h1 {
   text-align: center;
 }
 
@@ -10,9 +6,7 @@
   display: flex;
   height: 450px;
   justify-content: space-around;
-  padding: 0 24px;
   align-items: center;
-  margin-bottom: 130px;
 }
 
 .flex div {
