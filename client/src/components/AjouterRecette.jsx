@@ -29,6 +29,8 @@ function IngredientField({ ingredient, onChange, onRemove }) {
     <div className="ingredient">
       <input
         type="number"
+        min="1"
+        max="10000"
         value={ingredient.quantity}
         onChange={(e) => onChange(ingredient.id, "quantity", e.target.value)}
         placeholder="Quantité"
@@ -91,20 +93,6 @@ function AjouterRecette() {
     setSteps(steps.filter((step) => step.id !== id));
   };
 
-  const handleStepChange = (id, value) => {
-    const lines = value.split("\n");
-    setSteps(
-      steps.map((step) =>
-        step.id === id
-          ? {
-              ...step,
-              step: lines.length <= 3 ? value : lines.slice(0, 3).join("\n"),
-            }
-          : step
-      )
-    );
-  };
-
   const handlePhotoChange = (e) => {
     const [file] = e.target.files;
     setPhoto(() => file);
@@ -133,11 +121,10 @@ function AjouterRecette() {
             name="serving"
             type="number"
             value={serving}
+            min="1"
+            max="10"
             onChange={(e) => {
-              const { value } = e.target;
-              if (value.length <= 2) {
-                setServing(value);
-              }
+              setServing(e.target.value);
             }}
             placeholder="Entrez le nombre de portions (2 chiffres)"
           />
@@ -163,7 +150,6 @@ function AjouterRecette() {
               name={`steps[${step.id}]`}
               maxLength="310"
               value={step.step}
-              onChange={(e) => handleStepChange(step.id, e.target.value)}
               placeholder={`Étape ${
                 steps.indexOf(step) + 1
               } : Rédigez des instructions courtes et claires, en procédant étape par étape (3 lignes par étape soit 310 caractères maximum)`}
@@ -176,22 +162,6 @@ function AjouterRecette() {
         <button type="button" onClick={addStep}>
           Ajouter une étape de préparation
         </button>
-
-        <h2>Temps de préparation</h2>
-        <div className="time-input">
-          <label htmlFor="prep-time">
-            Veuillez choisir un temps de préparation en heures et minutes
-            (format hh:mm)
-          </label>
-        </div>
-
-        <h2>Temps de cuisson</h2>
-        <div className="time-input">
-          <label htmlFor="cook-time">
-            Veuillez choisir un temps de cuisson en heures et minutes (format
-            hh:mm)
-          </label>
-        </div>
 
         <h2>Photo</h2>
         <div className="photos">
