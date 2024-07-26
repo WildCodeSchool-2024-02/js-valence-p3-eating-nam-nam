@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./ajouterRecette.css";
+import "../styles/ajouterRecette.css";
 import { Form } from "react-router-dom";
 
 export async function action({ request }) {

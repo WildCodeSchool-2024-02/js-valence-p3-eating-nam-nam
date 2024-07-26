@@ -13,7 +13,7 @@ import NutriAutoComplete from "./components/NutriAutoComplete";
 import RecettesAjoutees from "./pages/RecettesAjoutees";
 import AjouterRecette, {
   action as ajouterRecetteAction,
-} from "./components/AjouterRecette";
+} from "./pages/AjouterRecette";
 import fetchUserById from "./api/fetchUser";
 
 const router = createBrowserRouter([
