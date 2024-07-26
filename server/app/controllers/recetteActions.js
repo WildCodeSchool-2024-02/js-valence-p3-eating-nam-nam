@@ -1,19 +1,67 @@
 const tables = require("../../database/tables");
 
-const read = async (req, res, next) => {
-  try {
-    const recette = await tables.recette.read(req.params.id);
+const read = async (req, res) => {
+  const recette = await tables.recette.read(req.params.id);
+  if (recette == null) {
+    res.sendStatus(404);
+  } else {
+    res.json(recette);
+  }
+};
 
-    if (recette == null) {
-      res.sendStatus(404);
-    } else {
-      res.json(recette);
+const add = async (req, res, next) => {
+  try {
+    const {
+      title,
+      serving,
+      nutritional_values: nutritionalValues,
+      picture,
+      ...rest
+    } = req.body;
+
+    // filtrer les clés qui commencent par ingredients
+
+    const ingredients = Object.entries(rest)
+      .filter(([key]) => key.includes("ingredients"))
+      .map(([, value]) => value);
+
+    const steps = Object.entries(rest)
+      .filter(([key]) => key.includes("steps"))
+      .map(([, value]) => value);
+
+    // FIXME: Récupérer l'id de l'utilisateur connecté
+    // via req.auth.sub
+    const userId = 1;
+
+    // Validate inputs
+    if (
+      !title ||
+      !userId ||
+      !picture ||
+      !serving ||
+      !nutritionalValues ||
+      !Array.isArray(steps) ||
+      !Array.isArray(ingredients)
+    ) {
+      return res.status(400).json({
+        error: "All fields are required and steps/ingredients must be arrays",
+      });
     }
-  } catch (err) {
-    next(err);
+
+    const recetteId = await tables.recette.create(
+      { title, userId, picture, serving, nutritionalValues },
+      steps,
+      ingredients
+    );
+
+    return res.status(201).json({ recetteId });
+  } catch (error) {
+    res.status(500).json({ error });
+    next(error);
   }
 };
 
 module.exports = {
   read,
+  add,
 };

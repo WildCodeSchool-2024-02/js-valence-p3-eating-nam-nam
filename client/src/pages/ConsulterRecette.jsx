@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import "./consulterRecette.css";
+import "../styles/consulterRecette.css";
 import {
   champignons,
   citron,
@@ -11,7 +11,7 @@ import {
   sel,
   vinBlanc,
   autre,
-} from "./import";
+} from "../components/import";
 
 const ingrédients = [
   {
@@ -119,7 +119,7 @@ function ConsulterRecette() {
 
   return (
     <div className="main-content">
-      <h1>Recette avec : {recette.ingredient}</h1>
+      <h1>Recette avec : </h1>
       <h2 className="ingredient-titre">Ingrédients</h2>
       <ul>
         <div className="container-grid">

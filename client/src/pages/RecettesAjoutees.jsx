@@ -1,11 +1,11 @@
-import CarteRecette from "./CarteRecette";
-import "./RecettesAjoutees.css";
+import CarteRecette from "../components/CarteRecette";
+import "../styles/RecettesAjoutees.css";
 
 import {
   cabillaudauchorizo,
   gratindecabillaudauxolives,
   cabillaudauxolivesetauvinblanc,
-} from "./import";
+} from "../components/import";
 
 const recettes = [
   {

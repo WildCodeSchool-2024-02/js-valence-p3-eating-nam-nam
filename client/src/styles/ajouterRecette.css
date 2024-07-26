@@ -1,0 +1,92 @@
+.ajouterRecette {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.ajouterRecette h1,
+.ajouterRecette h2 {
+  text-align: center;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.ingredient,
+.step,
+.time-input,
+.title-input,
+.name-input,
+.commentaire-auteur {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.photos {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.photo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+}
+
+.picture {
+  width: 100%;
+  height: 100%;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.valeurs-nutri {
+  text-align: center;
+}
+
+textarea {
+  resize: none;
+  min-height: 80px;
+}
+
+button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@media (max-width: 738px) {
+  input[type="text"],
+  input[type="number"],
+  textarea,
+  select,
+  button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 390px) {
+  button {
+    width: 100%;
+    padding: 15px 0;
+  }
+}
