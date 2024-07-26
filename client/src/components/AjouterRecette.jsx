@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./ajouterRecette.css";
 import { Form } from "react-router-dom";
 
@@ -23,13 +23,6 @@ export async function action({ request }) {
     return { error: error.message };
   }
 }
-
-const nutritionData = {
-  farine: { calories: 364, proteins: 10, fats: 1, carbs: 76 },
-  sucre: { calories: 387, proteins: 0, fats: 0, carbs: 100 },
-  beurre: { calories: 717, proteins: 0.85, fats: 81, carbs: 0.06 },
-  carotte: { calories: 41, proteins: 0.9, fats: 0.2, carbs: 10 },
-};
 
 function IngredientField({ ingredient, onChange, onRemove }) {
   return (
@@ -70,12 +63,6 @@ function AjouterRecette() {
   const [steps, setSteps] = useState([{ id: Date.now(), step: "" }]);
   const [photo, setPhoto] = useState(null);
   const [serving, setServing] = useState(1);
-  const [nutritionalValues, setNutritionalValues] = useState({
-    calories: 0,
-    proteins: 0,
-    fats: 0,
-    carbs: 0,
-  });
 
   const handleIngredientChange = (id, field, value) => {
     setIngredients(
@@ -122,34 +109,6 @@ function AjouterRecette() {
     const [file] = e.target.files;
     setPhoto(() => file);
   };
-
-  useEffect(() => {
-    const totalNutritionalValues = ingredients.reduce(
-      (totals, ingredient) => {
-        const { quantity, name, calories, proteins, fats, carbs } = ingredient;
-        const ingredientData = nutritionData[name.toLowerCase()];
-        const newTotals = { ...totals };
-        if (ingredientData && quantity) {
-          const quantityInGrams = parseFloat(quantity) / serving;
-          newTotals.calories +=
-            (ingredientData.calories * quantityInGrams) / 100;
-          newTotals.proteins +=
-            (ingredientData.proteins * quantityInGrams) / 100;
-          newTotals.fats += (ingredientData.fats * quantityInGrams) / 100;
-          newTotals.carbs += (ingredientData.carbs * quantityInGrams) / 100;
-        } else if (quantity) {
-          const quantityInGrams = parseFloat(quantity) / serving;
-          newTotals.calories += (parseFloat(calories) * quantityInGrams) / 100;
-          newTotals.proteins += (parseFloat(proteins) * quantityInGrams) / 100;
-          newTotals.fats += (parseFloat(fats) * quantityInGrams) / 100;
-          newTotals.carbs += (parseFloat(carbs) * quantityInGrams) / 100;
-        }
-        return newTotals;
-      },
-      { calories: 0, proteins: 0, fats: 0, carbs: 0 }
-    );
-    setNutritionalValues(totalNutritionalValues);
-  }, [ingredients, serving]);
 
   return (
     <Form method="POST">
@@ -258,20 +217,6 @@ function AjouterRecette() {
             />
           </div>
         </div>
-
-        <h2>Valeurs nutritionnelles</h2>
-        <input
-          type="hidden"
-          name="nutritional_values"
-          value="Données non disponible"
-        />
-        <div className="valeurs-nutri">
-          <p>Calories: {nutritionalValues.calories.toFixed(2)}</p>
-          <p>Protéines: {nutritionalValues.proteins.toFixed(2)}g</p>
-          <p>Graisses: {nutritionalValues.fats.toFixed(2)}g</p>
-          <p>Glucides: {nutritionalValues.carbs.toFixed(2)}g</p>
-        </div>
-
         <button type="submit">Confirmer</button>
       </div>
     </Form>
