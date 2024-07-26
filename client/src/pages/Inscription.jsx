@@ -46,6 +46,22 @@ function Inscription() {
                 required
               />
             </div>
+            <div className="name">
+              <input
+                type="text"
+                name="name"
+                placeholder="Entrez votre prénom"
+                required
+              />
+            </div>
+            <div className="last_name">
+              <input
+                type="text"
+                name="last_name"
+                placeholder="Entrez votre nom"
+                required
+              />
+            </div>
             <div className="password">
               <input
                 type="password"

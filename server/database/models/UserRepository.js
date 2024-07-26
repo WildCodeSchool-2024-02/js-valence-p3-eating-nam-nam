@@ -29,10 +29,10 @@ class UserRepository extends AbstractRepository {
   }
 
   async insert(user) {
-    const { username, email, birthdate, hashedPassword } = user;
+    const { username, email, name, lastName, birthdate, hashedPassword } = user;
     const query =
-      "INSERT INTO user (username, email, birthdate, hashed_password) VALUES (?, ?, ?, ?)";
-    const values = [username, email, birthdate, hashedPassword];
+      "INSERT INTO user (username, email, name, last_name, birthdate, hashed_password) VALUES (?, ?, ?, ?, ?, ?)";
+    const values = [username, email, name, lastName, birthdate, hashedPassword];
 
     const [result] = await this.database.query(query, values);
     return result;
