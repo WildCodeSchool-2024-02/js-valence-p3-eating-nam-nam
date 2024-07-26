@@ -1,5 +1,5 @@
-import "./RecettesFavorites.css";
-import { burger, vegan, cabillaud } from "./import";
+import "../styles/RecettesFavorites.css";
+import { burger, vegan, cabillaud } from "../components/import";
 
 const recettes = [
   { type: "Viandes", img: burger, alt: "burger" },

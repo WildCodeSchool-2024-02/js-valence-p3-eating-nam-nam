@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import "./consulterRecette.css";
+import "../styles/consulterRecette.css";
 import {
   champignons,
   citron,
@@ -11,7 +11,7 @@ import {
   sel,
   vinBlanc,
   autre,
-} from "./import";
+} from "../components/import";
 
 const ingrédients = [
   {
