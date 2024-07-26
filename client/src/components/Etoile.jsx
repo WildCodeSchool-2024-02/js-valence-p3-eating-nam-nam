@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Rating from "@mui/material/Rating";
-import "./carteRecette.css";
+import "../styles/carteRecette.css";
 import StarIcon from "@mui/icons-material/Star";
 
 function Etoile() {

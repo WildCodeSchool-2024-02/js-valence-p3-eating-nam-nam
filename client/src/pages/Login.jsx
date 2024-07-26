@@ -31,7 +31,7 @@ function Login() {
             placeholder="Entrez votre mot de passe"
             required
           />
-
+          <br />
           <div className="log_button">
             <button
               type="submit"
@@ -42,7 +42,11 @@ function Login() {
             </button>
           </div>
         </Form>
+        <br />
+        <br />
         <p style={{ color: "black" }}>Ou</p>
+        <br />
+        <br />
         <Link to="/inscription">
           <div className="inscription_button">
             <button type="button">S'inscrire</button>

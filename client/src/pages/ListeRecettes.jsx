@@ -1,11 +1,11 @@
 import { useOutletContext } from "react-router-dom";
-import CarteRecette from "./CarteRecette";
-import "./carteRecette.css";
+import CarteRecette from "../components/CarteRecette";
+import "../styles/carteRecette.css";
 import {
   cabillaudauchorizo,
   gratindecabillaudauxolives,
   cabillaudauxolivesetauvinblanc,
-} from "./import";
+} from "../components/import";
 
 const recettes = [
   {
