@@ -40,13 +40,28 @@ export async function fetchRecettes() {
   return recetteData;
 }
 
-export async function fetchRecetteById(id) {
+export async function fetchDeleteRecetteById(id) {
   const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/api/recettes/${id}`
+    `${import.meta.env.VITE_API_URL}/api/recettes/${id}`,
+    {
+      method: "DELETE",
+    }
   );
   if (!response.ok) {
-    throw new Error("Erreur lors du chargement de la recette");
+    throw new Error("Erreur lors de la suppression de la recette");
   }
-  const recetteData = await response.json();
-  return recetteData;
+  return true;
+}
+
+export async function fetchPatchRecetteById(id) {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/recettes/${id}`,
+    {
+      method: "PATCH",
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Erreur lors de la confirmation de la recette");
+  }
+  return true;
 }

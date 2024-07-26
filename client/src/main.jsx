@@ -10,11 +10,15 @@ import Accueil from "./pages/Accueil";
 import Profile from "./pages/Profile";
 import RecettesFavorites from "./components/RecettesFavorites";
 import RecettesAjoutees from "./components/RecettesAjoutees";
-import { fetchUserById, fetchUsers, fetchRecettes } from "./api/fetch";
+import { fetchUserById } from "./api/fetch";
 import Admin from "./components/Admin";
-import GestionRecettes from "./pages/admin/GestionRecettes";
+import GestionRecettes, {
+  loader as gestionRecettesLoader,
+} from "./pages/admin/GestionRecettes";
 
-import GestionUtilisateur from "./pages/admin/GestionUtilisateur";
+import GestionUtilisateur, {
+  loader as gestionUsersLoader,
+} from "./pages/admin/GestionUtilisateur";
 
 const router = createBrowserRouter([
   {
@@ -57,12 +61,12 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <GestionRecettes />,
-            loader: fetchRecettes,
+            loader: gestionRecettesLoader,
           },
           {
             path: "GestionUtilisateurs",
             element: <GestionUtilisateur />,
-            loader: fetchUsers,
+            loader: gestionUsersLoader,
           },
         ],
       },

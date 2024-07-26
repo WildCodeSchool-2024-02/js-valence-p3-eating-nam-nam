@@ -2,75 +2,64 @@ import { useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import "../../styles/GestionRecettes.css";
 import "../../styles/Admin.css";
+import {
+  fetchDeleteRecetteById,
+  fetchPatchRecetteById,
+  fetchRecettes,
+} from "../../api/fetch";
+
+export function loader() {
+  return fetchRecettes();
+}
 
 function GestionRecettes() {
   const initialRecettes = useLoaderData();
   const [recettes, setRecettes] = useState(initialRecettes);
 
-  const handleDelete = async (recette) => {
+  const handleDelete = async (id) => {
     try {
-      const response = await fetch(`recettes/${recette.id}`, {
-        method: "DELETE",
-      });
-
-      if (response.ok) {
-        setRecettes(recettes.filter((u) => u.id !== recette.id));
-      } else {
-        throw Error("Error message");
-      }
-    } catch (error) {
-      throw Error("Error message");
+      const success = await fetchDeleteRecetteById(id);
+      if (success) setRecettes(recettes.filter((r) => r.id !== id));
+    } catch (err) {
+      console.error(err.message);
     }
   };
-  const handleConfirm = async (recette) => {
+  const handleConfirm = async (id) => {
     try {
-      const response = await fetch(`recettes/${recette.id}`, {
-        method: "PUT",
-      });
-
-      if (response.ok) {
-        setRecettes(recettes.filter((u) => u.id !== recette.id));
+      const success = await fetchPatchRecetteById(id);
+      if (success) setRecettes(recettes.filter((r) => r.id !== id));
+      if (success) {
+        setRecettes(
+          recettes.map((recette) =>
+            recette.id === id ? { ...recette, published: 1 } : recette
+          )
+        );
       } else {
-        throw Error("Error message");
+        throw new Error("Erreur lors de la confirmation de la recette");
       }
     } catch (error) {
-      throw Error("Error message");
+      console.error(error);
     }
   };
-
-  const firstColumnRecettes = recettes.slice(0, 8);
-  const secondColumnRecettes = recettes.slice(8, 16);
 
   return (
     <div className="gestion-recette columns">
       <div className="column">
         <h2>Nom de la recette:</h2>
         <ul>
-          {firstColumnRecettes.map((recette) => (
+          {recettes.map((recette) => (
             <li key={recette.id}>
               {recette.title}
 
-              <button type="button" onClick={() => handleConfirm(recette)}>
+              <button
+                type="button"
+                onClick={() => handleConfirm(recette.id)}
+                disabled={recette.published === 1}
+              >
                 Confirmer
               </button>
-              <button type="button" onClick={() => handleDelete(recette)}>
-                Supprimer
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="column">
-        <h2>Nom de la recette:</h2>
-        <ul>
-          {secondColumnRecettes.map((recette) => (
-            <li key={recette.id}>
-              {recette.title}
 
-              <button type="button" onClick={() => handleConfirm(recette)}>
-                Confirmer
-              </button>
-              <button type="button" onClick={() => handleDelete(recette)}>
+              <button type="button" onClick={() => handleDelete(recette.id)}>
                 Supprimer
               </button>
             </li>
