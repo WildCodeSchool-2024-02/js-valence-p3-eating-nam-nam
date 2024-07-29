@@ -9,7 +9,7 @@ import Login from "./pages/Login";
 import Accueil from "./pages/Accueil";
 import Profile from "./pages/Profile";
 import RecettesFavorites from "./pages/RecettesFavorites";
-import NutriAutoComplete from "./components/NutriAutoComplete";
+
 import RecettesAjoutees from "./pages/RecettesAjoutees";
 import AjouterRecette, {
   action as ajouterRecetteAction,
@@ -47,10 +47,7 @@ const router = createBrowserRouter([
         path: "/RecettesFavorites",
         element: <RecettesFavorites />,
       },
-      {
-        path: "/NutriAutoComplete",
-        element: <NutriAutoComplete />,
-      },
+
       { path: "/dernieres-recettes", element: <RecettesAjoutees /> },
       {
         path: "/RecettesAjoutees",

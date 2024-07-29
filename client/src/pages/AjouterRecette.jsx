@@ -1,11 +1,11 @@
 import { useState } from "react";
 import "../styles/ajouterRecette.css";
 import { Form } from "react-router-dom";
+import NutriAutoComplete from "../components/NutriAutoComplete";
 
 export async function action({ request }) {
   try {
     const data = Object.fromEntries(await request.formData());
-
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/api/recettes`,
       {
@@ -24,9 +24,15 @@ export async function action({ request }) {
   }
 }
 
-function IngredientField({ ingredient, onChange, onRemove }) {
+function IngredientField({
+  ingredient,
+  onChange,
+  onRemove,
+  onNutritionDetails,
+}) {
   return (
     <div className="ingredient">
+      <NutriAutoComplete onNutritionDetails={onNutritionDetails} />
       <input
         type="number"
         min="1"
@@ -60,7 +66,7 @@ function IngredientField({ ingredient, onChange, onRemove }) {
 function AjouterRecette() {
   const [titre, setTitre] = useState("");
   const [ingredients, setIngredients] = useState([
-    { id: Date.now(), quantity: "", unit: "g", name: "" },
+    { id: Date.now(), quantity: "", unit: "g", name: "", nutrition: {} },
   ]);
   const [steps, setSteps] = useState([{ id: Date.now(), step: "" }]);
   const [photo, setPhoto] = useState(null);
@@ -74,10 +80,20 @@ function AjouterRecette() {
     );
   };
 
+  const handleNutritionDetails = (id, nutritionData) => {
+    setIngredients(
+      ingredients.map((ingredient) =>
+        ingredient.id === id
+          ? { ...ingredient, nutrition: nutritionData }
+          : ingredient
+      )
+    );
+  };
+
   const addIngredient = () => {
     setIngredients([
       ...ingredients,
-      { id: Date.now(), quantity: "", unit: "g", name: "" },
+      { id: Date.now(), quantity: "", unit: "g", name: "", nutrition: {} },
     ]);
   };
 
@@ -98,8 +114,38 @@ function AjouterRecette() {
     setPhoto(() => file);
   };
 
+  const calculateTotalNutrition = () => {
+    const totalNutrition = ingredients.reduce(
+      (acc, ingredient) => {
+        if (ingredient.nutrition) {
+          acc.calories +=
+            (ingredient.nutrition.nf_calories || 0) *
+            (ingredient.quantity || 1);
+          acc.protein +=
+            (ingredient.nutrition.nf_protein || 0) * (ingredient.quantity || 1);
+          acc.fat +=
+            (ingredient.nutrition.nf_total_fat || 0) *
+            (ingredient.quantity || 1);
+          acc.carbs +=
+            (ingredient.nutrition.nf_total_carbohydrate || 0) *
+            (ingredient.quantity || 1);
+        }
+        return acc;
+      },
+      { calories: 0, protein: 0, fat: 0, carbs: 0 }
+    );
+    return totalNutrition;
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    calculateTotalNutrition();
+    // console.log("Total Nutrition:", totalNutrition);
+    // Continue with the form submission
+  };
+
   return (
-    <Form method="POST">
+    <Form method="POST" onSubmit={handleSubmit}>
       <div className="ajouterRecette">
         <h1>Ajouter une recette</h1>
 
@@ -137,6 +183,9 @@ function AjouterRecette() {
             ingredient={ingredient}
             onChange={handleIngredientChange}
             onRemove={removeIngredient}
+            onNutritionDetails={(nutritionData) =>
+              handleNutritionDetails(ingredient.id, nutritionData)
+            }
           />
         ))}
         <button type="button" onClick={addIngredient}>
@@ -150,9 +199,14 @@ function AjouterRecette() {
               name={`steps[${step.id}]`}
               maxLength="310"
               value={step.step}
-              placeholder={`Étape ${
-                steps.indexOf(step) + 1
-              } : Rédigez des instructions courtes et claires, en procédant étape par étape (3 lignes par étape soit 310 caractères maximum)`}
+              onChange={(e) =>
+                setSteps(
+                  steps.map((s) =>
+                    s.id === step.id ? { ...s, step: e.target.value } : s
+                  )
+                )
+              }
+              placeholder={`Étape ${steps.indexOf(step) + 1} : Rédigez des instructions courtes et claires, en procédant étape par étape (3 lignes par étape soit 310 caractères maximum)`}
             />
             <button type="button" onClick={() => removeStep(step.id)}>
               Supprimer
