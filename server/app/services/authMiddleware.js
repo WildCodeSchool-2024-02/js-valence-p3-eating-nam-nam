@@ -9,7 +9,6 @@ const hashingOptions = {
   parallelism: 1,
 };
 
-// eslint-disable-next-line consistent-return
 const getUserByEmail = async (req, res, next) => {
   try {
     const user = await tables.user.readWithPassword(req.body.email);
