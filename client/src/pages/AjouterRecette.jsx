@@ -73,6 +73,18 @@ function AjouterRecette() {
       )
     );
   };
+  const handleStepChange = (id, value) => {
+    setSteps(
+      steps.map((step) =>
+        step.id === id
+          ? {
+              ...step,
+              step: value,
+            }
+          : step
+      )
+    );
+  };
 
   const addIngredient = () => {
     setIngredients([
@@ -150,6 +162,7 @@ function AjouterRecette() {
               name={`steps[${step.id}]`}
               maxLength="310"
               value={step.step}
+              onChange={(e) => handleStepChange(step.id, e.target.value)}
               placeholder={`Étape ${
                 steps.indexOf(step) + 1
               } : Rédigez des instructions courtes et claires, en procédant étape par étape (3 lignes par étape soit 310 caractères maximum)`}
@@ -184,6 +197,12 @@ function AjouterRecette() {
               accept="image/*"
               style={{ display: "none" }}
               onChange={handlePhotoChange}
+            />
+
+            <input
+              type="hidden"
+              name="nutritional_values"
+              value="Données non disponible"
             />
           </div>
         </div>
