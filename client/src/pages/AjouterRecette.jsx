@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../styles/ajouterRecette.css";
-import { Form } from "react-router-dom";
+import { Form, useActionData } from "react-router-dom";
 
 export async function action({ request }) {
   try {
@@ -14,13 +14,14 @@ export async function action({ request }) {
         body: JSON.stringify(data),
       }
     );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
     const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || `HTTP error! status: ${response.status}`);
+    }
     return result;
   } catch (error) {
-    return { error: error.message };
+    return { message: error.message };
   }
 }
 
@@ -58,6 +59,8 @@ function IngredientField({ ingredient, onChange, onRemove }) {
 }
 
 function AjouterRecette() {
+  const error = useActionData();
+
   const [titre, setTitre] = useState("");
   const [ingredients, setIngredients] = useState([
     { id: Date.now(), quantity: "", unit: "g", name: "" },
@@ -114,6 +117,7 @@ function AjouterRecette() {
     <Form method="POST">
       <div className="ajouterRecette">
         <h1>Ajouter une recette</h1>
+        {error && <h2>{error.message}</h2>}
 
         <div className="title-input">
           <h2>Titre de la recette</h2>
