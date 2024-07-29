@@ -11,7 +11,7 @@ function RecettesFavorites() {
   return (
     <>
       <div className="para">
-        <p>Ici vous pouvez consulter vos recettes favorites</p>
+        <h1>Ici vous pouvez consulter vos recettes favorites</h1>
       </div>
       <section className="flex">
         {recettes.map(({ type, img, alt }) => (

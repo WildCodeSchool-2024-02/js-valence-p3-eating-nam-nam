@@ -2,7 +2,7 @@
   text-decoration: none;
 }
 .main-content {
-  margin-bottom: 70px;
+  margin-bottom: 10px;
 }
 .auteur,
 .temps {
@@ -217,9 +217,6 @@
   }
 
   .container-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     gap: 10px;
   }
 
