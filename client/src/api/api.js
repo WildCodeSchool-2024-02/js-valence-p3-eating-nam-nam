@@ -26,10 +26,11 @@ export async function register(formData) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      username: formData.get("username"),
       email: formData.get("email"),
+      username: formData.get("username"),
       name: formData.get("name"),
       lastName: formData.get("last_name"),
+
       password: formData.get("password"),
       birthdate: formData.get("birthdate"),
     }),

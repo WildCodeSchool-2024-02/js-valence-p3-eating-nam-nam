@@ -37,28 +37,24 @@ function Inscription() {
                 placeholder="Entrez votre pseudo"
                 required
               />
-            </div>
-            <div className="mail">
-              <input
-                type="email"
-                name="email"
-                placeholder="Entrez votre adresse mail"
-                required
-              />
-            </div>
-            <div className="name">
               <input
                 type="text"
                 name="name"
                 placeholder="Entrez votre prénom"
                 required
               />
-            </div>
-            <div className="last_name">
               <input
                 type="text"
                 name="last_name"
                 placeholder="Entrez votre nom"
+                required
+              />
+            </div>
+            <div className="mail">
+              <input
+                type="email"
+                name="email"
+                placeholder="Entrez votre adresse mail"
                 required
               />
             </div>
