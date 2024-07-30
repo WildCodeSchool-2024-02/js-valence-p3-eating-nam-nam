@@ -3,7 +3,7 @@ import add from "../assets/icones/add.png";
 import dernière from "../assets/icones/dernière.png";
 import login from "../assets/icones/login.png";
 import logo from "../assets/icones/logo.png";
-import logout from "../assets/icones/logout.png";
+import logoutIcon from "../assets/icones/logout.png";
 import partagées from "../assets/icones/partagées.png";
 import search from "../assets/icones/search.png";
 import favoris from "../assets/icones/favoris.png";
@@ -42,7 +42,7 @@ export {
   dernière,
   login,
   logo,
-  logout,
+  logoutIcon,
   partagées,
   search,
   favoris,
