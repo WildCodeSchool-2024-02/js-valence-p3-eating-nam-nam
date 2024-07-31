@@ -20,15 +20,40 @@ select {
   margin-bottom: 10px;
 }
 
-.ingredient,
-.step,
-.time-input,
-.title-input,
-.name-input,
-.commentaire-auteur {
+.ingredient-container,
+.step {
   display: flex;
-  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
   gap: 10px;
+}
+
+.ingredient-info {
+  flex: 1;
+}
+
+.step-info {
+  flex: 1;
+}
+
+.ingredient-button,
+.step-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.step textarea {
+  resize: vertical;
+  width: 100%;
+}
+
+.char-count {
+  text-align: center;
 }
 
 .photos {
@@ -72,6 +97,13 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
 }
 
 @media (max-width: 738px) {
