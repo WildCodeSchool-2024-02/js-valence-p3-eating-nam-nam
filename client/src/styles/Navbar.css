@@ -1,6 +1,5 @@
 header {
   display: flex;
-  width: 100%;
   align-items: center;
   background-color: var(--orange);
   height: 110px;
@@ -26,8 +25,8 @@ header {
 .active {
   text-decoration: underline;
 }
-.search_bar {
-  width: 25rem;
+.search_nav {
+  width: 35rem;
   height: 30px;
   border-radius: 15px;
   border: 2px solid var(--vert);
@@ -64,10 +63,16 @@ header {
   justify-content: center;
   background-color: var(--vert);
   height: 40px;
+  width: 120px;
   padding: 0 10px;
   border-radius: 10px;
   color: var(--blanc);
   text-decoration: none;
+}
+
+.nav_avatar {
+  width: 60px;
+  border-radius: 50%;
 }
 
 .mobile_navbar {

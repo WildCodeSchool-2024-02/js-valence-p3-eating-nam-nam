@@ -9,6 +9,23 @@ const hashingOptions = {
   parallelism: 1,
 };
 
+const verifyToken = (req, res, next) => {
+  try {
+    const token = req.cookies?.auth_token;
+    if (!token) {
+      console.error("No auth token found");
+      return res.sendStatus(401);
+    }
+
+    req.auth = jwt.verify(token, process.env.APP_SECRET);
+    console.info("Token verified:", req.auth);
+    next();
+  } catch (err) {
+    console.error("Token verification failed:", err);
+    res.sendStatus(401);
+  }
+};
+
 const getUserByEmail = async (req, res, next) => {
   try {
     const user = await tables.user.readWithPassword(req.body.email);
@@ -21,19 +38,6 @@ const getUserByEmail = async (req, res, next) => {
     next();
   } catch (err) {
     next(err);
-  }
-};
-
-const verifyToken = async (req, res, next) => {
-  try {
-    const token = req.cookies?.auth_token;
-    req.auth = jwt.verify(token, process.env.APP_SECRET);
-
-    next();
-  } catch (err) {
-    console.error(err);
-
-    res.sendStatus(401);
   }
 };
 
