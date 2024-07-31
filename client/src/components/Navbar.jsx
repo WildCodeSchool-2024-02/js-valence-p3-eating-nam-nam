@@ -8,6 +8,7 @@ import {
   logo,
   favoris,
   logoutIcon,
+  avatar,
 } from "./import";
 import { logout } from "../api/api";
 
@@ -74,6 +75,13 @@ function Navbar({ setSearchQuery, isLoggedIn, setIsLoggedIn }) {
           </NavLink>
         </div>
       </nav>
+
+      {isLoggedIn ? (
+        <Link to="/profile/1">
+          <img src={avatar} alt="avatar" className="nav_avatar" />
+        </Link>
+      ) : null}
+
       {isLoggedIn ? (
         <Link to="/">
           <button type="button" onClick={handleLogOut} className="login_button">

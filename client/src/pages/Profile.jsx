@@ -1,13 +1,13 @@
 import { useLoaderData } from "react-router-dom";
 import "../styles/Profile.css";
-import anna from "../assets/images/ANNA GUNN.jpg";
+import { avatar } from "../components/import";
 
 export default function Profile() {
   const user = useLoaderData();
 
   return (
     <div className="profil_container">
-      <img src={anna} alt="ANNA" className="profil_image" />
+      <img src={avatar} alt="avatar" className="profil_image" />
       <h2 className="pseudo">{user.username}</h2>
       <h2 className="title">MES INFOS PERSO</h2>
       <div className="info_container">

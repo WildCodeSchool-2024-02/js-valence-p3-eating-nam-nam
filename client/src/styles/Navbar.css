@@ -70,6 +70,11 @@ header {
   text-decoration: none;
 }
 
+.nav_avatar {
+  width: 60px;
+  border-radius: 50%;
+}
+
 .mobile_navbar {
   display: none;
 }

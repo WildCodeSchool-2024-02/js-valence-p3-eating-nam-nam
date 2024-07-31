@@ -24,6 +24,7 @@ import poivre from "../assets/images/poivre-noir.png";
 import sel from "../assets/images/sel.png";
 import vinBlanc from "../assets/images/vin-blanc.png";
 import autre from "../assets/images/autre.png";
+import avatar from "../assets/images/avatar.png";
 
 import vegan from "../assets/images/vegan.png";
 import cabillaudauxolivesetauvinblanc from "../assets/images/Cabillaud-aux-olives-et-au-vin-blanc.jpg";
@@ -60,4 +61,5 @@ export {
   sel,
   vinBlanc,
   autre,
+  avatar,
 };
