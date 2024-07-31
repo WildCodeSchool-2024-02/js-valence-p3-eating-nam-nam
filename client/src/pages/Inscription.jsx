@@ -28,9 +28,9 @@ function Inscription() {
       <div className="inscription_title">
         <div className="inscription">S'inscrire</div>
         <div className="rejoindre">Rejoignez la communauté Eating Nam Nam</div>
-        <div className="info_login">
+        <div className="info_inscription">
           <Form method="post" onSubmit={handleSubmit}>
-            <div className="username">
+            <div className="inscription_form">
               <input
                 type="text"
                 name="username"
@@ -49,32 +49,27 @@ function Inscription() {
                 placeholder="Entrez votre nom"
                 required
               />
-            </div>
-            <div className="mail">
               <input
                 type="email"
                 name="email"
                 placeholder="Entrez votre adresse mail"
                 required
               />
-            </div>
-            <div className="password">
               <input
                 type="password"
                 name="password"
                 placeholder="Entrez votre mot de passe"
                 required
               />
-            </div>
-            <div className="password">
               <input
                 type="password"
                 name="confirmPassword"
                 placeholder="Confirmez votre mot de passe"
                 required
               />
+              <input type="date" name="birthdate" required />
             </div>
-            <input type="date" name="birthdate" required />
+
             <div className="inscription_button">
               <button type="submit" disabled={isSubmitting}>
                 {isSubmitting ? "Inscription ..." : "S'inscrire"}
