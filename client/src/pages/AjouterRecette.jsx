@@ -24,15 +24,10 @@ export async function action({ request }) {
   }
 }
 
-function IngredientField({
-  ingredient,
-  onChange,
-  onRemove,
-  onNutritionDetails,
-}) {
+function IngredientField({ ingredient, onChange, onRemove, nutritionDetails }) {
   return (
     <div className="ingredient">
-      <NutriAutoComplete onNutritionDetails={onNutritionDetails} />
+      <NutriAutoComplete nutritionDetails={nutritionDetails} />
       <input
         type="number"
         min="1"
@@ -49,13 +44,7 @@ function IngredientField({
         <option value="ml">ml</option>
         <option value="unité">unité</option>
       </select>
-      <input
-        name={`ingredients[${ingredient.id}][name]`}
-        type="text"
-        value={ingredient.name}
-        onChange={(e) => onChange(ingredient.id, "name", e.target.value)}
-        placeholder="Nom de l'ingrédient"
-      />
+
       <button type="button" onClick={() => onRemove(ingredient.id)}>
         Supprimer
       </button>
@@ -71,6 +60,7 @@ function AjouterRecette() {
   const [steps, setSteps] = useState([{ id: Date.now(), step: "" }]);
   const [photo, setPhoto] = useState(null);
   const [serving, setServing] = useState(1);
+  const [nutritionInfo, setNutritionInfo] = useState(null);
 
   const handleIngredientChange = (id, field, value) => {
     setIngredients(
@@ -119,28 +109,27 @@ function AjouterRecette() {
       (acc, ingredient) => {
         if (ingredient.nutrition) {
           acc.calories +=
-            (ingredient.nutrition.nf_calories || 0) *
-            (ingredient.quantity || 1);
+            (ingredient.nutrition.calories || 1) * (ingredient.quantity || 1);
           acc.protein +=
-            (ingredient.nutrition.nf_protein || 0) * (ingredient.quantity || 1);
+            (ingredient.nutrition.protein || 1) * (ingredient.quantity || 1);
           acc.fat +=
-            (ingredient.nutrition.nf_total_fat || 0) *
-            (ingredient.quantity || 1);
+            (ingredient.nutrition.fat || 1) * (ingredient.quantity || 1);
           acc.carbs +=
-            (ingredient.nutrition.nf_total_carbohydrate || 0) *
+            (ingredient.nutrition.carbohydrate || 1) *
             (ingredient.quantity || 1);
         }
         return acc;
       },
-      { calories: 0, protein: 0, fat: 0, carbs: 0 }
+      { calories: 1, protein: 1, fat: 1, carbs: 1 }
     );
     return totalNutrition;
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    calculateTotalNutrition();
-    // console.log("Total Nutrition:", totalNutrition);
+    const nutritionData = calculateTotalNutrition();
+    setNutritionInfo(nutritionData);
+
     // Continue with the form submission
   };
 
@@ -240,6 +229,15 @@ function AjouterRecette() {
               onChange={handlePhotoChange}
             />
           </div>
+          {nutritionInfo && (
+            <div className="nutrition-info">
+              <h3>Valeur nutritionnelle</h3>
+              <p>Calories:{nutritionInfo.calories} kcal</p>
+              <p>Protéines:{nutritionInfo.protein} g</p>
+              <p>Glucides :{nutritionInfo.carbs} g</p>
+              <p>Graisses:{nutritionInfo.fat} g</p>
+            </div>
+          )}
         </div>
         <button type="submit">Confirmer</button>
       </div>
