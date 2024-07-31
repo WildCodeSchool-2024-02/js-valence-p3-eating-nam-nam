@@ -20,7 +20,7 @@ const login = async (req, res) => {
   res.cookie("auth_token", token, {
     secure: process.env.NODE_ENV !== "development",
     httpOnly: true,
-    expires: dayjs().add(30, "days").toDate(),
+    expires: dayjs().add(1, "hours").toDate(),
   });
 
   return res.json({ userLogin });
