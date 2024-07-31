@@ -38,7 +38,7 @@ const addUser = async (req, res) => {
   try {
     const result = await tables.user.insert(user);
     if (result && typeof result.insertId !== "undefined") {
-      return res.location(`/users/${result.insertId}`).sendStatus(201);
+      return res.sendStatus(201);
     }
     console.error("Insert result does not contain insertId:", result);
     return res.sendStatus(500);
