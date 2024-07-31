@@ -51,15 +51,13 @@ function IngredientField({
     onChange(id, "quantity", value);
   };
 
-  const handleNameChange = (e) => {
-    const value = e.target.value.slice(0, 30); // Limiter à 30 caractères
-    onChange(id, "name", value);
-  };
-
   return (
     <div className="ingredient-container">
       <div className="ingredient-info">
-        <NutriAutoComplete nutritionDetails={nutritionDetails} />
+        <NutriAutoComplete
+          nutritionDetails={nutritionDetails}
+          name={`ingredients[${id}][name]`}
+        />
         <input
           type="number"
           min={unit === "kg" ? 0.1 : 100}
@@ -89,14 +87,7 @@ function IngredientField({
           <option value="ml">ml</option>
           <option value="unité">unité</option>
         </select>
-        <input
-          name={`ingredients[${id}][name]`}
-          type="text"
-          value={name}
-          onChange={handleNameChange}
-          placeholder="Nom de l'ingrédient"
-          maxLength="30"
-        />
+
         <div className="char-count">{30 - name.length} caractères restants</div>
       </div>
       <div className="ingredient-button">
@@ -120,6 +111,27 @@ function AjouterRecette() {
   const [serving, setServing] = useState(1);
   const [nutritionInfo, setNutritionInfo] = useState(null);
 
+  const calculateTotalNutrition = () => {
+    const totalNutrition = ingredients.reduce(
+      (acc, ingredient) => {
+        if (ingredient.nutrition) {
+          acc.calories +=
+            (ingredient.nutrition.calories || 1) * (ingredient.quantity || 1);
+          acc.protein +=
+            (ingredient.nutrition.protein || 1) * (ingredient.quantity || 1);
+          acc.fat +=
+            (ingredient.nutrition.fat || 1) * (ingredient.quantity || 1);
+          acc.carbs +=
+            (ingredient.nutrition.carbohydrate || 1) *
+            (ingredient.quantity || 1);
+        }
+        return acc;
+      },
+      { calories: 1, protein: 1, fat: 1, carbs: 1 }
+    );
+    return totalNutrition;
+  };
+
   const handleIngredientChange = (id, field, value) => {
     setIngredients(
       ingredients.map((ingredient) =>
@@ -136,6 +148,8 @@ function AjouterRecette() {
           : ingredient
       )
     );
+    const globalNutritionData = calculateTotalNutrition();
+    setNutritionInfo(globalNutritionData);
   };
 
   const addIngredient = () => {
@@ -162,35 +176,6 @@ function AjouterRecette() {
     setPhoto(() => file);
   };
 
-  const calculateTotalNutrition = () => {
-    const totalNutrition = ingredients.reduce(
-      (acc, ingredient) => {
-        if (ingredient.nutrition) {
-          acc.calories +=
-            (ingredient.nutrition.calories || 1) * (ingredient.quantity || 1);
-          acc.protein +=
-            (ingredient.nutrition.protein || 1) * (ingredient.quantity || 1);
-          acc.fat +=
-            (ingredient.nutrition.fat || 1) * (ingredient.quantity || 1);
-          acc.carbs +=
-            (ingredient.nutrition.carbohydrate || 1) *
-            (ingredient.quantity || 1);
-        }
-        return acc;
-      },
-      { calories: 1, protein: 1, fat: 1, carbs: 1 }
-    );
-    return totalNutrition;
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const nutritionData = calculateTotalNutrition();
-    setNutritionInfo(nutritionData);
-
-    // Continue with the form submission
-  };
-
   const handleServingChange = ({ target: { value } }) => {
     if (value === "") {
       setServing(value);
@@ -214,7 +199,7 @@ function AjouterRecette() {
   };
 
   return (
-    <Form method="POST" onSubmit={handleSubmit}>
+    <Form method="POST">
       <div className="ajouterRecette">
         <h1>Ajouter une recette</h1>
 
@@ -258,9 +243,11 @@ function AjouterRecette() {
             ingredient={ingredient}
             onChange={handleIngredientChange}
             onRemove={removeIngredient}
-            onNutritionDetails={(nutritionData) =>
-              handleNutritionDetails(ingredient.id, nutritionData)
-            }
+            onNutritionDetails={(nutritionData) => {
+              console.log("setting nutrition details");
+
+              return handleNutritionDetails(ingredient.id, nutritionData);
+            }}
           />
         ))}
         <button type="button" onClick={addIngredient}>
@@ -315,22 +302,16 @@ function AjouterRecette() {
               style={{ display: "none" }}
               onChange={handlePhotoChange}
             />
-
-            <input
-              type="hidden"
-              name="nutritional_values"
-              value="Données non disponible"
-            />
           </div>
-          {nutritionInfo && (
-            <div className="nutrition-info">
-              <h3>Valeur nutritionnelle</h3>
-              <p>Calories:{nutritionInfo.calories} kcal</p>
-              <p>Protéines:{nutritionInfo.protein} g</p>
-              <p>Glucides :{nutritionInfo.carbs} g</p>
-              <p>Graisses:{nutritionInfo.fat} g</p>
-            </div>
-          )}
+          <input
+            type="hidden"
+            name="nutritional_values"
+            value={
+              nutritionInfo
+                ? `${nutritionInfo.calories}, ${nutritionInfo.protein}, ${nutritionInfo.carbs}, ${nutritionInfo.fat}`
+                : "Données non disponibles"
+            }
+          />
         </div>
         {error && <h2 className="error-message">{error.message}</h2>}
         <button type="submit">Confirmer</button>

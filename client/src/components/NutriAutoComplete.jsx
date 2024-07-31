@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 
-export default function NutriAutoComplete() {
+export default function NutriAutoComplete({ name }) {
   const [suggestions, setSuggestions] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [nutritionDetails, setNutritionDetails] = useState(null);
@@ -87,7 +87,14 @@ export default function NutriAutoComplete() {
         onChange={handleOptionSelect}
         renderInput={(params) => (
           /* eslint-disable react/jsx-props-no-spreading */
-          <TextField {...params} label="Rechercher un aliment" />
+          <TextField
+            {...params}
+            inputProps={{
+              ...params.inputProps,
+              name,
+            }}
+            label="Rechercher un aliment"
+          />
         )}
       />
       {nutritionDetails && (
