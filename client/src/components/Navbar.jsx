@@ -12,14 +12,14 @@ import {
 } from "./import";
 import { logout } from "../api/api";
 
-function Navbar({ setSearchQuery, isLoggedIn, setIsLoggedIn }) {
+function Navbar({ setSearchQuery, isLoggedIn }) {
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleLogOut = async () => {
     try {
       await logout();
-      setIsLoggedIn(false);
+      navigate(0);
     } catch (err) {
       console.error(err);
     }
