@@ -39,6 +39,13 @@
   color: var(--orange);
 }
 
+.value {
+  display: flex;
+  font-weight: bold;
+  margin-top: 20px;
+  color: var(--orange);
+}
+
 /* Styles pour les tablettes */
 @media (min-width: 768px) and (max-width: 854px) {
   .info_container {
