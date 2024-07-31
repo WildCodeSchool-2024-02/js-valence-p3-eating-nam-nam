@@ -15,8 +15,8 @@ export default function NutriAutoComplete() {
           {
             method: "GET",
             headers: {
-              "x-app-id": "eef29970",
-              "x-app-key": import.meta.env.VITE_API_KEY_PB,
+              "x-app-id": import.meta.env.VITE_NUTRITIONIX_APP_ID,
+              "x-app-key": import.meta.env.VITE_NUTRITIONIX_APP_KEY,
             },
           }
         );
@@ -47,8 +47,8 @@ export default function NutriAutoComplete() {
           method: "POST",
 
           headers: {
-            "x-app-id": "eef29970",
-            "x-app-key": import.meta.env.VITE_API_KEY_PB,
+            "x-app-id": import.meta.env.VITE_NUTRITIONIX_APP_ID,
+            "x-app-key": import.meta.env.VITE_NUTRITIONIX_APP_KEY,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
