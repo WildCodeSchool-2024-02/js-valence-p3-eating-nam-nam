@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../styles/ajouterRecette.css";
-import { Form } from "react-router-dom";
+import { Form, useActionData } from "react-router-dom";
 import NutriAutoComplete from "../components/NutriAutoComplete";
 
 export async function action({ request }) {
@@ -14,48 +14,106 @@ export async function action({ request }) {
         body: JSON.stringify(data),
       }
     );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
     const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || `HTTP error! status: ${response.status}`);
+    }
     return result;
   } catch (error) {
-    return { error: error.message };
+    return { message: error.message };
   }
 }
 
-function IngredientField({ ingredient, onChange, onRemove, nutritionDetails }) {
-  return (
-    <div className="ingredient">
-      <NutriAutoComplete nutritionDetails={nutritionDetails} />
-      <input
-        type="number"
-        min="1"
-        max="10000"
-        value={ingredient.quantity}
-        onChange={(e) => onChange(ingredient.id, "quantity", e.target.value)}
-        placeholder="Quantité"
-      />
-      <select
-        value={ingredient.unit}
-        onChange={(e) => onChange(ingredient.id, "unit", e.target.value)}
-      >
-        <option value="g">g</option>
-        <option value="ml">ml</option>
-        <option value="unité">unité</option>
-      </select>
+function IngredientField({
+  ingredient: { id, quantity, unit, name },
+  onChange,
+  onRemove,
+  nutritionDetails,
+}) {
+  const handleQuantityChange = (e) => {
+    const { value } = e.target;
+    onChange(id, "quantity", value);
+  };
 
-      <button type="button" onClick={() => onRemove(ingredient.id)}>
-        Supprimer
-      </button>
+  const handleQuantityBlur = () => {
+    let value = quantity;
+    if (value === "" || Number.isNaN(Number(value))) {
+      value = unit === "kg" ? 0.1 : 100;
+    } else {
+      value = parseFloat(value);
+      if (unit === "kg") {
+        value = Math.max(0.1, Math.min(5, value));
+      } else {
+        value = Math.max(100, Math.min(5000, value));
+      }
+    }
+    onChange(id, "quantity", value);
+  };
+
+  const handleNameChange = (e) => {
+    const value = e.target.value.slice(0, 30); // Limiter à 30 caractères
+    onChange(id, "name", value);
+  };
+
+  return (
+    <div className="ingredient-container">
+      <div className="ingredient-info">
+        <NutriAutoComplete nutritionDetails={nutritionDetails} />
+        <input
+          type="number"
+          min={unit === "kg" ? 0.1 : 100}
+          max={unit === "kg" ? 5 : 5000}
+          step={unit === "kg" ? 0.1 : 1}
+          value={quantity}
+          onChange={handleQuantityChange}
+          onBlur={handleQuantityBlur}
+          placeholder="Quantité"
+        />
+        <select
+          value={unit}
+          onChange={(e) => {
+            const newUnit = e.target.value;
+            let newQuantity = quantity;
+            if (unit === "g" && newUnit === "kg") {
+              newQuantity /= 1000;
+            } else if (unit === "kg" && newUnit === "g") {
+              newQuantity *= 1000;
+            }
+            onChange(id, "unit", newUnit);
+            onChange(id, "quantity", newQuantity);
+          }}
+        >
+          <option value="g">g</option>
+          <option value="kg">kg</option>
+          <option value="ml">ml</option>
+          <option value="unité">unité</option>
+        </select>
+        <input
+          name={`ingredients[${id}][name]`}
+          type="text"
+          value={name}
+          onChange={handleNameChange}
+          placeholder="Nom de l'ingrédient"
+          maxLength="30"
+        />
+        <div className="char-count">{30 - name.length} caractères restants</div>
+      </div>
+      <div className="ingredient-button">
+        <button type="button" onClick={() => onRemove(id)}>
+          Supprimer l'ingrédient
+        </button>
+      </div>
     </div>
   );
 }
 
 function AjouterRecette() {
+  const error = useActionData();
+
   const [titre, setTitre] = useState("");
   const [ingredients, setIngredients] = useState([
-    { id: Date.now(), quantity: "", unit: "g", name: "", nutrition: {} },
+    { id: Date.now(), quantity: 100, unit: "g", name: "", nutrition: {} },
   ]);
   const [steps, setSteps] = useState([{ id: Date.now(), step: "" }]);
   const [photo, setPhoto] = useState(null);
@@ -83,7 +141,7 @@ function AjouterRecette() {
   const addIngredient = () => {
     setIngredients([
       ...ingredients,
-      { id: Date.now(), quantity: "", unit: "g", name: "", nutrition: {} },
+      { id: Date.now(), quantity: 100, unit: "g", name: "", nutrition: {} },
     ]);
   };
 
@@ -133,6 +191,15 @@ function AjouterRecette() {
     // Continue with the form submission
   };
 
+  const handleServingChange = ({ target: { value } }) => {
+    if (value === "") {
+      setServing(value);
+    } else {
+      const numValue = parseInt(value, 10); // Ajout du paramètre radix
+      setServing(Math.max(1, Math.min(10, numValue)));
+    }
+  };
+
   return (
     <Form method="POST" onSubmit={handleSubmit}>
       <div className="ajouterRecette">
@@ -146,8 +213,11 @@ function AjouterRecette() {
             maxLength="30"
             value={titre}
             onChange={(e) => setTitre(e.target.value)}
-            placeholder="Entrez le titre de votre recette (1 ligne soit 30 caractères maximum)"
+            placeholder="Entrez le titre de votre recette (30 caractères maximum)"
           />
+          <div className="char-count">
+            {30 - titre.length} caractères restants
+          </div>
         </div>
 
         <div className="serving-input">
@@ -158,10 +228,13 @@ function AjouterRecette() {
             value={serving}
             min="1"
             max="10"
-            onChange={(e) => {
-              setServing(e.target.value);
+            onChange={handleServingChange}
+            onBlur={() => {
+              if (serving === "" || Number.isNaN(Number(serving))) {
+                setServing(1);
+              }
             }}
-            placeholder="Entrez le nombre de portions (2 chiffres)"
+            placeholder="Entrez le nombre de portions (1 à 10)"
           />
         </div>
 
@@ -182,24 +255,25 @@ function AjouterRecette() {
         </button>
 
         <h2>Étapes de préparation</h2>
-        {steps.map((step) => (
-          <div key={step.id} className="step">
-            <textarea
-              name={`steps[${step.id}]`}
-              maxLength="310"
-              value={step.step}
-              onChange={(e) =>
-                setSteps(
-                  steps.map((s) =>
-                    s.id === step.id ? { ...s, step: e.target.value } : s
-                  )
-                )
-              }
-              placeholder={`Étape ${steps.indexOf(step) + 1} : Rédigez des instructions courtes et claires, en procédant étape par étape (3 lignes par étape soit 310 caractères maximum)`}
-            />
-            <button type="button" onClick={() => removeStep(step.id)}>
-              Supprimer
-            </button>
+        {steps.map(({ id, step }, index) => (
+          <div key={id} className="step">
+            <div className="step-info">
+              <textarea
+                name={`steps[${id}]`}
+                maxLength="310"
+                value={step}
+                onChange={(e) => handleStepChange(id, e.target.value)}
+                placeholder={`Étape ${index + 1} : Rédigez des instructions courtes et claires, en procédant étape par étape (310 caractères maximum)`}
+              />
+              <div className="char-count">
+                {310 - step.length} caractères restants
+              </div>
+            </div>
+            <div className="step-button">
+              <button type="button" onClick={() => removeStep(id)}>
+                Supprimer l'étape
+              </button>
+            </div>
           </div>
         ))}
         <button type="button" onClick={addStep}>
@@ -228,6 +302,12 @@ function AjouterRecette() {
               style={{ display: "none" }}
               onChange={handlePhotoChange}
             />
+
+            <input
+              type="hidden"
+              name="nutritional_values"
+              value="Données non disponible"
+            />
           </div>
           {nutritionInfo && (
             <div className="nutrition-info">
@@ -239,6 +319,7 @@ function AjouterRecette() {
             </div>
           )}
         </div>
+        {error && <h2 className="error-message">{error.message}</h2>}
         <button type="submit">Confirmer</button>
       </div>
     </Form>

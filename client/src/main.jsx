@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Inscription from "./pages/Inscription";
+import Inscription, { action as registerAction } from "./pages/Inscription";
 import ListeRecettes from "./pages/ListeRecettes";
 import ConsulterRecette from "./pages/ConsulterRecette";
 import App from "./App";
-import Login from "./pages/Login";
+import Login, { action as loginAction } from "./pages/Login";
 import Accueil from "./pages/Accueil";
 import Profile from "./pages/Profile";
 import RecettesFavorites from "./pages/RecettesFavorites";
@@ -23,7 +23,9 @@ const router = createBrowserRouter([
       {
         path: "/inscription",
         element: <Inscription />,
+        action: registerAction,
       },
+
       {
         path: "/",
         element: <Accueil />,
@@ -33,7 +35,7 @@ const router = createBrowserRouter([
         element: <ListeRecettes />,
       },
 
-      { path: "/connexion", element: <Login /> },
+      { path: "/connexion", element: <Login />, action: loginAction },
       {
         path: "/recettes/:id",
         element: <ConsulterRecette />,

@@ -1,4 +1,6 @@
+const argon2 = require("argon2");
 const AbstractSeeder = require("./AbstractSeeder");
+const { hashingOptions } = require("../../app/services/authMiddleware");
 
 class UserSeeder extends AbstractSeeder {
   constructor() {
@@ -8,23 +10,28 @@ class UserSeeder extends AbstractSeeder {
 
   // The run method - Populate the 'user' table with fake data
 
-  run() {
-    // Generate and insert fake data into the 'user' table
-    for (let i = 0; i < 20; i += 1) {
-      // Generate fake user data
-      const fakeUser = {
-        username: this.faker.internet.userName(), // Generate a fake username using faker library
-        name: this.faker.person.firstName(), // Generate a fake username using faker library
-        last_name: this.faker.person.lastName(), // Generate a fake username using faker library
-        birthdate: this.faker.date.birthdate(), // Generate a fake username using faker library
-        email: this.faker.internet.email(), // Generate a fake email using faker library
-        password: this.faker.internet.password(), // Generate a fake password using faker library
-        refName: `user_${i}`, // Create a reference name for the user
-      };
+  async run() {
+    // Generate fake host data
+    const fakeUsers = Array.from({ length: 20 }, (_, i) => ({
+      username: this.faker.internet.userName(), // Generate a fake username using faker library
+      email: this.faker.internet.email(), // Generate a fake email using faker library
+      name: this.faker.person.firstName(), // Generate a fake username using faker library
+      last_name: this.faker.person.lastName(), // Generate a fake username using faker library
+      birthdate: this.faker.date.birthdate(), // Generate a fake username using faker library
+      refName: `user_${i}`,
+    }));
 
-      // Insert the fakeUser data into the 'user' table
-      this.insert(fakeUser); // insert into user(email, password) values (?, ?)
-    }
+    const hashedPasswords = await Promise.all(
+      fakeUsers.map((user) => argon2.hash(user.email, hashingOptions))
+    );
+
+    fakeUsers.forEach((user, index) => {
+      const fakeUser = {
+        ...user,
+        hashed_password: hashedPasswords[index],
+      };
+      this.insert(fakeUser);
+    });
   }
 }
 
