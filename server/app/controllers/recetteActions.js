@@ -44,7 +44,8 @@ const add = async (req, res, next) => {
       !Array.isArray(ingredients)
     ) {
       return res.status(400).json({
-        error: "All fields are required and steps/ingredients must be arrays",
+        error:
+          "Il est nécessaire de remplir correctement tous les formulaires.",
       });
     }
 

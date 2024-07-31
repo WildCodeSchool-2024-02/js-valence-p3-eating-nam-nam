@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../styles/ajouterRecette.css";
-import { Form } from "react-router-dom";
+import { Form, useActionData } from "react-router-dom";
 
 export async function action({ request }) {
   try {
@@ -14,13 +14,14 @@ export async function action({ request }) {
         body: JSON.stringify(data),
       }
     );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
     const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || `HTTP error! status: ${response.status}`);
+    }
     return result;
   } catch (error) {
-    return { error: error.message };
+    return { message: error.message };
   }
 }
 
@@ -36,7 +37,6 @@ function IngredientField({
 
   const handleQuantityBlur = () => {
     let value = quantity;
-
     if (value === "" || Number.isNaN(Number(value))) {
       value = unit === "kg" ? 0.1 : 100;
     } else {
@@ -47,7 +47,6 @@ function IngredientField({
         value = Math.max(100, Math.min(5000, value));
       }
     }
-
     onChange(id, "quantity", value);
   };
 
@@ -57,55 +56,59 @@ function IngredientField({
   };
 
   return (
-    <div className="ingredient">
-      <input
-        type="number"
-        min={unit === "kg" ? 0.1 : 100}
-        max={unit === "kg" ? 5 : 5000}
-        step={unit === "kg" ? 0.1 : 1}
-        value={quantity}
-        onChange={handleQuantityChange}
-        onBlur={handleQuantityBlur}
-        placeholder="Entrez la quantité (de 100 à 5000gr)"
-      />
-      <select
-        value={unit}
-        onChange={(e) => {
-          const newUnit = e.target.value;
-          let newQuantity = quantity;
-
-          if (unit === "g" && newUnit === "kg") {
-            newQuantity /= 1000;
-          } else if (unit === "kg" && newUnit === "g") {
-            newQuantity *= 1000;
-          }
-
-          onChange(id, "unit", newUnit);
-          onChange(id, "quantity", newQuantity);
-        }}
-      >
-        <option value="g">g</option>
-        <option value="kg">kg</option>
-        <option value="ml">ml</option>
-        <option value="unité">unité</option>
-      </select>
-      <input
-        name={`ingredients[${id}][name]`}
-        type="text"
-        value={name}
-        onChange={handleNameChange}
-        placeholder="Nom de l'ingrédient"
-        maxLength="30"
-      />
-      <div className="char-count">{30 - name.length} caractères restants</div>
-      <button type="button" onClick={() => onRemove(id)}>
-        Supprimer
-      </button>
+    <div className="ingredient-container">
+      <div className="ingredient-info">
+        <input
+          type="number"
+          min={unit === "kg" ? 0.1 : 100}
+          max={unit === "kg" ? 5 : 5000}
+          step={unit === "kg" ? 0.1 : 1}
+          value={quantity}
+          onChange={handleQuantityChange}
+          onBlur={handleQuantityBlur}
+          placeholder="Quantité"
+        />
+        <select
+          value={unit}
+          onChange={(e) => {
+            const newUnit = e.target.value;
+            let newQuantity = quantity;
+            if (unit === "g" && newUnit === "kg") {
+              newQuantity /= 1000;
+            } else if (unit === "kg" && newUnit === "g") {
+              newQuantity *= 1000;
+            }
+            onChange(id, "unit", newUnit);
+            onChange(id, "quantity", newQuantity);
+          }}
+        >
+          <option value="g">g</option>
+          <option value="kg">kg</option>
+          <option value="ml">ml</option>
+          <option value="unité">unité</option>
+        </select>
+        <input
+          name={`ingredients[${id}][name]`}
+          type="text"
+          value={name}
+          onChange={handleNameChange}
+          placeholder="Nom de l'ingrédient"
+          maxLength="30"
+        />
+        <div className="char-count">{30 - name.length} caractères restants</div>
+      </div>
+      <div className="ingredient-button">
+        <button type="button" onClick={() => onRemove(id)}>
+          Supprimer l'ingrédient
+        </button>
+      </div>
     </div>
   );
 }
 
 function AjouterRecette() {
+  const error = useActionData();
+
   const [titre, setTitre] = useState("");
   const [ingredients, setIngredients] = useState([
     { id: Date.now(), quantity: 100, unit: "g", name: "" },
@@ -124,7 +127,14 @@ function AjouterRecette() {
 
   const handleStepChange = (id, value) => {
     setSteps(
-      steps.map((step) => (step.id === id ? { ...step, step: value } : step))
+      steps.map((step) =>
+        step.id === id
+          ? {
+              ...step,
+              step: value,
+            }
+          : step
+      )
     );
   };
 
@@ -213,23 +223,25 @@ function AjouterRecette() {
         </button>
 
         <h2>Étapes de préparation</h2>
-        {steps.map(({ id, step }) => (
+        {steps.map(({ id, step }, index) => (
           <div key={id} className="step">
-            <textarea
-              name={`steps[${id}]`}
-              maxLength="310"
-              value={step}
-              onChange={(e) => handleStepChange(id, e.target.value)}
-              placeholder={`Étape ${
-                steps.indexOf(step) + 1
-              } : Rédigez des instructions courtes et claires, en procédant étape par étape (310 caractères maximum)`}
-            />
-            <div className="char-count">
-              {310 - step.length} caractères restants
+            <div className="step-info">
+              <textarea
+                name={`steps[${id}]`}
+                maxLength="310"
+                value={step}
+                onChange={(e) => handleStepChange(id, e.target.value)}
+                placeholder={`Étape ${index + 1} : Rédigez des instructions courtes et claires, en procédant étape par étape (310 caractères maximum)`}
+              />
+              <div className="char-count">
+                {310 - step.length} caractères restants
+              </div>
             </div>
-            <button type="button" onClick={() => removeStep(id)}>
-              Supprimer
-            </button>
+            <div className="step-button">
+              <button type="button" onClick={() => removeStep(id)}>
+                Supprimer l'étape
+              </button>
+            </div>
           </div>
         ))}
         <button type="button" onClick={addStep}>
@@ -258,8 +270,15 @@ function AjouterRecette() {
               style={{ display: "none" }}
               onChange={handlePhotoChange}
             />
+
+            <input
+              type="hidden"
+              name="nutritional_values"
+              value="Données non disponible"
+            />
           </div>
         </div>
+        {error && <h2 className="error-message">{error.message}</h2>}
         <button type="submit">Confirmer</button>
       </div>
     </Form>
