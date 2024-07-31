@@ -200,6 +200,19 @@ function AjouterRecette() {
     }
   };
 
+  const handleStepChange = (id, value) => {
+    setSteps(
+      steps.map((step) =>
+        step.id === id
+          ? {
+              ...step,
+              step: value,
+            }
+          : step
+      )
+    );
+  };
+
   return (
     <Form method="POST" onSubmit={handleSubmit}>
       <div className="ajouterRecette">
