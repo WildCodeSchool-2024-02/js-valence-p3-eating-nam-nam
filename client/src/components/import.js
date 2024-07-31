@@ -3,7 +3,7 @@ import add from "../assets/icones/add.png";
 import dernière from "../assets/icones/dernière.png";
 import login from "../assets/icones/login.png";
 import logo from "../assets/icones/logo.png";
-import logout from "../assets/icones/logout.png";
+import logoutIcon from "../assets/icones/logout.png";
 import partagées from "../assets/icones/partagées.png";
 import search from "../assets/icones/search.png";
 import favoris from "../assets/icones/favoris.png";
@@ -24,6 +24,7 @@ import poivre from "../assets/images/poivre-noir.png";
 import sel from "../assets/images/sel.png";
 import vinBlanc from "../assets/images/vin-blanc.png";
 import autre from "../assets/images/autre.png";
+import avatar from "../assets/images/avatar.png";
 
 import vegan from "../assets/images/vegan.png";
 import cabillaudauxolivesetauvinblanc from "../assets/images/Cabillaud-aux-olives-et-au-vin-blanc.jpg";
@@ -42,7 +43,7 @@ export {
   dernière,
   login,
   logo,
-  logout,
+  logoutIcon,
   partagées,
   search,
   favoris,
@@ -60,4 +61,5 @@ export {
   sel,
   vinBlanc,
   autre,
+  avatar,
 };
