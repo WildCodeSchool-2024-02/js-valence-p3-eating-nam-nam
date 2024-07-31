@@ -2,7 +2,7 @@ import { useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import "../../styles/GestionUtilisateur.css";
 import "../../styles/Admin.css";
-import { fetchUsers } from "../../api/fetch";
+import { fetchDeleteUserById, fetchUsers } from "../../api/fetch";
 
 export function loader() {
   return fetchUsers();
@@ -12,22 +12,12 @@ function GestionUtilisateur() {
   const initialUsers = useLoaderData();
   const [users, setUsers] = useState(initialUsers);
 
-  const handleDelete = async (user) => {
+  const handleDelete = async (id) => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/users/`,
-        {
-          method: "DELETE",
-        }
-      );
-
-      if (response.ok) {
-        setUsers(users.filter((u) => u.id !== user.id));
-      } else {
-        throw Error("Error message");
-      }
+      const success = await fetchDeleteUserById(id);
+      if (success) setUsers(users.filter((u) => u.id !== id));
     } catch (error) {
-      throw Error("Error message");
+      console.error("Erreur lors de la suppression de l'utilisateur", error);
     }
   };
 
@@ -39,7 +29,7 @@ function GestionUtilisateur() {
           {users.map((user) => (
             <li key={user.id}>
               {user.username}
-              <button type="button" onClick={() => handleDelete(user)}>
+              <button type="button" onClick={() => handleDelete(user.id)}>
                 Supprimer
               </button>
             </li>

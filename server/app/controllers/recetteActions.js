@@ -28,12 +28,12 @@ const browse = async (req, res, next) => {
 };
 const confirm = async (req, res, next) => {
   try {
-    const recette = await tables.recette.read(req.params.id);
+    const recette = await tables.recette.publish(req.params.id);
 
     if (recette == null) {
       res.sendStatus(404);
     } else {
-      res.json(recette);
+      res.sendStatus(204);
     }
   } catch (err) {
     next(err);

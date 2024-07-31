@@ -27,10 +27,9 @@ function GestionRecettes() {
   const handleConfirm = async (id) => {
     try {
       const success = await fetchPatchRecetteById(id);
-      if (success) setRecettes(recettes.filter((r) => r.id !== id));
       if (success) {
-        setRecettes(
-          recettes.map((recette) =>
+        setRecettes((prevRecettes) =>
+          prevRecettes.map((recette) =>
             recette.id === id ? { ...recette, published: 1 } : recette
           )
         );
@@ -38,7 +37,7 @@ function GestionRecettes() {
         throw new Error("Erreur lors de la confirmation de la recette");
       }
     } catch (error) {
-      console.error(error);
+      console.error("Erreur lors de la confirmation de la recette", error);
     }
   };
 
@@ -50,7 +49,6 @@ function GestionRecettes() {
           {recettes.map((recette) => (
             <li key={recette.id}>
               {recette.title}
-
               <button
                 type="button"
                 onClick={() => handleConfirm(recette.id)}

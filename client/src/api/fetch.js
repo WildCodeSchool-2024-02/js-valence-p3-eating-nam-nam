@@ -60,8 +60,9 @@ export async function fetchPatchRecetteById(id) {
       method: "PATCH",
     }
   );
+
   if (!response.ok) {
     throw new Error("Erreur lors de la confirmation de la recette");
   }
-  return true;
+  return response.status === 204;
 }

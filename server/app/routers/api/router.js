@@ -14,10 +14,11 @@ router.patch("/recettes/:id", recetteController.confirm);
 router.delete("/recettes/:id", recetteController.destroy);
 
 /* ************************************************************************* */
-const { getUsers, getUserById } = require("../../controllers/userActions");
+const userController = require("../../controllers/userActions");
 
-router.get("/users", getUsers);
-router.get("/users/:id", getUserById);
+router.get("/users", userController.getUsers);
+router.get("/users/:id", userController.getUserById);
+router.delete("/users/:id", userController.destroy);
 
 /* ************************************************************************* */
 

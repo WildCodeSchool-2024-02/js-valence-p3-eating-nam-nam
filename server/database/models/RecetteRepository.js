@@ -22,6 +22,14 @@ class RecetteRepository extends AbstractRepository {
       `delete from ${this.table} where id = ?`,
       [recetteId]
     );
+    return result;
+  }
+
+  async publish(recetteId) {
+    const [result] = await this.database.query(
+      `update ${this.table} set published =1 where id = ?`,
+      [recetteId]
+    );
 
     return result;
   }

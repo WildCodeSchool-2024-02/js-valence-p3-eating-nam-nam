@@ -8,7 +8,7 @@
   .Gestion {
     display: flex;
     flex-direction: row;
-    margin: -700px 0 0 250px;
+    margin: -700px 0 0 40px;
 
     color: var(--vert);
     font-family: var(--aleo);
@@ -19,8 +19,9 @@
   .column ul {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    width: 800px;
+
     margin: 24px;
-    width: 400px;
   }
   .column h2 {
     display: flex;
@@ -30,69 +31,12 @@
   li {
     margin: 16px;
     display: grid;
+    width: 400px;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
   }
   button:disabled {
     cursor: default;
     background-color: gray;
-  }
-}
-@media (max-width: 1200px) {
-  .gestion-recette .Gestion {
-    flex-direction: column;
-    margin: 0 auto;
-    width: 90%;
-    height: auto;
-  }
-
-  .gestion-recette ul {
-    width: 100%;
-    margin: 0;
-  }
-
-  .gestion-recette li {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .gestion-recette .Gestion {
-    flex-direction: column;
-    margin: 0 auto;
-    width: 100%;
-    height: auto;
-  }
-
-  .gestion-recette ul {
-    width: 100%;
-    margin: 0;
-  }
-
-  .gestion-recette li {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 480px) {
-  .gestion-recette .dropdown-content {
-    font-size: 14px;
-    margin-top: 16px;
-  }
-
-  .gestion-recette .Gestion {
-    margin: 0 auto;
-    width: 100%;
-    height: auto;
-  }
-
-  .gestion-recette ul {
-    width: 100%;
-    margin: 0;
-  }
-
-  .gestion-recette li {
-    margin: 8px;
-    grid-template-columns: 1fr;
   }
 }

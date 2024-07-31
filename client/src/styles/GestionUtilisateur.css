@@ -1,9 +1,10 @@
 .columns {
   display: flex;
   justify-content: space-evenly;
-  margin-left: 24px;
+
   width: 80%;
-  margin-left: 300px;
+  height: 100%;
+  margin-left: 200px;
   margin-top: -740px;
 }
 
@@ -12,27 +13,24 @@
 }
 .column ul {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 800px;
+
   margin: 24px;
-  width: 400px;
-  gap: 32px;
 }
 .column h2 {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   align-items: center;
 }
 
 li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 10px;
-
-  border-bottom: 1px solid #ddd;
-  box-sizing: border-box;
-  margin-bottom: 10px;
+  margin: 16px;
+  display: grid;
+  width: 400px;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
 button {
@@ -46,60 +44,4 @@ button {
 
 button:hover {
   background-color: #ff1a1a;
-}
-
-@media (max-width: 1024px) {
-  .columns {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .column {
-    width: 65%;
-    margin-bottom: 16px;
-  }
-
-  h2 {
-    font-size: 20px;
-  }
-}
-@media (max-width: 768px) {
-  .column {
-    width: 80%;
-  }
-
-  h2 {
-    font-size: 18px;
-  }
-
-  button {
-    padding: 5px 8px;
-  }
-}
-
-@media (max-width: 480px) {
-  .columns {
-    width: 100%;
-    margin: 0;
-  }
-
-  .column {
-    width: 100%;
-    margin: 0 0 20px 0;
-  }
-
-  h2 {
-    font-size: 16px;
-  }
-
-  li1 {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  button {
-    width: 40%;
-    padding: 8px;
-    text-align: center;
-  }
 }
