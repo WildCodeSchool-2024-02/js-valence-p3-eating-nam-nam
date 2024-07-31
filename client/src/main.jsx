@@ -68,10 +68,10 @@ const router = createBrowserRouter([
         element: <Profile />,
         loader: ({ params }) => fetchUserById(params.id),
       },
-      {
+      protectedRoute({
         path: "/RecettesFavorites",
         element: <RecettesFavorites />,
-      },
+      }),
       {
         path: "/NutriAutoComplete",
         element: <NutriAutoComplete />,

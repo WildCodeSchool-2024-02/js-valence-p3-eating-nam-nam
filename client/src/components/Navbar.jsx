@@ -37,7 +37,7 @@ function Navbar({ setSearchQuery, isLoggedIn, setIsLoggedIn }) {
       <img className="navbar_logo" src={logo} alt="logo" />
       <nav className="nav_content">
         <input
-          className="search_bar"
+          className="search_nav"
           type="text"
           name="search_bar"
           id="search_bar"
