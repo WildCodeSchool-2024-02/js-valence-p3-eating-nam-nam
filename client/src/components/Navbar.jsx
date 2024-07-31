@@ -15,21 +15,20 @@ function Navbar({ setSearchQuery, isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const handleLogOut = async () => {
+    try {
+      await logout();
+      setIsLoggedIn(false);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const handleSearch = (e) => {
     if (location.pathname !== "/recettes") {
       navigate("/recettes");
     }
     setSearchQuery(e.target.value);
-  };
-
-  const handleLogOut = async () => {
-    try {
-      await logout();
-      setIsLoggedIn(false);
-      navigate(0);
-    } catch (err) {
-      console.error(err);
-    }
   };
 
   return (
@@ -76,12 +75,14 @@ function Navbar({ setSearchQuery, isLoggedIn, setIsLoggedIn }) {
         </div>
       </nav>
       {isLoggedIn ? (
-        <button type="button" onClick={handleLogOut} className="login-link">
-          <img src={logoutIcon} alt="logout" width="30px" />
-        </button>
+        <Link to="/">
+          <button type="button" onClick={handleLogOut} className="login_button">
+            <img src={logoutIcon} alt="logout" width="30px" /> Deconnexion
+          </button>
+        </Link>
       ) : (
-        <Link to="/connexion" className="login-link">
-          <img src={login} alt="login" width="30px" />
+        <Link to="/connexion" className="login_button">
+          <img src={login} alt="login" width="30px" /> Connexion
         </Link>
       )}
       <div className="mobile_navbar">
