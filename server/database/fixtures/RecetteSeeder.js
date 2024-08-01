@@ -21,7 +21,7 @@ class RecetteSeeder extends AbstractSeeder {
         serving: 4,
         nutritional_values:
           "Calories: 350, Protéines: 12g, Glucides: 65g, Lipides: 5g",
-        published: false,
+        published: true,
       },
       {
         title: "Paella Valenciana",
@@ -31,7 +31,7 @@ class RecetteSeeder extends AbstractSeeder {
         serving: 4,
         nutritional_values:
           "Calories: 550, Protéines: 30g, Glucides: 70g, Lipides: 18g",
-        published: false,
+        published: true,
       },
       {
         title: "Moussaka",
@@ -41,7 +41,7 @@ class RecetteSeeder extends AbstractSeeder {
         serving: 4,
         nutritional_values:
           "Calories: 520, Protéines: 25g, Glucides: 30g, Lipides: 35g",
-        published: false,
+        published: true,
       },
       {
         title: "Feijoada",

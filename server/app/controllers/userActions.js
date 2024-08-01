@@ -24,6 +24,19 @@ const getUserById = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
+const destroy = async (req, res, next) => {
+  try {
+    const result = await tables.user.delete(req.params.id);
+
+    if (result.affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.json({ message: "Utilisateur supprimé" });
+    }
+  } catch (err) {
+    next(err);
+  }
+};
 
 const addUser = async (req, res) => {
   const user = req.body;
@@ -51,5 +64,6 @@ const addUser = async (req, res) => {
 module.exports = {
   getUsers,
   getUserById,
+  destroy,
   addUser,
 };
