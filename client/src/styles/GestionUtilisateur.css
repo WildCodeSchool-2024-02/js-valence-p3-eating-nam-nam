@@ -1,25 +1,25 @@
 .columns {
-  display: flex;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   width: 80%;
   height: 100%;
-  margin-left: 200px;
-  margin-top: -740px;
+  gap: 10px; /* Ajout d'un espace entre les colonnes */
 }
 
 .column {
-  width: 48%;
+  width: 100%; /* Ajustement pour prendre toute la largeur de la colonne parent */
 }
+
 .column ul {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  width: 800px;
-
+  width: 100%; /* Utilisation de 100% pour une meilleure adaptabilité */
   margin: 24px;
 }
+
 .column h2 {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* Centrer le contenu horizontalement */
   flex-direction: column;
   align-items: center;
 }
@@ -27,7 +27,50 @@
 .li-gestion-utilisateur {
   margin: 16px;
   display: grid;
-  width: 400px;
+  width: 100%; /* Ajustement pour prendre toute la largeur de la colonne parent */
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+}
+
+@media (max-width: 1200px) {
+  .columns {
+    grid-template-columns: 1fr;
+    width: 90%;
+  }
+
+  .column ul {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .columns {
+    width: 100%;
+  }
+
+  .column ul {
+    grid-template-columns: 1fr;
+
+    .li-gestion-utilisateur {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .columns {
+      width: 100%;
+    }
+
+    .column ul {
+      grid-template-columns: 1fr;
+    }
+
+    .li-gestion-utilisateur {
+      grid-template-columns: 1fr;
+    }
+
+    .column h2 {
+      font-size: 1.5em;
+    }
+  }
 }
