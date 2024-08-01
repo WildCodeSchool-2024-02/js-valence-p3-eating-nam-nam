@@ -42,12 +42,12 @@ function GestionRecettes() {
   };
 
   return (
-    <div className="gestion-recette columns">
+    <div className="gestion-recette">
       <div className="column">
         <h2>Nom de la recette:</h2>
         <ul>
           {recettes.map((recette) => (
-            <li key={recette.id}>
+            <li className="li-gestion-recette" key={recette.id}>
               {recette.title}
               <button
                 type="button"

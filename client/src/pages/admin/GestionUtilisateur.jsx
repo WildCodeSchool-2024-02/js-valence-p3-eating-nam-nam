@@ -27,7 +27,7 @@ function GestionUtilisateur() {
         <h2>Nom Utilisateur:</h2>
         <ul>
           {users.map((user) => (
-            <li key={user.id}>
+            <li className="li-gestion-utilisateur" key={user.id}>
               {user.username}
               <button type="button" onClick={() => handleDelete(user.id)}>
                 Supprimer

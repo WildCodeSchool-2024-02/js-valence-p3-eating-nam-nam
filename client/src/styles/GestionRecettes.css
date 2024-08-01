@@ -9,34 +9,28 @@
     display: flex;
     flex-direction: row;
     margin: -700px 0 0 40px;
-
     color: var(--vert);
     font-family: var(--aleo);
     width: 75%;
     height: 700px;
-    background-color: brown;
   }
   .column ul {
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 800px;
-
-    margin: 24px;
+    margin-left: 300px;
   }
   .column h2 {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: right;
+    margin-top: -750px;
   }
-  li {
+  .li-gestion-recette {
     margin: 16px;
     display: grid;
     width: 400px;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
-  }
-  button:disabled {
-    cursor: default;
-    background-color: gray;
   }
 }
