@@ -4,6 +4,16 @@
   color: var(--vert);
   font-family: var(--aleo);
 }
+.admin {
+  display: flex;
+
+  button {
+    background-color: red;
+    &:disabled {
+      background-color: gray;
+    }
+  }
+}
 
 .MenuAdmin {
   margin-top: 100px;
@@ -11,7 +21,6 @@
   font-family: var(--aleo);
   width: 15%;
   height: 700px;
-  gap: 200px;
   display: flex;
   flex-direction: column;
   border-spacing: 8px, 200px;
@@ -20,7 +29,7 @@
 }
 .MenuAdmin a {
   text-decoration: none;
-  color: var(--vert);
+  color: white;
   margin-top: 40px;
   margin-left: 12px;
 }
