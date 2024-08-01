@@ -1,6 +1,7 @@
 export async function fetchUserById(id) {
   const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/api/users/${id}`
+    `${import.meta.env.VITE_API_URL}/api/users/${id}`,
+    { credentials: "include" }
   );
   if (!response.ok) {
     throw new Error("Erreur lors du chargement de l'utilisateur");
@@ -10,7 +11,9 @@ export async function fetchUserById(id) {
 }
 
 export async function fetchUsers() {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users`);
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users`, {
+    credentials: "include",
+  });
   if (!response.ok) {
     throw new Error("Erreur lors du chargement des utilisateurs");
   }
@@ -23,6 +26,7 @@ export async function fetchDeleteUserById(id) {
     `${import.meta.env.VITE_API_URL}/api/users/${id}`,
     {
       method: "DELETE",
+      credentials: "include",
     }
   );
   if (!response.ok) {
@@ -32,7 +36,9 @@ export async function fetchDeleteUserById(id) {
 }
 
 export async function fetchRecettes() {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/recettes`);
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/recettes`, {
+    credentials: "include",
+  });
   if (!response.ok) {
     throw new Error("Erreur lors du chargement des recettes");
   }
@@ -45,6 +51,7 @@ export async function fetchDeleteRecetteById(id) {
     `${import.meta.env.VITE_API_URL}/api/recettes/${id}`,
     {
       method: "DELETE",
+      credentials: "include",
     }
   );
   if (!response.ok) {
@@ -58,6 +65,7 @@ export async function fetchPatchRecetteById(id) {
     `${import.meta.env.VITE_API_URL}/api/recettes/${id}`,
     {
       method: "PATCH",
+      credentials: "include",
     }
   );
 

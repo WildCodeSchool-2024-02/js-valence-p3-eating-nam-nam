@@ -9,7 +9,7 @@
   text-align: center;
 }
 
-input[type="text"],
+.title-input[type="text"],
 input[type="number"],
 textarea,
 select {
