@@ -1,89 +1,9 @@
-.lien-recette {
-  text-decoration: none;
-}
+/* Global Styles */
 .main-content {
   margin-bottom: 10px;
 }
-.auteur,
-.temps {
-  color: black;
-}
 
-.rating {
-  background-color: var(--orange);
-  border-radius: 10px;
-  margin-bottom: 5px;
-}
-
-.rating .MuiRating-iconEmpty {
-  color: var(--gris); /* Couleur blanche pour les étoiles vides */
-}
-
-.rating .MuiRating-iconFilled {
-  color: var(--jaune); /* Couleur jaune pour les étoiles sélectionnées */
-}
-
-/* Couleur jaune pour les étoiles au survol et focus */
-.rating .MuiRating-iconHover,
-.rating .MuiRating-iconFocus {
-  color: var(--jaune);
-}
-
-.titre-resultat {
-  margin-left: 40px;
-  color: var(--vert);
-}
-
-.recette {
-  border: 1px solid var(--vert);
-  padding: 10px;
-  margin-top: 30px;
-  font-size: 10px;
-  border-radius: 5px;
-  background-color: #ece8da;
-  cursor: pointer;
-  width: 350px;
-  height: 350px;
-}
-
-.recette:hover {
-  transform: scale(1.05);
-}
-
-.titre-recette {
-  margin: 10px;
-  text-align: center;
-}
-
-.text-recette {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.text-recette .auteur {
-  align-self: flex-start;
-}
-
-.recette-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 5px;
-}
-
-.recettes-generales {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  align-items: start;
-  justify-content: center;
-  padding: 0 20px;
-}
-
-.resultat {
-  margin-left: 20px;
-}
-
+/* Ingredients Section */
 .ingredient-titre {
   margin-top: 30px;
 }
@@ -115,9 +35,9 @@
   margin-bottom: 50px;
 }
 
+/* Preparation Steps */
 .etape-container {
   margin-bottom: 20px;
-  margin-top: 30px;
 }
 
 .ordre {
@@ -129,30 +49,63 @@
 .description {
   margin-top: 5px;
 }
+
+/* Nutrition Values */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+/* Reviews Section */
 .avis-container {
   margin-top: 30px;
 }
 
 .avis-input-container {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   margin-bottom: 10px;
 }
 
 .avis-input-container textarea {
   width: 100%;
-  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .avis-input-container input[type="text"] {
   width: 200px;
+  margin-bottom: 10px;
 }
-@media (max-width: 1100px) {
-  .recettes-generales {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
 
+.nom {
+  margin-bottom: 10px;
+}
+
+/* Reviews List */
+.avis-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.avis-item {
+  margin-bottom: 20px;
+}
+
+.avis-item strong {
+  display: block;
+}
+
+.avis-item .etoiles {
+  margin-top: 5px; /* Space above the stars */
+}
+
+/* Media Queries */
+@media (max-width: 1100px) {
   .container-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 15px;
@@ -161,14 +114,6 @@
   .image-ingredients {
     width: 150px;
     height: 150px;
-  }
-
-  .recette {
-    width: 100%;
-    height: auto;
-    padding: 15px;
-    margin-top: 15px;
-    font-size: 12px;
   }
 
   .avis-input-container {
@@ -186,11 +131,6 @@
 }
 
 @media (max-width: 738px) {
-  .recettes-generales {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-  }
-
   .container-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
@@ -199,14 +139,6 @@
   .image-ingredients {
     width: 100px;
     height: 100px;
-  }
-
-  .recette {
-    width: 100%;
-    height: auto;
-    font-size: 12px;
-    padding: 15px;
-    margin-top: 15px;
   }
 }
 
@@ -229,33 +161,12 @@
     font-size: 0.9rem;
   }
 
-  .recette {
-    width: 100%;
-    height: auto;
-    font-size: 12px;
-    padding: 15px;
-    margin-top: 15px;
+  .avis-input-container textarea {
+    margin-right: 0;
+    margin-bottom: 10px;
   }
 
-  .recette-container {
-    margin-bottom: 30px;
-  }
-
-  .etape-container {
-    margin-bottom: 15px;
-    margin-top: 20px;
-  }
-
-  .ordre {
-    font-size: 0.9rem;
-  }
-
-  .description {
-    margin-top: 3px;
-    font-size: 0.9rem;
-  }
   .avis-input-container input[type="text"] {
     width: 100%;
-    margin-bottom: 10px;
   }
 }

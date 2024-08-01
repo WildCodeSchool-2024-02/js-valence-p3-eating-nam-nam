@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import "../styles/consulterRecette.css";
+import Etoile from "../components/Etoile";
 import {
   champignons,
   citron,
@@ -20,43 +21,23 @@ const ingrédients = [
     img: champignons,
     quantité: "250g",
   },
-  {
-    id: 2,
-    ingredient: "Citron",
-    img: citron,
-    quantité: "1",
-  },
+  { id: 2, ingredient: "Citron", img: citron, quantité: "1" },
   {
     id: 3,
     ingredient: "Herbe de provence",
     img: herbeDeProvence,
     quantité: "",
   },
-  {
-    id: 4,
-    ingredient: "Lieu-Noir",
-    img: lieuNoir,
-    quantité: "4 filets",
-  },
+  { id: 4, ingredient: "Lieu-Noir", img: lieuNoir, quantité: "4 filets" },
   {
     id: 5,
     ingredient: "Olives vertes dénoyautées",
     img: olivesVertes,
     quantité: "120g",
   },
-  {
-    id: 6,
-    ingredient: "Poivre noir",
-    img: poivre,
-    quantité: "1 pincée",
-  },
+  { id: 6, ingredient: "Poivre noir", img: poivre, quantité: "1 pincée" },
   { id: 7, ingredient: "Sel", img: sel, quantité: "1 pincée" },
-  {
-    id: 8,
-    ingredient: "Vin blanc",
-    img: vinBlanc,
-    quantité: "20 cl",
-  },
+  { id: 8, ingredient: "Vin blanc", img: vinBlanc, quantité: "20 cl" },
   {
     id: 9,
     ingredient: "Autres épices à poisson selon vos goûts",
@@ -96,6 +77,13 @@ const instructions = [
   },
 ];
 
+const valeursNutritionnelles = [
+  { nutriment: "Calories", valeur: "300 kcal" },
+  { nutriment: "Protéines", valeur: "25g" },
+  { nutriment: "Glucides", valeur: "10g" },
+  { nutriment: "Lipides", valeur: "15g" },
+];
+
 function ConsulterRecette() {
   const { id } = useParams();
   const recette = ingrédients.find((r) => r.id === Number(id));
@@ -103,13 +91,20 @@ function ConsulterRecette() {
   const [avis, setAvis] = useState([]);
   const [nouvelAvis, setNouvelAvis] = useState("");
   const [auteurAvis, setAuteurAvis] = useState("");
+  const [note, setNote] = useState(0);
 
   const soumettreAvis = () => {
     if (nouvelAvis.trim() !== "") {
-      const nouvelAvisComplet = `${auteurAvis}: ${nouvelAvis}`;
+      const nouvelAvisComplet = {
+        id: Date.now(), // Utilisation d'un timestamp comme identifiant unique
+        auteur: auteurAvis,
+        texte: nouvelAvis,
+        etoiles: <Etoile readOnly initialRating={note} />,
+      };
       setAvis([...avis, nouvelAvisComplet]);
       setNouvelAvis("");
       setAuteurAvis("");
+      setNote(0);
     }
   };
 
@@ -119,7 +114,7 @@ function ConsulterRecette() {
 
   return (
     <div className="main-content">
-      <h1>Recette avec : </h1>
+      <h1>Recette avec :</h1>
       <h2 className="ingredient-titre">Ingrédients</h2>
       <ul>
         <div className="container-grid">
@@ -135,6 +130,14 @@ function ConsulterRecette() {
             </li>
           ))}
         </div>
+      </ul>
+      <h2>Valeurs Nutritionnelles</h2>
+      <ul>
+        {valeursNutritionnelles.map((valeur) => (
+          <li key={valeur.nutriment}>
+            {valeur.nutriment}: {valeur.valeur}
+          </li>
+        ))}
       </ul>
       <h2>Étapes de Préparation</h2>
       <ol>
@@ -154,11 +157,13 @@ function ConsulterRecette() {
             placeholder="Écrivez votre avis ici..."
           />
           <input
+            className="nom"
             type="text"
             value={auteurAvis}
             onChange={(e) => setAuteurAvis(e.target.value)}
             placeholder="Votre nom"
           />
+          <Etoile setNote={setNote} />
         </div>
         <button type="button" onClick={soumettreAvis}>
           Soumettre
@@ -168,9 +173,13 @@ function ConsulterRecette() {
       {avis.length > 0 && (
         <div>
           <h3>Avis des utilisateurs :</h3>
-          <ul>
+          <ul className="avis-list">
             {avis.map((unAvis) => (
-              <li key={unAvis}>{unAvis}</li>
+              <li className="avis-item" key={unAvis.id}>
+                <strong>{unAvis.auteur}</strong>
+                <div>{unAvis.texte}</div>
+                <div className="etoiles">{unAvis.etoiles}</div>
+              </li>
             ))}
           </ul>
         </div>
