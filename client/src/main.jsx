@@ -14,7 +14,7 @@ import RecettesAjoutees from "./pages/RecettesAjoutees";
 import AjouterRecette, {
   action as ajouterRecetteAction,
 } from "./pages/AjouterRecette";
-import fetchUserById from "./api/fetch";
+import { fetchUserById } from "./api/fetch";
 import Admin from "./components/Admin";
 import GestionRecettes, {
   loader as gestionRecettesLoader,
