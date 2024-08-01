@@ -19,7 +19,15 @@ import RecettesAjoutees from "./pages/RecettesAjoutees";
 import AjouterRecette, {
   action as ajouterRecetteAction,
 } from "./pages/AjouterRecette";
-import fetchUserById from "./api/fetchUser";
+
+import { fetchUserById } from "./api/fetch";
+import Admin from "./components/Admin";
+import GestionRecettes, {
+  loader as gestionRecettesLoader,
+} from "./pages/admin/GestionRecettes";
+import GestionUtilisateur, {
+  loader as gestionUsersLoader,
+} from "./pages/admin/GestionUtilisateur";
 import { checkAuth } from "./api/api";
 
 function protectedRoute(routeConfig) {
@@ -84,6 +92,22 @@ const router = createBrowserRouter([
         action: ajouterRecetteAction,
       }),
       { path: "/dernieres-recettes", element: <RecettesAjoutees /> },
+      protectedRoute({
+        path: "/admin",
+        element: <Admin />,
+        children: [
+          {
+            index: true,
+            element: <GestionRecettes />,
+            loader: gestionRecettesLoader,
+          },
+          {
+            path: "GestionUtilisateurs",
+            element: <GestionUtilisateur />,
+            loader: gestionUsersLoader,
+          },
+        ],
+      }),
     ],
   },
 ]);

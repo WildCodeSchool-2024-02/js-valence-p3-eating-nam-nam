@@ -30,6 +30,7 @@ import vegan from "../assets/images/vegan.png";
 import cabillaudauxolivesetauvinblanc from "../assets/images/Cabillaud-aux-olives-et-au-vin-blanc.jpg";
 
 import gratindecabillaudauxolives from "../assets/images/Gratin-de-cabillaud-aux-olives.jpg";
+import troispoints from "../assets/icones/troispoints.png";
 
 export {
   cabillaudauchorizo,
@@ -61,5 +62,6 @@ export {
   sel,
   vinBlanc,
   autre,
+  troispoints,
   avatar,
 };

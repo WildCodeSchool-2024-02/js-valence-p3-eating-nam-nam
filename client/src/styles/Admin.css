@@ -1,0 +1,74 @@
+.Container {
+  display: flex;
+  flex-direction: row;
+  color: var(--vert);
+  font-family: var(--aleo);
+}
+
+.MenuAdmin {
+  margin-top: 100px;
+  color: var(--vert);
+  font-family: var(--aleo);
+  width: 15%;
+  height: 700px;
+  gap: 200px;
+  display: flex;
+  flex-direction: column;
+  border-spacing: 8px, 200px;
+  background-color: var(--orange);
+  border-radius: 0 12px 12px 0;
+}
+.MenuAdmin a {
+  text-decoration: none;
+  color: var(--vert);
+  margin-top: 40px;
+  margin-left: 12px;
+}
+
+@media (max-width: 1200px) {
+  .Container {
+    flex-direction: column;
+  }
+
+  .MenuAdmin {
+    width: 20%;
+    height: auto;
+    margin-top: 50px;
+    border-radius: 0;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .Container {
+    flex-direction: column;
+  }
+
+  .MenuAdmin {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 0;
+  }
+
+  .MenuAdmin a {
+    margin-top: 20px;
+    margin-left: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .Container {
+    flex-direction: column;
+  }
+
+  .MenuAdmin {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    gap: 20px;
+    border-radius: 0;
+    text-align: center;
+  }
+}
