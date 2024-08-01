@@ -14,6 +14,7 @@ import Accueil from "./pages/Accueil";
 import Profile from "./pages/Profile";
 import RecettesFavorites from "./pages/RecettesFavorites";
 import NutriAutoComplete from "./components/NutriAutoComplete";
+
 import RecettesAjoutees from "./pages/RecettesAjoutees";
 import AjouterRecette, {
   action as ajouterRecetteAction,
@@ -90,6 +91,7 @@ const router = createBrowserRouter([
         element: <AjouterRecette />,
         action: ajouterRecetteAction,
       }),
+      { path: "/dernieres-recettes", element: <RecettesAjoutees /> },
       protectedRoute({
         path: "/admin",
         element: <Admin />,

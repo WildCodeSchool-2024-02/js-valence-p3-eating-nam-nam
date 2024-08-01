@@ -41,7 +41,7 @@ function Navbar({ setSearchQuery, isLoggedIn }) {
           type="text"
           name="search_bar"
           id="search_bar"
-          placeholder="Rechercher une recette, un ingrédient ..."
+          placeholder="Rechercher une recette ..."
           onChange={handleSearch}
         />
         <div className="button_menu">
@@ -85,12 +85,13 @@ function Navbar({ setSearchQuery, isLoggedIn }) {
       {isLoggedIn ? (
         <Link to="/">
           <button type="button" onClick={handleLogOut} className="login_button">
-            <img src={logoutIcon} alt="logout" width="30px" /> Deconnexion
+            <img src={logoutIcon} alt="logout" width="30px" />
+            <span>Deconnexion</span>
           </button>
         </Link>
       ) : (
         <Link to="/connexion" className="login_button">
-          <img src={login} alt="login" width="30px" /> Connexion
+          <img src={login} alt="login" width="30px" /> <span>Connexion</span>
         </Link>
       )}
       <div className="mobile_navbar">

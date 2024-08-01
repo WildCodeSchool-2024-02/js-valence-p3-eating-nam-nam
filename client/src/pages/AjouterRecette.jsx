@@ -1,11 +1,11 @@
 import { useState } from "react";
 import "../styles/ajouterRecette.css";
 import { Form, useActionData } from "react-router-dom";
+import NutriAutoComplete from "../components/NutriAutoComplete";
 
 export async function action({ request }) {
   try {
     const data = Object.fromEntries(await request.formData());
-
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/api/recettes`,
       {
@@ -29,6 +29,7 @@ function IngredientField({
   ingredient: { id, quantity, unit, name },
   onChange,
   onRemove,
+  nutritionDetails,
 }) {
   const handleQuantityChange = (e) => {
     const { value } = e.target;
@@ -50,14 +51,13 @@ function IngredientField({
     onChange(id, "quantity", value);
   };
 
-  const handleNameChange = (e) => {
-    const value = e.target.value.slice(0, 30); // Limiter à 30 caractères
-    onChange(id, "name", value);
-  };
-
   return (
     <div className="ingredient-container">
       <div className="ingredient-info">
+        <NutriAutoComplete
+          nutritionDetails={nutritionDetails}
+          name={`ingredients[${id}][name]`}
+        />
         <input
           type="number"
           min={unit === "kg" ? 0.1 : 100}
@@ -87,14 +87,7 @@ function IngredientField({
           <option value="ml">ml</option>
           <option value="unité">unité</option>
         </select>
-        <input
-          name={`ingredients[${id}][name]`}
-          type="text"
-          value={name}
-          onChange={handleNameChange}
-          placeholder="Nom de l'ingrédient"
-          maxLength="30"
-        />
+
         <div className="char-count">{30 - name.length} caractères restants</div>
       </div>
       <div className="ingredient-button">
@@ -111,11 +104,33 @@ function AjouterRecette() {
 
   const [titre, setTitre] = useState("");
   const [ingredients, setIngredients] = useState([
-    { id: Date.now(), quantity: 100, unit: "g", name: "" },
+    { id: Date.now(), quantity: 100, unit: "g", name: "", nutrition: {} },
   ]);
   const [steps, setSteps] = useState([{ id: Date.now(), step: "" }]);
   const [photo, setPhoto] = useState(null);
   const [serving, setServing] = useState(1);
+  const [nutritionInfo, setNutritionInfo] = useState(null);
+
+  const calculateTotalNutrition = () => {
+    const totalNutrition = ingredients.reduce(
+      (acc, ingredient) => {
+        if (ingredient.nutrition) {
+          acc.calories +=
+            (ingredient.nutrition.calories || 1) * (ingredient.quantity || 1);
+          acc.protein +=
+            (ingredient.nutrition.protein || 1) * (ingredient.quantity || 1);
+          acc.fat +=
+            (ingredient.nutrition.fat || 1) * (ingredient.quantity || 1);
+          acc.carbs +=
+            (ingredient.nutrition.carbohydrate || 1) *
+            (ingredient.quantity || 1);
+        }
+        return acc;
+      },
+      { calories: 1, protein: 1, fat: 1, carbs: 1 }
+    );
+    return totalNutrition;
+  };
 
   const handleIngredientChange = (id, field, value) => {
     setIngredients(
@@ -125,23 +140,22 @@ function AjouterRecette() {
     );
   };
 
-  const handleStepChange = (id, value) => {
-    setSteps(
-      steps.map((step) =>
-        step.id === id
-          ? {
-              ...step,
-              step: value,
-            }
-          : step
+  const handleNutritionDetails = (id, nutritionData) => {
+    setIngredients(
+      ingredients.map((ingredient) =>
+        ingredient.id === id
+          ? { ...ingredient, nutrition: nutritionData }
+          : ingredient
       )
     );
+    const globalNutritionData = calculateTotalNutrition();
+    setNutritionInfo(globalNutritionData);
   };
 
   const addIngredient = () => {
     setIngredients([
       ...ingredients,
-      { id: Date.now(), quantity: 100, unit: "g", name: "" },
+      { id: Date.now(), quantity: 100, unit: "g", name: "", nutrition: {} },
     ]);
   };
 
@@ -169,6 +183,19 @@ function AjouterRecette() {
       const numValue = parseInt(value, 10); // Ajout du paramètre radix
       setServing(Math.max(1, Math.min(10, numValue)));
     }
+  };
+
+  const handleStepChange = (id, value) => {
+    setSteps(
+      steps.map((step) =>
+        step.id === id
+          ? {
+              ...step,
+              step: value,
+            }
+          : step
+      )
+    );
   };
 
   return (
@@ -216,6 +243,9 @@ function AjouterRecette() {
             ingredient={ingredient}
             onChange={handleIngredientChange}
             onRemove={removeIngredient}
+            onNutritionDetails={(nutritionData) =>
+              handleNutritionDetails(ingredient.id, nutritionData)
+            }
           />
         ))}
         <button type="button" onClick={addIngredient}>
@@ -270,13 +300,16 @@ function AjouterRecette() {
               style={{ display: "none" }}
               onChange={handlePhotoChange}
             />
-
-            <input
-              type="hidden"
-              name="nutritional_values"
-              value="Données non disponible"
-            />
           </div>
+          <input
+            type="hidden"
+            name="nutritional_values"
+            value={
+              nutritionInfo
+                ? `${nutritionInfo.calories}, ${nutritionInfo.protein}, ${nutritionInfo.carbs}, ${nutritionInfo.fat}`
+                : "Données non disponibles"
+            }
+          />
         </div>
         {error && <h2 className="error-message">{error.message}</h2>}
         <button type="submit">Confirmer</button>
