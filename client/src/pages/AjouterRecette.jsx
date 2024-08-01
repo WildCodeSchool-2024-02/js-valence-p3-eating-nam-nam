@@ -243,11 +243,9 @@ function AjouterRecette() {
             ingredient={ingredient}
             onChange={handleIngredientChange}
             onRemove={removeIngredient}
-            onNutritionDetails={(nutritionData) => {
-              console.log("setting nutrition details");
-
-              return handleNutritionDetails(ingredient.id, nutritionData);
-            }}
+            onNutritionDetails={(nutritionData) =>
+              handleNutritionDetails(ingredient.id, nutritionData)
+            }
           />
         ))}
         <button type="button" onClick={addIngredient}>
