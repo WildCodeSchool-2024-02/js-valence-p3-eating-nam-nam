@@ -26,7 +26,6 @@ header {
   text-decoration: underline;
 }
 .search_nav {
-  width: 35rem;
   height: 30px;
   border-radius: 15px;
   border: 2px solid var(--vert);
@@ -139,5 +138,14 @@ header a {
 
   .login_button span {
     display: none;
+  }
+  .login_button {
+    width: 60px;
+  }
+  .search_nav {
+    width: 200px;
+  }
+  .nav_avatar {
+    width: 50px;
   }
 }

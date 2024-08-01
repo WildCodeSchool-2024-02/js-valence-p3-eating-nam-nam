@@ -107,7 +107,7 @@ button {
 }
 
 @media (max-width: 738px) {
-  input[type="text"],
+  h2 input[type="text"],
   input[type="number"],
   textarea,
   select,
@@ -115,7 +115,12 @@ button {
     width: 100%;
   }
 }
-
+@media (max-width: 768px) {
+  input {
+    width: 100%;
+    height: 30px;
+  }
+}
 @media (max-width: 390px) {
   button {
     width: 100%;
