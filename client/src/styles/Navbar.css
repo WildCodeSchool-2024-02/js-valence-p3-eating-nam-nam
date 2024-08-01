@@ -40,7 +40,7 @@ header {
   gap: 50px;
   a {
     display: flex;
-    font-size: 0.8rem;
+    font-size: 16px;
     align-items: center;
     color: var(--blanc);
     border: none;
@@ -93,7 +93,7 @@ header a {
     height: 50px;
   }
   .search_bar {
-    width: 10rem;
+    width: 200px;
   }
 
   .nav_content {

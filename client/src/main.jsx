@@ -1,21 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Inscription from "./pages/Inscription";
-import ListeRecettes from "./components/ListeRecettes";
-import ConsulterRecette from "./components/ConsulterRecette";
+import Inscription, { action as registerAction } from "./pages/Inscription";
+import ListeRecettes from "./pages/ListeRecettes";
+import ConsulterRecette from "./pages/ConsulterRecette";
 import App from "./App";
-import Login from "./pages/Login";
+import Login, { action as loginAction } from "./pages/Login";
 import Accueil from "./pages/Accueil";
 import Profile from "./pages/Profile";
-import RecettesFavorites from "./components/RecettesFavorites";
-import RecettesAjoutees from "./components/RecettesAjoutees";
-import { fetchUserById } from "./api/fetch";
+import RecettesFavorites from "./pages/RecettesFavorites";
+import NutriAutoComplete from "./components/NutriAutoComplete";
+import RecettesAjoutees from "./pages/RecettesAjoutees";
+import AjouterRecette, {
+  action as ajouterRecetteAction,
+} from "./pages/AjouterRecette";
+import fetchUserById from "./api/fetch";
 import Admin from "./components/Admin";
 import GestionRecettes, {
   loader as gestionRecettesLoader,
 } from "./pages/admin/GestionRecettes";
-
 import GestionUtilisateur, {
   loader as gestionUsersLoader,
 } from "./pages/admin/GestionUtilisateur";
@@ -27,7 +30,9 @@ const router = createBrowserRouter([
       {
         path: "/inscription",
         element: <Inscription />,
+        action: registerAction,
       },
+
       {
         path: "/",
         element: <Accueil />,
@@ -36,7 +41,8 @@ const router = createBrowserRouter([
         path: "/recettes",
         element: <ListeRecettes />,
       },
-      { path: "/connexion", element: <Login /> },
+
+      { path: "/connexion", element: <Login />, action: loginAction },
       {
         path: "/recettes/:id",
         element: <ConsulterRecette />,
@@ -51,8 +57,14 @@ const router = createBrowserRouter([
         element: <RecettesFavorites />,
       },
       {
-        path: "/dernieres-recettes",
-        element: <RecettesAjoutees />,
+        path: "/NutriAutoComplete",
+        element: <NutriAutoComplete />,
+      },
+      { path: "/dernieres-recettes", element: <RecettesAjoutees /> },
+      {
+        path: "/RecettesAjoutees",
+        element: <AjouterRecette />,
+        action: ajouterRecetteAction,
       },
       {
         path: "/admin",
