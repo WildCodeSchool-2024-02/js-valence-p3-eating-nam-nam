@@ -26,7 +26,7 @@ export async function action({ request }) {
 }
 
 function IngredientField({
-  ingredient: { id, quantity, unit, name },
+  ingredient: { id, quantity, unit },
   onChange,
   onRemove,
   nutritionDetails,
@@ -87,8 +87,6 @@ function IngredientField({
           <option value="ml">ml</option>
           <option value="unité">unité</option>
         </select>
-
-        <div className="char-count">{30 - name.length} caractères restants</div>
       </div>
       <div className="ingredient-button">
         <button type="button" onClick={() => onRemove(id)}>

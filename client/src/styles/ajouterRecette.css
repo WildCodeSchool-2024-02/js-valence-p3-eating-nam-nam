@@ -9,11 +9,11 @@
   text-align: center;
 }
 
-.title-input[type="text"],
+.title-input input[type="text"], /* Correction du sélecteur */
 input[type="number"],
 textarea,
 select {
-  width: 100%;
+  width: 100%; /* Assurer que le champ occupe la largeur complète */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
