@@ -25,31 +25,41 @@ export async function action({ request }) {
   }
 }
 
+// Déplacer la fonction IngredientField à l'extérieur de action
 function IngredientField({
-  ingredient: { id, quantity, unit },
+  ingredient: { id, quantity, unit: ingredientUnit },
   onChange,
   onRemove,
+  onNutritionDetails,
   nutritionDetails,
 }) {
-  const handleQuantityChange = (e) => {
-    const { value } = e.target;
-    onChange(id, "quantity", value);
+  const [localQuantity, setLocalQuantity] = useState(quantity);
+
+  const updateNutritionalValues = (value, unit) => {
+    let convertedValue = value;
+    if (unit === "kg") {
+      convertedValue *= 1000;
+    }
+
+    const calories =
+      (convertedValue * (nutritionDetails.caloriesPerUnit || 0)) /
+      (unit === "g" ? 1 : 1000);
+    onChange(id, "calories", calories);
+    onNutritionDetails(id, { calories });
+  };
+
+  const handleQuantityChange = ({ target: { value } }) => {
+    setLocalQuantity(value);
+    updateNutritionalValues(value, ingredientUnit);
   };
 
   const handleQuantityBlur = () => {
-    let value = quantity;
-    if (value === "" || Number.isNaN(Number(value))) {
-      value = unit === "kg" ? 0.1 : 100;
-    } else {
-      value = parseFloat(value);
-      if (unit === "kg") {
-        value = Math.max(0.1, Math.min(5, value));
-      } else {
-        value = Math.max(100, Math.min(5000, value));
-      }
+    if (localQuantity === "" || Number.isNaN(Number(localQuantity))) {
+      setLocalQuantity(0);
     }
-    onChange(id, "quantity", value);
   };
+
+  // Utiliser fetchNutritionData lorsque l'utilisateur sélectionne un ingrédient, par exemple :
 
   return (
     <div className="ingredient-container">
@@ -60,22 +70,22 @@ function IngredientField({
         />
         <input
           type="number"
-          min={unit === "kg" ? 0.1 : 100}
-          max={unit === "kg" ? 5 : 5000}
-          step={unit === "kg" ? 0.1 : 1}
-          value={quantity}
+          min={ingredientUnit === "kg" ? 0.1 : 100}
+          max={ingredientUnit === "kg" ? 5 : 5000}
+          step={ingredientUnit === "kg" ? 0.1 : 1}
+          value={localQuantity}
           onChange={handleQuantityChange}
           onBlur={handleQuantityBlur}
           placeholder="Quantité"
         />
         <select
-          value={unit}
+          value={ingredientUnit}
           onChange={(e) => {
             const newUnit = e.target.value;
-            let newQuantity = quantity;
-            if (unit === "g" && newUnit === "kg") {
+            let newQuantity = localQuantity;
+            if (ingredientUnit === "g" && newUnit === "kg") {
               newQuantity /= 1000;
-            } else if (unit === "kg" && newUnit === "g") {
+            } else if (ingredientUnit === "kg" && newUnit === "g") {
               newQuantity *= 1000;
             }
             onChange(id, "unit", newUnit);
@@ -108,9 +118,10 @@ function AjouterRecette() {
   const [photo, setPhoto] = useState(null);
   const [serving, setServing] = useState(1);
   const [nutritionInfo, setNutritionInfo] = useState(null);
+  const [isConfirmed, setIsConfirmed] = useState(false);
 
-  const calculateTotalNutrition = () => {
-    const totalNutrition = ingredients.reduce(
+  const calculateTotalNutrition = () =>
+    ingredients.reduce(
       (acc, ingredient) => {
         if (ingredient.nutrition) {
           acc.calories +=
@@ -125,9 +136,13 @@ function AjouterRecette() {
         }
         return acc;
       },
-      { calories: 1, protein: 1, fat: 1, carbs: 1 }
+      { calories: 0, protein: 0, fat: 0, carbs: 0 }
     );
-    return totalNutrition;
+  const handleRecipeSubmit = (e) => {
+    e.preventDefault();
+    const totalNutrition = calculateTotalNutrition();
+    setNutritionInfo(totalNutrition);
+    setIsConfirmed(true);
   };
 
   const handleIngredientChange = (id, field, value) => {
@@ -138,18 +153,8 @@ function AjouterRecette() {
     );
   };
 
-  const handleNutritionDetails = (id, nutritionData) => {
-    setIngredients(
-      ingredients.map((ingredient) =>
-        ingredient.id === id
-          ? { ...ingredient, nutrition: nutritionData }
-          : ingredient
-      )
-    );
-    const globalNutritionData = calculateTotalNutrition();
-    setNutritionInfo(globalNutritionData);
-  };
-
+  const globalNutritionData = calculateTotalNutrition();
+  setNutritionInfo(globalNutritionData);
   const addIngredient = () => {
     setIngredients([
       ...ingredients,
@@ -178,7 +183,7 @@ function AjouterRecette() {
     if (value === "") {
       setServing(value);
     } else {
-      const numValue = parseInt(value, 10); // Ajout du paramètre radix
+      const numValue = parseInt(value, 10);
       setServing(Math.max(1, Math.min(10, numValue)));
     }
   };
@@ -197,7 +202,7 @@ function AjouterRecette() {
   };
 
   return (
-    <Form method="POST">
+    <Form onSubmit={handleRecipeSubmit} method="POST">
       <div className="ajouterRecette">
         <h1>Ajouter une recette</h1>
 
@@ -241,9 +246,7 @@ function AjouterRecette() {
             ingredient={ingredient}
             onChange={handleIngredientChange}
             onRemove={removeIngredient}
-            onNutritionDetails={(nutritionData) =>
-              handleNutritionDetails(ingredient.id, nutritionData)
-            }
+            nutritionDetails={ingredient.nutrition}
           />
         ))}
         <button type="button" onClick={addIngredient}>
@@ -251,31 +254,22 @@ function AjouterRecette() {
         </button>
 
         <h2>Étapes de préparation</h2>
-        {steps.map(({ id, step }, index) => (
-          <div key={id} className="step">
-            <div className="step-info">
-              <textarea
-                name={`steps[${id}]`}
-                maxLength="310"
-                value={step}
-                onChange={(e) => handleStepChange(id, e.target.value)}
-                placeholder={`Étape ${index + 1} : Rédigez des instructions courtes et claires, en procédant étape par étape (310 caractères maximum)`}
-              />
-              <div className="char-count">
-                {310 - step.length} caractères restants
-              </div>
-            </div>
-            <div className="step-button">
-              <button type="button" onClick={() => removeStep(id)}>
-                Supprimer l'étape
-              </button>
-            </div>
+        {steps.map((step) => (
+          <div key={step.id} className="step-container">
+            <input
+              type="text"
+              value={step.step}
+              placeholder="Entrez une étape"
+              onChange={(e) => handleStepChange(step.id, e.target.value)}
+            />
+            <button type="button" onClick={() => removeStep(step.id)}>
+              Supprimer l'étape
+            </button>
           </div>
         ))}
         <button type="button" onClick={addStep}>
-          Ajouter une étape de préparation
+          Ajouter une étape
         </button>
-
         <h2>Photo</h2>
         <div className="photos">
           <div className="photo-container">
@@ -298,19 +292,21 @@ function AjouterRecette() {
               style={{ display: "none" }}
               onChange={handlePhotoChange}
             />
+
+            <button type="submit">confirmer </button>
           </div>
-          <input
-            type="hidden"
-            name="nutritional_values"
-            value={
-              nutritionInfo
-                ? `${nutritionInfo.calories}, ${nutritionInfo.protein}, ${nutritionInfo.carbs}, ${nutritionInfo.fat}`
-                : "Données non disponibles"
-            }
-          />
+          {error && <div className="error">{error.message}</div>}
+
+          {isConfirmed && (
+            <div className="nutrition-info">
+              <h2>Informations nutritionnelles</h2>
+              <p>Calories : {nutritionInfo.calories}</p>
+              <p>Protéines : {nutritionInfo.protein}</p>
+              <p>Graisses : {nutritionInfo.fat}</p>
+              <p>Glucides : {nutritionInfo.carbs}</p>
+            </div>
+          )}
         </div>
-        {error && <h2 className="error-message">{error.message}</h2>}
-        <button type="submit">Confirmer</button>
       </div>
     </Form>
   );

@@ -85,6 +85,7 @@ export default function NutriAutoComplete({ name }) {
         getOptionLabel={(option) => option.label}
         onInputChange={handleInputChange}
         onChange={handleOptionSelect}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
         renderInput={(params) => (
           /* eslint-disable react/jsx-props-no-spreading */
           <TextField
@@ -109,3 +110,4 @@ export default function NutriAutoComplete({ name }) {
     </div>
   );
 }
+

@@ -15,8 +15,25 @@ class RecetteRepository extends AbstractRepository {
 
   async delete(recetteId) {
     // Execute the SQL DELETE query to retrieve a specific data by its ID
+    await this.database.query(`delete from ${this.table} where id = ?`, [
+      recetteId,
+    ]);
+    await this.database.query(`DELETE FROM step WHERE recette_id = ?`, [
+      recetteId,
+    ]);
+
+    // Supprimer la recette elle-même
     const [result] = await this.database.query(
-      `delete from ${this.table} where id = ?`,
+      `DELETE FROM recette WHERE id = ?`,
+      [recetteId]
+    );
+
+    return result;
+  }
+
+  async deleteByRecetteId(recetteId) {
+    const [result] = await this.database.query(
+      `DELETE FROM ingredient_for_recette WHERE recette_id = ?`,
       [recetteId]
     );
     return result;
@@ -24,7 +41,7 @@ class RecetteRepository extends AbstractRepository {
 
   async publish(recetteId) {
     const [result] = await this.database.query(
-      `update ${this.table} set published =1 where id = ?`,
+      `update ${this.table} set published = 1 where id = ?`,
       [recetteId]
     );
 
@@ -61,22 +78,23 @@ class RecetteRepository extends AbstractRepository {
       );
       await Promise.all(stepPromises);
 
+      // Insert ingredients
       const ingredientPromises = ingredients.map((ingredient) =>
-        // 1. pour chaque ingredient verifier s'il existe en bdd
-        // et s'il n'existe pas le creer
+        // 1. Pour chaque ingrédient, vérifier s'il existe en bdd
+        // et s'il n'existe pas, le créer
         transaction.query(
           `REPLACE INTO ingredient (name)
          VALUES (?)`,
           [ingredient]
         )
       );
-      const resultIngredentPromises = await Promise.all(ingredientPromises);
+      const resultIngredientPromises = await Promise.all(ingredientPromises);
 
-      const ingredientIDs = resultIngredentPromises.map(
+      const ingredientIDs = resultIngredientPromises.map(
         ([entry]) => entry.insertId
       );
 
-      // Inserer donnees de jointure ingredientsRecette
+      // Insérer les données de jointure ingredientsRecette
       const ingredientRecettePromises = ingredients.map((ingredient, index) =>
         transaction.query(
           `INSERT INTO ingredient_for_recette (recette_id, ingredient_id)
