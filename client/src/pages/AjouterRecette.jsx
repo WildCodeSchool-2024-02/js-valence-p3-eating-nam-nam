@@ -25,7 +25,6 @@ export async function action({ request }) {
   }
 }
 
-// Déplacer la fonction IngredientField à l'extérieur de action
 function IngredientField({
   ingredient: { id, quantity, unit: ingredientUnit },
   onChange,
@@ -58,8 +57,6 @@ function IngredientField({
       setLocalQuantity(0);
     }
   };
-
-  // Utiliser fetchNutritionData lorsque l'utilisateur sélectionne un ingrédient, par exemple :
 
   return (
     <div className="ingredient-container">
@@ -109,13 +106,14 @@ function IngredientField({
 
 function AjouterRecette() {
   const error = useActionData();
+  const [photo, setPhoto] = useState(null); // Supprimez cette ligne si vous ne l'utilisez pas
 
   const [titre, setTitre] = useState("");
   const [ingredients, setIngredients] = useState([
     { id: Date.now(), quantity: 100, unit: "g", name: "", nutrition: {} },
   ]);
   const [steps, setSteps] = useState([{ id: Date.now(), step: "" }]);
-  const [photo, setPhoto] = useState(null);
+
   const [serving, setServing] = useState(1);
   const [nutritionInfo, setNutritionInfo] = useState(null);
   const [isConfirmed, setIsConfirmed] = useState(false);
@@ -125,19 +123,20 @@ function AjouterRecette() {
       (acc, ingredient) => {
         if (ingredient.nutrition) {
           acc.calories +=
-            (ingredient.nutrition.calories || 1) * (ingredient.quantity || 1);
+            (ingredient.nutrition.calories || 0) * (ingredient.quantity || 1);
           acc.protein +=
-            (ingredient.nutrition.protein || 1) * (ingredient.quantity || 1);
+            (ingredient.nutrition.protein || 0) * (ingredient.quantity || 1);
           acc.fat +=
-            (ingredient.nutrition.fat || 1) * (ingredient.quantity || 1);
+            (ingredient.nutrition.fat || 0) * (ingredient.quantity || 1);
           acc.carbs +=
-            (ingredient.nutrition.carbohydrate || 1) *
+            (ingredient.nutrition.carbohydrate || 0) *
             (ingredient.quantity || 1);
         }
         return acc;
       },
       { calories: 0, protein: 0, fat: 0, carbs: 0 }
     );
+
   const handleRecipeSubmit = (e) => {
     e.preventDefault();
     const totalNutrition = calculateTotalNutrition();
@@ -153,8 +152,6 @@ function AjouterRecette() {
     );
   };
 
-  const globalNutritionData = calculateTotalNutrition();
-  setNutritionInfo(globalNutritionData);
   const addIngredient = () => {
     setIngredients([
       ...ingredients,
@@ -180,12 +177,8 @@ function AjouterRecette() {
   };
 
   const handleServingChange = ({ target: { value } }) => {
-    if (value === "") {
-      setServing(value);
-    } else {
-      const numValue = parseInt(value, 10);
-      setServing(Math.max(1, Math.min(10, numValue)));
-    }
+    const numValue = parseInt(value, 10);
+    setServing(Math.max(1, Math.min(10, numValue || 1)));
   };
 
   const handleStepChange = (id, value) => {
@@ -230,11 +223,6 @@ function AjouterRecette() {
             min="1"
             max="10"
             onChange={handleServingChange}
-            onBlur={() => {
-              if (serving === "" || Number.isNaN(Number(serving))) {
-                setServing(1);
-              }
-            }}
             placeholder="Entrez le nombre de portions (1 à 10)"
           />
         </div>
@@ -270,6 +258,7 @@ function AjouterRecette() {
         <button type="button" onClick={addStep}>
           Ajouter une étape
         </button>
+
         <h2>Photo</h2>
         <div className="photos">
           <div className="photo-container">
@@ -292,20 +281,21 @@ function AjouterRecette() {
               style={{ display: "none" }}
               onChange={handlePhotoChange}
             />
-
-            <button type="submit">confirmer </button>
           </div>
-          {error && <div className="error">{error.message}</div>}
 
-          {isConfirmed && (
+          <button type="submit">Confirmer la recette</button>
+
+          {nutritionInfo && isConfirmed && (
             <div className="nutrition-info">
-              <h2>Informations nutritionnelles</h2>
+              <h3>Valeurs nutritionnelles totales</h3>
               <p>Calories : {nutritionInfo.calories}</p>
-              <p>Protéines : {nutritionInfo.protein}</p>
-              <p>Graisses : {nutritionInfo.fat}</p>
-              <p>Glucides : {nutritionInfo.carbs}</p>
+              <p>Protéines : {nutritionInfo.protein}g</p>
+              <p>Graisses : {nutritionInfo.fat}g</p>
+              <p>Glucides : {nutritionInfo.carbs}g</p>
             </div>
           )}
+
+          {error?.message && <p className="error">{error.message}</p>}
         </div>
       </div>
     </Form>
