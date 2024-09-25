@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 
-export default function NutriAutoComplete({ name }) {
+export default function NutriAutoComplete({ name, onChange }) {
   const [suggestions, setSuggestions] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [nutritionDetails, setNutritionDetails] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
-      if (inputValue.length < 3) return; // Only fetch if input has at least 3 characters
+      if (inputValue.length < 3) return;
       try {
         const response = await fetch(
           `https://trackapi.nutritionix.com/v2/search/instant?query=${encodeURIComponent(inputValue)}&locale=fr_FR`,
@@ -39,13 +40,13 @@ export default function NutriAutoComplete({ name }) {
     };
     fetchData();
   }, [inputValue]);
+
   const fetchNutritionDetails = async (ingredient) => {
     try {
       const response = await fetch(
         `https://trackapi.nutritionix.com/v2/natural/nutrients`,
         {
           method: "POST",
-
           headers: {
             "x-app-id": import.meta.env.VITE_NUTRITIONIX_APP_ID,
             "x-app-key": import.meta.env.VITE_NUTRITIONIX_APP_KEY,
@@ -63,6 +64,13 @@ export default function NutriAutoComplete({ name }) {
       const data = await response.json();
 
       setNutritionDetails(data.foods[0]);
+      // Transmettre les informations nutritionnelles au composant parent
+      onChange("nutrition", {
+        calories: data.foods[0].nf_calories,
+        protein: data.foods[0].nf_protein,
+        fat: data.foods[0].nf_total_fat,
+        carbs: data.foods[0].nf_total_carbohydrate,
+      });
     } catch (error) {
       console.error(
         "Erreur lors de la récupération des détails nutritionnels de l'API Nutritionix",
@@ -70,14 +78,18 @@ export default function NutriAutoComplete({ name }) {
       );
     }
   };
+
   const handleInputChange = (event, newInputValue) => {
     setInputValue(newInputValue);
   };
+
   const handleOptionSelect = (event, newValue) => {
     if (newValue) {
       fetchNutritionDetails(newValue.label);
+      onChange("name", newValue.label);
     }
   };
+
   return (
     <div>
       <Autocomplete
@@ -87,7 +99,6 @@ export default function NutriAutoComplete({ name }) {
         onChange={handleOptionSelect}
         isOptionEqualToValue={(option, value) => option.id === value.id}
         renderInput={(params) => (
-          /* eslint-disable react/jsx-props-no-spreading */
           <TextField
             {...params}
             inputProps={{
@@ -110,4 +121,3 @@ export default function NutriAutoComplete({ name }) {
     </div>
   );
 }
-

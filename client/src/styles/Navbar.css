@@ -139,8 +139,8 @@ header a {
   .login_button span {
     display: none;
   }
-  .login_button {
-    width: 60px;
+  button.login_button {
+    display: none;
   }
   .search_nav {
     width: 200px;

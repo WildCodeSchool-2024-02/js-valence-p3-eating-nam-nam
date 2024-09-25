@@ -17,7 +17,7 @@ CREATE TABLE recette (
   serving INT NOT NULL,
   nutritional_values VARCHAR(255) NOT NULL,
   published BOOLEAN NOT NULL DEFAULT 0,
-  FOREIGN KEY(user_id) REFERENCES user(id)
+  FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE
 );
 
 CREATE TABLE ingredient (
