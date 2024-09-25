@@ -9,6 +9,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-align: center;
 }
 
 #table {
@@ -55,8 +56,12 @@
   .temoins {
     padding-left: 0;
   }
+  .Accueil h1 {
+    font-size: 18px;
+  }
   .Accueil h2 {
     margin-top: 10px;
+    font-size: 12px;
   }
   .connect button {
     width: 100px;
