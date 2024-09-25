@@ -19,11 +19,16 @@ function GestionRecettes() {
   const handleDelete = async (id) => {
     try {
       const success = await fetchDeleteRecetteById(id);
-      if (success) setRecettes(recettes.filter((r) => r.id !== id));
+      if (success) {
+        setRecettes(recettes.filter((r) => r.id !== id));
+      } else {
+        console.error("Erreur lors de la suppression de la recette");
+      }
     } catch (err) {
-      console.error(err.message);
+      console.error("Erreur complète:", err); // Affiche l'erreur complète
     }
   };
+
   const handleConfirm = async (id) => {
     try {
       const success = await fetchPatchRecetteById(id);
