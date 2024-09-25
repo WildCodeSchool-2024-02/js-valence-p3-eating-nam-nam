@@ -1,76 +1,77 @@
-.columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 80%;
-  height: 100%;
-  gap: 10px; /* Ajout d'un espace entre les colonnes */
+.gestion-utilisateur h2 {
+  text-align: center;
+}
+
+.gestion-utilisateur ul {
+  list-style-type: none;
+}
+
+.gestion-utilisateur li {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--blanc);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  border: 1px solid var(--gris);
+}
+
+.gestion-utilisateur li button {
+  flex-shrink: 0;
 }
 
 .column {
-  width: 100%; /* Ajustement pour prendre toute la largeur de la colonne parent */
+  margin: 10px;
 }
 
 .column ul {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  width: 100%; /* Utilisation de 100% pour une meilleure adaptabilité */
+  width: 100%;
   margin: 24px;
 }
 
-.column h2 {
-  display: flex;
-  justify-content: center; /* Centrer le contenu horizontalement */
-  flex-direction: column;
-  align-items: center;
+@media (min-width: 1200px) {
+  .columns {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .column ul {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .gestion-utilisateur li button {
+    width: 100px;
+  }
 }
 
-.li-gestion-utilisateur {
-  margin: 16px;
-  display: grid;
-  width: 100%; /* Ajustement pour prendre toute la largeur de la colonne parent */
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-@media (max-width: 1200px) {
+@media (max-width: 1199px) and (min-width: 768px) {
   .columns {
     grid-template-columns: 1fr;
-    width: 90%;
   }
 
   .column ul {
     grid-template-columns: 1fr 1fr;
   }
+
+  .gestion-utilisateur li button {
+    width: 80px;
+  }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .columns {
-    width: 100%;
+    grid-template-columns: 1fr;
   }
 
   .column ul {
     grid-template-columns: 1fr;
-
-    .li-gestion-utilisateur {
-      grid-template-columns: 1fr;
-    }
   }
 
-  @media (max-width: 480px) {
-    .columns {
-      width: 100%;
-    }
-
-    .column ul {
-      grid-template-columns: 1fr;
-    }
-
-    .li-gestion-utilisateur {
-      grid-template-columns: 1fr;
-    }
-
-    .column h2 {
-      font-size: 1.5em;
-    }
+  .gestion-utilisateur li button {
+    width: 60px;
+    padding: 5px;
   }
 }

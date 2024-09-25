@@ -5,8 +5,12 @@ export default function Admin() {
   return (
     <div className="admin">
       <nav className="MenuAdmin">
-        <Link to="/admin/">Gestion Recettes</Link>
-        <Link to="/admin/GestionUtilisateurs">Gestion Utilisateurs</Link>
+        <button type="button">
+          <Link to="/admin/">Gestion Recettes</Link>
+        </button>
+        <button type="button">
+          <Link to="/admin/GestionUtilisateurs">Gestion Utilisateurs</Link>
+        </button>
       </nav>
 
       <Outlet />

@@ -53,18 +53,19 @@ function GestionRecettes() {
         <ul>
           {recettes.map((recette) => (
             <li className="li-gestion-recette" key={recette.id}>
-              {recette.title}
-              <button
-                type="button"
-                onClick={() => handleConfirm(recette.id)}
-                disabled={recette.published === 1}
-              >
-                Confirmer
-              </button>
-
-              <button type="button" onClick={() => handleDelete(recette.id)}>
-                Supprimer
-              </button>
+              <span className="recipe-title">{recette.title}</span>
+              <div className="button-container">
+                <button
+                  type="button"
+                  onClick={() => handleConfirm(recette.id)}
+                  disabled={recette.published === 1}
+                >
+                  Confirmer
+                </button>
+                <button type="button" onClick={() => handleDelete(recette.id)}>
+                  Supprimer
+                </button>
+              </div>
             </li>
           ))}
         </ul>
