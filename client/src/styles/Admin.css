@@ -3,81 +3,45 @@
   flex-direction: row;
   color: var(--vert);
   font-family: var(--aleo);
+  overflow: hidden;
 }
-.admin {
-  display: flex;
-
-  button {
-    background-color: red;
-    &:disabled {
-      background-color: gray;
-    }
-  }
-}
-
 .MenuAdmin {
+  background-image: url(../assets/images/autre.png);
+  background-size: 25px;
   margin-top: 100px;
-  color: var(--vert);
-  font-family: var(--aleo);
-  width: 15%;
-  height: 700px;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-  border-spacing: 8px, 200px;
-  background-color: var(--orange);
   border-radius: 0 12px 12px 0;
+  padding: 20px;
 }
 .MenuAdmin a {
   text-decoration: none;
-  color: white;
-  margin-top: 40px;
-  margin-left: 12px;
+  color: var(--blanc);
 }
-
-@media (max-width: 1200px) {
+@media (min-width: 1200px) {
+  .Container {
+    flex-direction: row;
+  }
+}
+@media (max-width: 1199px) and (min-width: 768px) {
   .Container {
     flex-direction: column;
   }
-
-  .MenuAdmin {
-    width: 20%;
-    height: auto;
-    margin-top: 50px;
-    border-radius: 0;
-    text-align: center;
-  }
-}
-
-@media (max-width: 768px) {
-  .Container {
-    flex-direction: column;
-  }
-
   .MenuAdmin {
     width: 100%;
-    height: auto;
     margin-top: 20px;
     text-align: center;
-    border-radius: 0;
-  }
-
-  .MenuAdmin a {
-    margin-top: 20px;
-    margin-left: 8px;
   }
 }
-
-@media (max-width: 480px) {
+@media (max-width: 767px) {
   .Container {
     flex-direction: column;
   }
-
   .MenuAdmin {
     width: 100%;
-    height: auto;
     margin-top: 10px;
-    gap: 20px;
-    border-radius: 0;
     text-align: center;
   }
 }

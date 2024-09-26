@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 import { accueil, add, dernière, favoris } from "./import";
-
 import "../styles/Footer.css";
 
 export default function Footer() {
@@ -12,7 +11,6 @@ export default function Footer() {
       >
         <img src={accueil} width="30px" alt="Accueil" />
       </NavLink>
-
       <NavLink
         to="/dernieres-recettes"
         className={({ isActive }) => (isActive ? "active" : null)}

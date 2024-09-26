@@ -1,7 +1,6 @@
 .button_footer {
   display: none;
 }
-
 @media (max-width: 768px) {
   .button_footer {
     display: flex;
@@ -11,7 +10,6 @@
     color: white;
     border-radius: 15px 15px 0 0;
   }
-
   .button_footer a {
     display: inline-block;
     text-align: center;
@@ -19,7 +17,6 @@
     padding: 10px;
     margin: 5px;
   }
-
   .button_footer a:hover {
     background-color: var(--vert);
     cursor: pointer;

@@ -11,17 +11,19 @@ import {
 export function loader() {
   return fetchRecettes();
 }
-
 function GestionRecettes() {
   const initialRecettes = useLoaderData();
   const [recettes, setRecettes] = useState(initialRecettes);
-
   const handleDelete = async (id) => {
     try {
       const success = await fetchDeleteRecetteById(id);
-      if (success) setRecettes(recettes.filter((r) => r.id !== id));
+      if (success) {
+        setRecettes(recettes.filter((r) => r.id !== id));
+      } else {
+        console.error("Erreur lors de la suppression de la recette");
+      }
     } catch (err) {
-      console.error(err.message);
+      console.error("Erreur complète:", err); // Affiche l'erreur complète
     }
   };
   const handleConfirm = async (id) => {
@@ -40,7 +42,6 @@ function GestionRecettes() {
       console.error("Erreur lors de la confirmation de la recette", error);
     }
   };
-
   return (
     <div className="gestion-recette">
       <div className="column">
@@ -48,18 +49,19 @@ function GestionRecettes() {
         <ul>
           {recettes.map((recette) => (
             <li className="li-gestion-recette" key={recette.id}>
-              {recette.title}
-              <button
-                type="button"
-                onClick={() => handleConfirm(recette.id)}
-                disabled={recette.published === 1}
-              >
-                Confirmer
-              </button>
-
-              <button type="button" onClick={() => handleDelete(recette.id)}>
-                Supprimer
-              </button>
+              <span className="recipe-title">{recette.title}</span>
+              <div className="button-container">
+                <button
+                  type="button"
+                  onClick={() => handleConfirm(recette.id)}
+                  disabled={recette.published === 1}
+                >
+                  Confirmer
+                </button>
+                <button type="button" onClick={() => handleDelete(recette.id)}>
+                  Supprimer
+                </button>
+              </div>
             </li>
           ))}
         </ul>
@@ -67,5 +69,4 @@ function GestionRecettes() {
     </div>
   );
 }
-
 export default GestionRecettes;

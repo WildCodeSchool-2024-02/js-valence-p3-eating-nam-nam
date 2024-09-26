@@ -3,17 +3,14 @@ header {
   align-items: center;
   background-color: var(--orange);
   height: 110px;
-
   padding: 0 10px;
 }
-
 .navbar_logo {
   background-color: var(--blanc);
   border-radius: 50%;
   width: 50px;
   height: 50px;
 }
-
 .nav_content {
   display: flex;
   width: 100%;
@@ -21,19 +18,16 @@ header {
   align-items: center;
   gap: 1rem;
 }
-
 .active {
   text-decoration: underline;
 }
 .search_nav {
-  width: 35rem;
   height: 30px;
   border-radius: 15px;
   border: 2px solid var(--vert);
   padding-left: 10px;
   background-color: white;
 }
-
 .button_menu {
   display: flex;
   gap: 50px;
@@ -56,7 +50,6 @@ header {
     border-radius: 10px;
   }
 }
-
 .login_button {
   display: flex;
   align-items: center;
@@ -69,20 +62,16 @@ header {
   color: var(--blanc);
   text-decoration: none;
 }
-
 .nav_avatar {
   width: 60px;
   border-radius: 50%;
 }
-
 .mobile_navbar {
   display: none;
 }
-
 header a {
   text-decoration: none;
 }
-
 @media (max-width: 768px) {
   header {
     flex-direction: row;
@@ -92,7 +81,6 @@ header a {
     gap: 10px;
     border-radius: 0 0 15px 15px;
   }
-
   .navbar_logo {
     width: 50px;
     height: 50px;
@@ -100,7 +88,6 @@ header a {
   .search_bar {
     width: 200px;
   }
-
   .nav_content {
     flex-direction: row;
     align-items: center;
@@ -108,16 +95,13 @@ header a {
     justify-content: space-between;
     padding-top: 0;
   }
-
   input {
     width: 8rem;
     height: 30px;
   }
-
   .button_menu {
     display: none;
   }
-
   .mobile_navbar {
     display: none;
     justify-content: space-around;
@@ -127,7 +111,6 @@ header a {
     bottom: 0;
     width: 100vw;
   }
-
   .mobile_navbar a {
     display: flex;
     flex-direction: column;
@@ -136,8 +119,16 @@ header a {
     color: white;
     text-decoration: none;
   }
-
   .login_button span {
     display: none;
+  }
+  button.login_button {
+    display: none;
+  }
+  .search_nav {
+    width: 200px;
+  }
+  .nav_avatar {
+    width: 50px;
   }
 }

@@ -15,7 +15,6 @@ import { logout } from "../api/api";
 function Navbar({ setSearchQuery, isLoggedIn }) {
   const navigate = useNavigate();
   const location = useLocation();
-
   const handleLogOut = async () => {
     try {
       await logout();
@@ -24,14 +23,12 @@ function Navbar({ setSearchQuery, isLoggedIn }) {
       console.error(err);
     }
   };
-
   const handleSearch = (e) => {
     if (location.pathname !== "/recettes") {
       navigate("/recettes");
     }
     setSearchQuery(e.target.value);
   };
-
   return (
     <header>
       <img className="navbar_logo" src={logo} alt="logo" />
@@ -41,7 +38,7 @@ function Navbar({ setSearchQuery, isLoggedIn }) {
           type="text"
           name="search_bar"
           id="search_bar"
-          placeholder="Rechercher une recette, un ingrédient ..."
+          placeholder="Rechercher une recette ..."
           onChange={handleSearch}
         />
         <div className="button_menu">
@@ -51,7 +48,6 @@ function Navbar({ setSearchQuery, isLoggedIn }) {
           >
             <img src={accueil} width="30px" alt="Accueil" /> Accueil
           </NavLink>
-
           <NavLink
             to="/dernieres-recettes"
             className={({ isActive }) => (isActive ? "active" : null)}
@@ -75,22 +71,21 @@ function Navbar({ setSearchQuery, isLoggedIn }) {
           </NavLink>
         </div>
       </nav>
-
       {isLoggedIn ? (
         <Link to="/profile/1">
           <img src={avatar} alt="avatar" className="nav_avatar" />
         </Link>
       ) : null}
-
       {isLoggedIn ? (
         <Link to="/">
           <button type="button" onClick={handleLogOut} className="login_button">
-            <img src={logoutIcon} alt="logout" width="30px" /> Deconnexion
+            <img src={logoutIcon} alt="logout" width="30px" />
+            <span>Deconnexion</span>
           </button>
         </Link>
       ) : (
         <Link to="/connexion" className="login_button">
-          <img src={login} alt="login" width="30px" /> Connexion
+          <img src={login} alt="login" width="30px" /> <span>Connexion</span>
         </Link>
       )}
       <div className="mobile_navbar">
@@ -122,5 +117,4 @@ function Navbar({ setSearchQuery, isLoggedIn }) {
     </header>
   );
 }
-
 export default Navbar;

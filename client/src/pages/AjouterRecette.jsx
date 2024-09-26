@@ -102,6 +102,12 @@ function AjouterRecette() {
   const removeIngredient = (id) => {
     setIngredients(ingredients.filter((ingredient) => ingredient.id !== id));
   };
+  const addStep = () => {
+    setSteps([...steps, { id: Date.now(), step: "" }]);
+  };
+  const removeStep = (id) => {
+    setSteps(steps.filter((step) => step.id !== id));
+  };
   const handlePhotoChange = (e) => {
     const [file] = e.target.files;
     setPhoto(file);
@@ -136,6 +142,11 @@ function AjouterRecette() {
     e.preventDefault();
     calculateTotalNutrition();
     setIsConfirmed(true);
+  };
+  const handleStepChange = (id, value) => {
+    setSteps(
+      steps.map((step) => (step.id === id ? { ...step, step: value } : step))
+    );
   };
   return (
     <Form onSubmit={handleRecipeSubmit} method="POST">
@@ -176,12 +187,16 @@ function AjouterRecette() {
         <button type="button" onClick={addIngredient}>
           Ajouter un ingrédient
         </button>
-        <h2>Étapes de préparation</h2>
+        {/* /*<h2>Étapes de préparation</h2>
         {steps.map(({ id, step }) => (
           <div key={id} className="step">
             <textarea
               name={`steps[${id}][description]`}
+              maxLength="310"
               value={step}
+              placeholder={`Étape ${
+                steps.indexOf(step) + 1
+              } : Rédigez des instructions courtes et claires, en procédant étape par étape (3 lignes par étape soit 310 caractères maximum)`}
               onChange={(e) =>
                 setSteps(
                   steps.map((s) =>
@@ -189,10 +204,46 @@ function AjouterRecette() {
                   )
                 )
               }
-              placeholder="Étape de préparation..."
             />
+            <button type="button" onClick={()=>removeStep(step.id)}>
+              Supprimer
+            </button>
           </div>
         ))}
+        <button type="button" onClick={addStep}>
+          Ajouter une étape de préparation
+        </button> */}
+        <h2>Étapes de préparation</h2>{" "}
+        {steps.map(({ id, step }, index) => (
+          <div key={id} className="step">
+            {" "}
+            <div className="step-info">
+              {" "}
+              <textarea
+                name={`steps[${id}]`}
+                maxLength="310"
+                value={step}
+                onChange={(e) => handleStepChange(id, e.target.value)}
+                placeholder={`Étape ${index + 1} : Rédigez des instructions courtes et claires, en procédant étape par étape (310 caractères maximum)`}
+              />{" "}
+              <div className="char-count">
+                {" "}
+                {310 - step.length} caractères restants{" "}
+              </div>{" "}
+            </div>{" "}
+            <div className="step-button">
+              {" "}
+              <button type="button" onClick={() => removeStep(id)}>
+                {" "}
+                Supprimer l'étape{" "}
+              </button>{" "}
+            </div>{" "}
+          </div>
+        ))}{" "}
+        <button type="button" onClick={addStep}>
+          {" "}
+          Ajouter une étape de préparation{" "}
+        </button>
         <h2>Photo</h2>
         <div className="photos">
           <div className="photo-container">

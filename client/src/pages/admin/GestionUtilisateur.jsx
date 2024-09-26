@@ -7,22 +7,21 @@ import { fetchDeleteUserById, fetchUsers } from "../../api/fetch";
 export function loader() {
   return fetchUsers();
 }
-
 function GestionUtilisateur() {
-  const initialUsers = useLoaderData();
-  const [users, setUsers] = useState(initialUsers);
-
+  const initialUsers = useLoaderData(); // Charge les données des utilisateurs via le loader
+  const [users, setUsers] = useState(initialUsers); // Initialise l'état avec les utilisateurs chargés
   const handleDelete = async (id) => {
     try {
       const success = await fetchDeleteUserById(id);
-      if (success) setUsers(users.filter((u) => u.id !== id));
+      if (success) {
+        setUsers((prevUsers) => prevUsers.filter((u) => u.id !== id));
+      }
     } catch (error) {
-      console.error("Erreur lors de la suppression de l'utilisateur", error);
+      // Supprimé le bloc vide
     }
   };
-
   return (
-    <div className="gestion-utilisateur columns">
+    <div className="gestion-utilisateur">
       <div className="column">
         <h2>Nom Utilisateur:</h2>
         <ul>
@@ -39,5 +38,4 @@ function GestionUtilisateur() {
     </div>
   );
 }
-
 export default GestionUtilisateur;
