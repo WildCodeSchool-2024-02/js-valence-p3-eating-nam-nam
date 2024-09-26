@@ -46,7 +46,6 @@ class UserRepository extends AbstractRepository {
     const query =
       "INSERT INTO user (username, name, last_name, email, birthdate, hashed_password) VALUES (?, ?, ?, ?, ?, ?)";
     const values = [username, name, lastName, email, birthdate, hashedPassword];
-
     const [result] = await this.database.query(query, values);
     return result;
   }
@@ -57,9 +56,7 @@ class UserRepository extends AbstractRepository {
       `delete from ${this.table} where id = ?`,
       [userId]
     );
-
     return result;
   }
 }
-
 module.exports = UserRepository;

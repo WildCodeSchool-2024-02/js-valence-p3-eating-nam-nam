@@ -7,11 +7,9 @@ export async function action({ request }) {
   await login(formData);
   return redirect("/");
 }
-
 function Login() {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
-
   return (
     <div className="login_page">
       <div className="login_title">
@@ -24,7 +22,6 @@ function Login() {
             placeholder="Entrez votre adresse mail"
             required
           />
-
           <input
             type="password"
             name="password"
@@ -56,5 +53,4 @@ function Login() {
     </div>
   );
 }
-
 export default Login;

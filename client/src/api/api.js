@@ -10,7 +10,6 @@ export default async function login(formData) {
       password: formData.get("password"),
     }),
   });
-
   let data;
   if (res.headers.get("Content-Type").includes("application/json")) {
     data = await res.json();
@@ -20,12 +19,10 @@ export default async function login(formData) {
   }
   return data;
 }
-
 export async function register(formData) {
   const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users`, {
     method: "POST",
     credentials: "include",
-
     headers: {
       "Content-Type": "application/json",
     },
@@ -38,7 +35,6 @@ export async function register(formData) {
       birthdate: formData.get("birthdate"),
     }),
   });
-
   let data;
   if (res.headers.get("Content-Type").includes("application/json")) {
     data = await res.json();
@@ -48,7 +44,6 @@ export async function register(formData) {
   }
   return data;
 }
-
 export async function logout() {
   const res = await fetch(`${import.meta.env.VITE_API_URL}/api/logout`, {
     credentials: "include",
@@ -57,7 +52,6 @@ export async function logout() {
     throw new Error("Couldn't log out");
   }
 }
-
 export async function checkAuth() {
   try {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/verify-auth`, {

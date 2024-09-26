@@ -8,6 +8,7 @@ class RecetteRepository extends AbstractRepository {
   async read(id) {
     const [[rows]] = await this.database.query(
       `select * from ${this.table} where id = ?`,
+
       [id]
     );
     return rows[0];
@@ -15,8 +16,23 @@ class RecetteRepository extends AbstractRepository {
 
   async delete(recetteId) {
     // Execute the SQL DELETE query to retrieve a specific data by its ID
+    await this.database.query(`delete from ${this.table} where id = ?`, [
+      recetteId,
+    ]);
+    await this.database.query(`DELETE FROM step WHERE recette_id = ?`, [
+      recetteId,
+    ]);
+    // Supprimer la recette elle-même
     const [result] = await this.database.query(
-      `delete from ${this.table} where id = ?`,
+      `DELETE FROM recette WHERE id = ?`,
+      [recetteId]
+    );
+    return result;
+  }
+
+  async deleteByRecetteId(recetteId) {
+    const [result] = await this.database.query(
+      `DELETE FROM ingredient_for_recette WHERE recette_id = ?`,
       [recetteId]
     );
     return result;
@@ -24,23 +40,20 @@ class RecetteRepository extends AbstractRepository {
 
   async publish(recetteId) {
     const [result] = await this.database.query(
-      `update ${this.table} set published =1 where id = ?`,
+      `update ${this.table} set published = 1 where id = ?`,
       [recetteId]
     );
-
     return result;
   }
 
   async create(recette, steps, ingredients) {
     const transaction = await this.database.getConnection();
-
     try {
       await transaction.beginTransaction();
-
       // Insert recette
       const [recetteResult] = await transaction.query(
-        `INSERT INTO recette 
-         (title, user_id, picture, serving, nutritional_values) 
+        `INSERT INTO recette
+         (title, user_id, picture, serving, nutritional_values)
          VALUES (?, ?, ?, ?, ?)`,
         [
           recette.title,
@@ -51,7 +64,6 @@ class RecetteRepository extends AbstractRepository {
         ]
       );
       const recetteId = recetteResult.insertId;
-
       // Insert steps
       const stepPromises = steps.map((step) =>
         transaction.query(`INSERT INTO step (recette_id, text) VALUES (?, ?)`, [
@@ -60,23 +72,21 @@ class RecetteRepository extends AbstractRepository {
         ])
       );
       await Promise.all(stepPromises);
-
+      // Insert ingredients
       const ingredientPromises = ingredients.map((ingredient) =>
-        // 1. pour chaque ingredient verifier s'il existe en bdd
-        // et s'il n'existe pas le creer
+        // 1. Pour chaque ingrédient, vérifier s'il existe en bdd
+        // et s'il n'existe pas, le créer
         transaction.query(
           `REPLACE INTO ingredient (name)
          VALUES (?)`,
           [ingredient]
         )
       );
-      const resultIngredentPromises = await Promise.all(ingredientPromises);
-
-      const ingredientIDs = resultIngredentPromises.map(
+      const resultIngredientPromises = await Promise.all(ingredientPromises);
+      const ingredientIDs = resultIngredientPromises.map(
         ([entry]) => entry.insertId
       );
-
-      // Inserer donnees de jointure ingredientsRecette
+      // Insérer les données de jointure ingredientsRecette
       const ingredientRecettePromises = ingredients.map((ingredient, index) =>
         transaction.query(
           `INSERT INTO ingredient_for_recette (recette_id, ingredient_id)
@@ -95,5 +105,4 @@ class RecetteRepository extends AbstractRepository {
     }
   }
 }
-
 module.exports = RecetteRepository;

@@ -8,7 +8,6 @@ const hashingOptions = {
   timeCost: 5,
   parallelism: 1,
 };
-
 const verifyToken = (req, res, next) => {
   try {
     const token = req.cookies?.auth_token;
@@ -16,7 +15,6 @@ const verifyToken = (req, res, next) => {
       console.error("No auth token found");
       return res.sendStatus(401);
     }
-
     req.auth = jwt.verify(token, process.env.APP_SECRET);
     console.info("Token verified:", req.auth);
     next();
@@ -25,34 +23,27 @@ const verifyToken = (req, res, next) => {
     res.sendStatus(401);
   }
 };
-
 const getUserByEmail = async (req, res, next) => {
   try {
     const user = await tables.user.readWithPassword(req.body.email);
-
     if (!user) {
       return res.sendStatus(422);
     }
-
     req.user = user;
     next();
   } catch (err) {
     next(err);
   }
 };
-
 const hashPassword = async (req, res, next) => {
   try {
     const hashedPassword = await argon2.hash(req.body.password, hashingOptions);
     req.body.hashedPassword = hashedPassword;
-
     delete req.body.password;
-
     next();
   } catch (error) {
     console.error(error);
     res.sendStatus(500);
   }
 };
-
 module.exports = { hashingOptions, getUserByEmail, verifyToken, hashPassword };

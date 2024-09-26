@@ -11,23 +11,17 @@ const login = async (req, res) => {
   if (!verified) {
     return res.sendStatus(422);
   }
-
   delete userLogin.hashed_password;
   const token = jwt.sign({ sub: userLogin.id }, process.env.APP_SECRET, {
     expiresIn: "1y",
   });
-
   res.cookie("auth_token", token, {
     secure: process.env.NODE_ENV !== "development",
     httpOnly: true,
     expires: dayjs().add(1, "hours").toDate(),
   });
-
   return res.json({ userLogin });
 };
-
 const loginSuccess = (req, res) => res.sendStatus(200);
-
 const logout = (req, res) => res.clearCookie("auth_token").sendStatus(200);
-
 module.exports = { login, loginSuccess, logout };

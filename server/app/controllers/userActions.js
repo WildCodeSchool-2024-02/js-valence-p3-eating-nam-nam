@@ -9,7 +9,6 @@ const getUsers = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
-
 const getUserById = async (req, res) => {
   try {
     const userId = req.params.id;
@@ -27,7 +26,6 @@ const getUserById = async (req, res) => {
 const destroy = async (req, res, next) => {
   try {
     const result = await tables.user.delete(req.params.id);
-
     if (result.affectedRows === 0) {
       res.sendStatus(404);
     } else {
@@ -37,17 +35,13 @@ const destroy = async (req, res, next) => {
     next(err);
   }
 };
-
 const addUser = async (req, res) => {
   const user = req.body;
-
   if (typeof user !== "object" || user === null) {
     console.error("req.body is not a valid object:", user);
     return res.sendStatus(400);
   }
-
   console.info("User object to insert:", user);
-
   try {
     const result = await tables.user.insert(user);
     if (result && typeof result.insertId !== "undefined") {
@@ -60,7 +54,6 @@ const addUser = async (req, res) => {
     return res.sendStatus(500);
   }
 };
-
 module.exports = {
   getUsers,
   getUserById,

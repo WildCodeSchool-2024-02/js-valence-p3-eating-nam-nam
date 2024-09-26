@@ -18,7 +18,6 @@ import RecettesAjoutees from "./pages/RecettesAjoutees";
 import AjouterRecette, {
   action as ajouterRecetteAction,
 } from "./pages/AjouterRecette";
-
 import { fetchUserById } from "./api/fetch";
 import Admin from "./components/Admin";
 import GestionRecettes, {
@@ -27,6 +26,7 @@ import GestionRecettes, {
 import GestionUtilisateur, {
   loader as gestionUsersLoader,
 } from "./pages/admin/GestionUtilisateur";
+
 import { checkAuth } from "./api/api";
 
 function protectedRoute(routeConfig) {
@@ -34,20 +34,16 @@ function protectedRoute(routeConfig) {
     ...routeConfig,
     loader: async (args) => {
       const isAllowed = await checkAuth();
-
       if (!isAllowed) {
         return redirect("/connexion");
       }
-
       if (routeConfig.loader) {
         return routeConfig.loader(args);
       }
-
       return null; // Explicitly return null if no loader data
     },
   };
 }
-
 const router = createBrowserRouter([
   {
     element: <App />,
@@ -90,6 +86,7 @@ const router = createBrowserRouter([
         element: <AjouterRecette />,
         action: ajouterRecetteAction,
       }),
+      { path: "/dernieres-recettes", element: <RecettesAjoutees /> },
       protectedRoute({
         path: "/admin",
         element: <Admin />,
@@ -109,9 +106,7 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
-
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />

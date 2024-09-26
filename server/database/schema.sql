@@ -8,7 +8,6 @@ CREATE TABLE user (
   is_admin BOOLEAN NOT NULL DEFAULT 0,
   hashed_password VARCHAR(255) NOT NULL
 );
-
 CREATE TABLE recette (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
   title VARCHAR(255) NOT NULL,
@@ -17,22 +16,19 @@ CREATE TABLE recette (
   serving INT NOT NULL,
   nutritional_values VARCHAR(255) NOT NULL,
   published BOOLEAN NOT NULL DEFAULT 0,
-  FOREIGN KEY(user_id) REFERENCES user(id)
+  FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE
 );
-
 CREATE TABLE ingredient (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
   name VARCHAR(255) NOT NULL
 );
-
 CREATE TABLE ingredient_for_recette (
   recette_id INT UNSIGNED NOT NULL,
   ingredient_id INT UNSIGNED NOT NULL,
   PRIMARY KEY (recette_id, ingredient_id),
-  FOREIGN KEY (recette_id) REFERENCES recette(id),
+  FOREIGN KEY (recette_id) REFERENCES recette(id) ON DELETE CASCADE,
   FOREIGN KEY (ingredient_id) REFERENCES ingredient(id)
 );
-
 CREATE TABLE step (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
   recette_id INT UNSIGNED NOT NULL,
